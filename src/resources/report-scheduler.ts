@@ -65,7 +65,6 @@ export class ReportScheduler {
         headers: [
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "Idempotency-Key", value: uuid(), schema: s.string() },
         ],
         body: { kind: "empty" },
@@ -109,7 +108,6 @@ export class ReportScheduler {
         headers: [
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
         ],
         body: { kind: "empty" },
       },
@@ -151,7 +149,6 @@ export class ReportScheduler {
         headers: [
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
         ],
         body: { kind: "empty" },
       },
@@ -195,7 +192,6 @@ export class ReportScheduler {
         headers: [
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "Idempotency-Key", value: uuid(), schema: s.string() },
         ],
         body: {
@@ -224,11 +220,6 @@ export namespace ReportScheduler {
      * generated GUID for this ID
      */
     wmQosCorrelationId: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     */
-    wmSecAccessToken: string;
   };
 
   export type GetAllReportSchedulesRequest = {
@@ -241,11 +232,6 @@ export namespace ReportScheduler {
      * generated GUID for this ID
      */
     wmQosCorrelationId: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     */
-    wmSecAccessToken: string;
   };
 
   export type GetReportScheduleRequest = {
@@ -257,11 +243,6 @@ export namespace ReportScheduler {
      * generated GUID for this ID
      */
     wmQosCorrelationId: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     */
-    wmSecAccessToken: string;
   };
 
   export type UpdateReportScheduleRequest = {
@@ -274,11 +255,6 @@ export namespace ReportScheduler {
      * generated GUID for this ID
      */
     wmQosCorrelationId: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     */
-    wmSecAccessToken: string;
     body?: V3ReportsSchedulesRequest;
   };
 }

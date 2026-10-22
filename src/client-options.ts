@@ -44,30 +44,12 @@ type SdkClientOptions = ServerOptions & {
 type ServerOptions =
   | {
       readonly serverEnvironment?: typeof ServerEnvironment.Production;
-      /**
-       * Production URL, Specifies the production URL., Specifies the production URL., Production
-       * URL, Specifies the production URL., Specifies the production URL., Refers to the URL used
-       * for accessing the production server., Specifies the production URL., Refers to the URL used
-       * for accessing the production server., Production URL, Production URL, Production server for
-       * all APIs., Production URL, Production URL, Production URL, Base URL for production
-       * requests., Production URL, Production URL, Production URL, Refers to the URL used for
-       * accessing the production server.
-       */
       readonly serverOptions?: {
         baseUrl?: string;
       };
     }
   | {
-      readonly serverEnvironment: typeof ServerEnvironment.Environment2;
-      /**
-       * Production URL, Specifies the production URL., Specifies the production URL., Production
-       * URL, Specifies the production URL., Specifies the production URL., Refers to the URL used
-       * for accessing the production server., Specifies the production URL., Refers to the URL used
-       * for accessing the production server., Production URL, Production URL, Production server for
-       * all APIs., Production URL, Production URL, Production URL, Base URL for production
-       * requests., Production URL, Production URL, Production URL, Refers to the URL used for
-       * accessing the production server.
-       */
+      readonly serverEnvironment: typeof ServerEnvironment.Sandbox;
       readonly serverOptions?: {
         baseUrl?: string;
       };

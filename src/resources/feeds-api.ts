@@ -77,7 +77,6 @@ export class FeedsApi {
           { name: "limit", value: request.limit, schema: s.defaulted(s.string(), "50") },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -132,7 +131,6 @@ export class FeedsApi {
         pathParams: [{ name: "feedId", value: request.feedId, schema: s.string() }],
         query: [{ name: "feedType", value: request.feedType, schema: feedTypeSchema }],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -185,7 +183,6 @@ export class FeedsApi {
           { name: "limit", value: request.limit, schema: s.defaulted(s.string(), "50") },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -247,13 +244,6 @@ export namespace FeedsApi {
      */
     limit?: string;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.
      *
@@ -312,13 +302,6 @@ export namespace FeedsApi {
      * <strong style="color: green;">**Market availability: US only**</strong>
      */
     feedType: FeedType;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.
@@ -390,13 +373,6 @@ export namespace FeedsApi {
      * @default "50"
      */
     limit?: string;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.

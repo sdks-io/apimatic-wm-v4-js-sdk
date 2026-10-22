@@ -1,11 +1,11 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
-/** Response header information. */
+/** <br><b style='color:green;'>Market availability: Global</b> */
 export type Header = {
-  headerAttributes?: Record<string, unknown>;
+  headerAttributes?: string | null;
 };
 
 export const headerSchema: Schema<Header> = s.object<Header>({
-  headerAttributes: s.optional(s.record(s.string(), s.unknown())),
+  headerAttributes: s.optionalNullable(s.string()),
 });

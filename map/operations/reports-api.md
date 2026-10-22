@@ -15,11 +15,10 @@ Accessor: `client.reportsApi` · Source: `src/resources/reports-api.ts` · 7 ope
 - **Returns**: `ReconReportDateResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ReportsApi.GetAvailableReconReportDatesRequest` (4):
+**Fields** — `ReportsApi.GetAvailableReconReportDatesRequest` (3):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
@@ -37,14 +36,13 @@ Accessor: `client.reportsApi` · Source: `src/resources/reports-api.ts` · 7 ope
 - **Returns**: `ReconReportV1AsJsonResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ReportsApi.GetAvailableV1ReconReportAsJsonRequest` (7):
+**Fields** — `ReportsApi.GetAvailableV1ReconReportAsJsonRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `reportDate` | `query` | — | `string` | yes |
 | `offset` | `query` | — | `number` | yes |
 | `noOfRecords` | `query` | — | `number` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
@@ -62,11 +60,10 @@ Accessor: `client.reportsApi` · Source: `src/resources/reports-api.ts` · 7 ope
 - **Returns**: `ReconReportDateResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ReportsApi.GetAvailableV1ReconReportDatesRequest` (4):
+**Fields** — `ReportsApi.GetAvailableV1ReconReportDatesRequest` (3):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
@@ -84,11 +81,10 @@ Accessor: `client.reportsApi` · Source: `src/resources/reports-api.ts` · 7 ope
 - **Returns**: `PartnerProgramPerformanceRes`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ReportsApi.GetPartnerPerformanceRequest` (4):
+**Fields** — `ReportsApi.GetPartnerPerformanceRequest` (3):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
@@ -106,11 +102,10 @@ Accessor: `client.reportsApi` · Source: `src/resources/reports-api.ts` · 7 ope
 - **Returns**: `PartnerProgramStatementRes`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ReportsApi.GetPartnerStatementRequest` (4):
+**Fields** — `ReportsApi.GetPartnerStatementRequest` (3):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
@@ -129,12 +124,11 @@ Accessor: `client.reportsApi` · Source: `src/resources/reports-api.ts` · 7 ope
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `ReportsApi.GetReconReportError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"error400"` [400] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `ReportsApi.GetReconReportRequest` (5):
+**Fields** — `ReportsApi.GetReconReportRequest` (4):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `reportDate` | `query` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
@@ -149,13 +143,12 @@ Accessor: `client.reportsApi` · Source: `src/resources/reports-api.ts` · 7 ope
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `ReportsApi.GetReconReportV1Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"error400"` [400] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `ReportsApi.GetReconReportV1Request` (6):
+**Fields** — `ReportsApi.GetReconReportV1Request` (5):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `reportDate` | `query` | — | `string` | yes |
 | `reportVersion` | `query` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |

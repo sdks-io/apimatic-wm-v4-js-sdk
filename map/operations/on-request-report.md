@@ -17,13 +17,12 @@ Accessor: `client.onRequestReport` · Source: `src/resources/on-request-report.t
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `OnRequestReport.GenerateReportError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"error400"` [400] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `OnRequestReport.GenerateReportRequest` (10):
+**Fields** — `OnRequestReport.GenerateReportRequest` (9):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `reportType` | `query` | — | `ReportType4` | yes |
 | `reportVersion` | `query` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |

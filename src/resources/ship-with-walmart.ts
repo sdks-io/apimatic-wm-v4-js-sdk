@@ -127,7 +127,6 @@ export class ShipWithWalmart {
         query: [],
         headers: [
           { name: "Accept", value: request.accept, schema: s.string() },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -183,7 +182,6 @@ export class ShipWithWalmart {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket11Schema },
@@ -243,7 +241,6 @@ export class ShipWithWalmart {
         ],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket6Schema },
@@ -293,7 +290,6 @@ export class ShipWithWalmart {
         pathParams: [{ name: "carrierShortName", value: request.carrierShortName, schema: s.string() }],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket11Schema },
@@ -342,7 +338,6 @@ export class ShipWithWalmart {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket11Schema },
@@ -391,7 +386,6 @@ export class ShipWithWalmart {
         pathParams: [{ name: "purchaseOrderId", value: request.purchaseOrderId, schema: s.string() }],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket11Schema },
@@ -454,7 +448,6 @@ export class ShipWithWalmart {
         query: [],
         headers: [
           { name: "accept", value: request.accept, schema: s.string() },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket11Schema },
@@ -568,7 +561,6 @@ export class ShipWithWalmart {
         query: [],
         headers: [
           { name: "Accept", value: request.accept, schema: s.string() },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket11Schema },
@@ -677,13 +669,6 @@ export namespace ShipWithWalmart {
      */
     accept: string;
     /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     *
-     * <b style="color: green;">Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.
      *
@@ -732,13 +717,6 @@ export namespace ShipWithWalmart {
   }
 
   export type CreateLabelMpsRequest = {
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     *
-     * <b style="color: green;">Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.
@@ -816,13 +794,6 @@ export namespace ShipWithWalmart {
      */
     trackingNo: string;
     /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     *
-     * <b style="color: green;">Market availability: Global </b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID. <br> Example: b3261d2d-028a-4ef7-8602-633c23200af6 <br>
      * <b style="color: green;">Market availability: Global </b>
@@ -880,14 +851,6 @@ export namespace ShipWithWalmart {
      */
     carrierShortName: string;
     /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br> Example:
-     * eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....
-     *
-     * <b style="color: green;">Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * random generated GUID for this ID.
      *
@@ -923,12 +886,6 @@ export namespace ShipWithWalmart {
   };
 
   export type GetCarriersRequest = {
-    /**
-     * The access token retrieved in the Token API call
-     *
-     * <b style="color: green;">Market availability:Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.
@@ -970,14 +927,6 @@ export namespace ShipWithWalmart {
      * <b style="color: green;">Market availability: Global</b>
      */
     purchaseOrderId: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs. <br> Example:
-     * eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....
-     *
-     * <b style="color: green;">Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.
@@ -1031,14 +980,6 @@ export namespace ShipWithWalmart {
      * green;\">Market availability: Global</b>
      */
     accept: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br> Example:
-     * eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....
-     *
-     * <b style="color: green;">Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.
@@ -1128,14 +1069,6 @@ export namespace ShipWithWalmart {
      * <b style="color: green;">Market availability: Global</b>
      */
     accept: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br>Example:
-     * eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....
-     *
-     * <b style="color: green;">Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.

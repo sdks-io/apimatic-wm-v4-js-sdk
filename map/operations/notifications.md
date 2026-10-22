@@ -16,11 +16,10 @@ Accessor: `client.notifications` · Source: `src/resources/notifications.ts` · 
 - **Returns**: `V3WebhooksSubscriptionsResponse1`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.CreateSubscriptionRequestParams` (7):
+**Fields** — `Notifications.CreateSubscriptionRequestParams` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
@@ -45,12 +44,11 @@ Accessor: `client.notifications` · Source: `src/resources/notifications.ts` · 
 - **Returns**: `V3WebhooksSubscriptionsResponse2`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.DeleteSubscriptionRequest` (7):
+**Fields** — `Notifications.DeleteSubscriptionRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `subscriptionId` | `path` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
@@ -72,7 +70,7 @@ Accessor: `client.notifications` · Source: `src/resources/notifications.ts` · 
 - **Returns**: `V3WebhooksSubscriptionsResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.GetAllSubscriptionsRequest` (10):
+**Fields** — `Notifications.GetAllSubscriptionsRequest` (9):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
@@ -80,7 +78,6 @@ Accessor: `client.notifications` · Source: `src/resources/notifications.ts` · 
 | `eventType` | `query` | — | `string` | no |
 | `resourceName` | `query` | — | `string` | no |
 | `status` | `query` | — | `string` | no |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
@@ -102,11 +99,10 @@ Accessor: `client.notifications` · Source: `src/resources/notifications.ts` · 
 - **Returns**: `V3WebhooksEventTypesResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.GetEventTypesRequest` (6):
+**Fields** — `Notifications.GetEventTypesRequest` (5):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
@@ -129,11 +125,10 @@ Accessor: `client.notifications` · Source: `src/resources/notifications.ts` · 
 - **Returns**: `RejectRecommendationsResponsePayload`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.TestNotificationRequestParams` (7):
+**Fields** — `Notifications.TestNotificationRequestParams` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
@@ -158,12 +153,11 @@ Accessor: `client.notifications` · Source: `src/resources/notifications.ts` · 
 - **Returns**: `V3WebhooksSubscriptionsResponse3`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.UpdateSubscriptionRequestParams` (8):
+**Fields** — `Notifications.UpdateSubscriptionRequestParams` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `subscriptionId` | `path` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |

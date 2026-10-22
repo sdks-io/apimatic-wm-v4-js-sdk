@@ -34,27 +34,26 @@ Accessor: `client.authorization` · Source: `src/resources/authorization.ts` · 
 
 - **Signature**: `tokenApi(request: Authorization.TokenApiRequest, options?: RequestOptions): ApiPromise<OAuthTokenModel, Authorization.TokenApiError>`
 - **Wire**: `POST /v3/token`
-- **Auth**: none — public; no credential is sent
+- **Auth**: `basicAuth`
 - **Request body**: `application/x-www-form-urlencoded;charset=UTF-8` — every field marked `form`
 - **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `OAuthTokenModel`
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Authorization.TokenApiError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [400] `V3Token400Error1` · `"v3Token401Error1"` [401] `V3Token401Error1` · `"v3Token500Error1"` [500] `V3Token500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Authorization.TokenApiRequest` (10):
+**Fields** — `Authorization.TokenApiRequest` (9):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
 | `wmMarket` | `header` | `WM_MARKET` | `string` | yes | — |
-| `authorization` | `header` | `Authorization` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmPartnerId` | `header` | `WM_PARTNER.ID` | `string` | no | — |
 | `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no | — |
 | `grantType` | `form` | `grant_type` | `GrantType1` | no | `GrantType1.ClientCredentials` |
-| `code` | `form` | — | `string` | no | `"65CA5DA313A549D49D15D3119D9AD85D"` |
-| `redirectUri` | `form` | `redirect_uri` | `string` | no | `"https://example-client-app.com"` |
-| `refreshToken` | `form` | `refresh_token` | `string` | no | `"APXcIoTpKMH9OQN....."` |
+| `code` | `form` | — | `string` | no | — |
+| `redirectUri` | `form` | `redirect_uri` | `string` | no | — |
+| `refreshToken` | `form` | `refresh_token` | `string` | no | — |
 
 | Type | Schema value | Source |
 | --- | --- | --- |

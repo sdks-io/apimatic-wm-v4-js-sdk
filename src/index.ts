@@ -493,6 +493,7 @@ export { gmvAmount2Schema, type GmvAmount2 } from "./models/gmv-amount2.js";
 export { GmvLossTrend, gmvLossTrendSchema } from "./models/gmv-loss-trend.js";
 export { GrantType, grantTypeSchema } from "./models/grant-type.js";
 export { headerSchema, type Header } from "./models/header.js";
+export { header1Schema, type Header1 } from "./models/header1.js";
 export { header2Schema, type Header2 } from "./models/header2.js";
 export { headersSchema, type Headers } from "./models/headers.js";
 export { historySchema, type History } from "./models/history.js";

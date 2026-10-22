@@ -84,7 +84,6 @@ export class TaxFormApIs {
           { name: "formId", value: request.formId, schema: s.string() },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_GLOBAL_VERSION", value: request.wmGlobalVersion, schema: wmGlobalVersionSchema },
@@ -132,7 +131,6 @@ export class TaxFormApIs {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_GLOBAL_VERSION", value: request.wmGlobalVersion, schema: wmGlobalVersionSchema },
@@ -168,11 +166,6 @@ export namespace TaxFormApIs {
      * availability: US only</b>
      */
     formId: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID. <br><b style='color:green;'>Market availability:
@@ -238,11 +231,6 @@ export namespace TaxFormApIs {
   }
 
   export type GetTaxFormsRequest = {
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID. <br><b style='color:green;'>Market availability:

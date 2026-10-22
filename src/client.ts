@@ -188,7 +188,7 @@ export class WalmartApIsClient {
   }
 
   get authorization(): Authorization {
-    return (this.#authorization ??= new Authorization(this.#rawClient, this.#servers));
+    return (this.#authorization ??= new Authorization(this.#rawClient, this.#servers, this.#auth));
   }
 
   /**

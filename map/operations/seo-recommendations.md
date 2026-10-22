@@ -17,7 +17,7 @@ Accessor: `client.seoRecommendations` · Source: `src/resources/seo-recommendati
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `SeoRecommendations.GetSeoRecommendationsError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3SeoRecommendationGetItems400Error1"` [400] `V3SeoRecommendationGetItems400Error1` · `"v3SeoRecommendationGetItems500Error1"` [500] `V3SeoRecommendationGetItems500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `SeoRecommendations.GetSeoRecommendationsRequest` (10):
+**Fields** — `SeoRecommendations.GetSeoRecommendationsRequest` (9):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
@@ -25,7 +25,6 @@ Accessor: `client.seoRecommendations` · Source: `src/resources/seo-recommendati
 | `limit` | `query` | — | `string` | no |
 | `nextCursor` | `query` | `next_cursor` | `string` | no |
 | `previousCursor` | `query` | `previous_cursor` | `string` | no |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `accept` | `header` | `Accept` | `string` | yes |
@@ -51,13 +50,12 @@ Accessor: `client.seoRecommendations` · Source: `src/resources/seo-recommendati
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `SeoRecommendations.UpdateSeoRecommendationsError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3SeoRecommendationUpdateItems400Error1"` [400] `V3SeoRecommendationUpdateItems400Error1` · `"v3SeoRecommendationUpdateItems404Error1"` [404] `V3SeoRecommendationUpdateItems404Error1` · `"v3SeoRecommendationUpdateItems500Error1"` [500] `V3SeoRecommendationUpdateItems500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `SeoRecommendations.UpdateSeoRecommendationsRequest` (8):
+**Fields** — `SeoRecommendations.UpdateSeoRecommendationsRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `itemId` | `path` | — | `string` | yes |
 | `decision` | `path` | — | `Decision` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `accept` | `header` | `Accept` | `string` | yes |

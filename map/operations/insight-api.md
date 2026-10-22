@@ -16,7 +16,7 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InsightApi.GetCategoriesListError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3InsightsItemsListingQualityCount400Error1"` [400] `V3InsightsItemsListingQualityCount400Error1` · `"v3Token400Error1"` [401] `V3Token400Error1` · `"v3Token400Error12"` [403] `V3Token400Error1` · `"v3InsightsItemsListingQualityCount500Error1"` [500] `V3InsightsItemsListingQualityCount500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InsightApi.GetCategoriesListRequest` (13):
+**Fields** — `InsightApi.GetCategoriesListRequest` (12):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
@@ -28,7 +28,6 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 | `limit` | `query` | — | `number` | no | — |
 | `offset` | `query` | — | `number` | no | `0` |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes | — |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |
@@ -54,14 +53,13 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InsightApi.GetListingQualityScoreError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3InsightsItemsListingQualityScore400Error1"` [400] `V3InsightsItemsListingQualityScore400Error1` · `"v3Token400Error1"` [401] `V3Token400Error1` · `"v3Token400Error12"` [403] `V3Token400Error1` · `"v3InsightsItemsListingQualityScore500Error1"` [500] `V3InsightsItemsListingQualityScore500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InsightApi.GetListingQualityScoreRequest` (8):
+**Fields** — `InsightApi.GetListingQualityScoreRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `viewTrendingItems` | `query` | — | `boolean` | no |
 | `wfsFlag` | `query` | — | `string` | no |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -86,12 +84,11 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InsightApi.GetProSellerBadgeInfoError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3InsightsProsellerbadge400Error1"` [400] `V3InsightsProsellerbadge400Error1` · `"v3Token400Error1"` [401] `V3Token400Error1` · `"v3Token400Error12"` [403] `V3Token400Error1` · `"v3InsightsProsellerbadge500Error1"` [500] `V3InsightsProsellerbadge500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InsightApi.GetProSellerBadgeInfoRequest` (6):
+**Fields** — `InsightApi.GetProSellerBadgeInfoRequest` (5):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -116,12 +113,11 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InsightApi.GetSellerIncentivesInfoError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [401] `V3Token400Error1` · `"v3Token400Error12"` [403] `V3Token400Error1` · `"v3InsightsSellerIncentives500Error1"` [500] `V3InsightsSellerIncentives500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InsightApi.GetSellerIncentivesInfoRequest` (6):
+**Fields** — `InsightApi.GetSellerIncentivesInfoRequest` (5):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -145,13 +141,12 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InsightApi.GetUnpublishedItemCountError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [401] `V3Token400Error1` · `"v3Token400Error12"` [403] `V3Token400Error1` · `"v3InsightsItemsUnpublishedCounts500Error1"` [500] `V3InsightsItemsUnpublishedCounts500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InsightApi.GetUnpublishedItemCountRequest` (7):
+**Fields** — `InsightApi.GetUnpublishedItemCountRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `fromDate` | `query` | — | `string` | yes |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -175,7 +170,7 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InsightApi.GetUnpublishedItemsError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [401] `V3Token400Error1` · `"v3Token400Error12"` [403] `V3Token400Error1` · `"v3InsightsItemsUnpublishedItems500Error1"` [500] `V3InsightsItemsUnpublishedItems500Error1` · `"v3Token400Error13"` [400] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InsightApi.GetUnpublishedItemsRequest` (13):
+**Fields** — `InsightApi.GetUnpublishedItemsRequest` (12):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
@@ -187,7 +182,6 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 | `itemsWithInventory` | `query` | — | `string` | no | `"true"` |
 | `isCustomerFavorite` | `query` | — | `boolean` | no | — |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes | — |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |
@@ -212,7 +206,7 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InsightApi.ItemsDetailsForListingError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [401] `V3Token400Error1` · `"v3Token400Error12"` [403] `V3Token400Error1` · `"v3InsightsItemsListingQualityItems500Error1"` [500] `V3InsightsItemsListingQualityItems500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InsightApi.ItemsDetailsForListingRequest` (10):
+**Fields** — `InsightApi.ItemsDetailsForListingRequest` (9):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
@@ -220,7 +214,6 @@ Accessor: `client.insightApi` · Source: `src/resources/insight-api.ts` · 7 ope
 | `nextCursor` | `query` | — | `string` | no | — |
 | `offset` | `query` | — | `string` | no | — |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes | — |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |

@@ -91,7 +91,6 @@ export class SeoRecommendations {
           { name: "previous_cursor", value: request.previousCursor, schema: s.optional(s.string()) },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "Accept", value: request.accept, schema: s.string() },
@@ -147,7 +146,6 @@ export class SeoRecommendations {
         ],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "Accept", value: request.accept, schema: s.string() },
@@ -189,8 +187,6 @@ export namespace SeoRecommendations {
     nextCursor?: string;
     /** Link to go to the previous page */
     previousCursor?: string;
-    /** The access tok en retrieved in the Token API call */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID
@@ -234,8 +230,6 @@ export namespace SeoRecommendations {
     itemId: string;
     /** approve/reject a recommendation */
     decision: Decision;
-    /** The access token retrieved in the Token API call */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID

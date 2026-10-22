@@ -16,12 +16,11 @@ Accessor: `client.lagTimeApi` · Source: `src/resources/lag-time-api.ts` · 2 op
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `LagTimeApi.GetLagTimeError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Lagtime400Error1"` [400] `V3Lagtime400Error1` · `"v3Lagtime404Error1"` [404] `V3Lagtime404Error1` · `"v3Lagtime500Error1"` [500] `V3Lagtime500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `LagTimeApi.GetLagTimeRequest` (7):
+**Fields** — `LagTimeApi.GetLagTimeRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `sku` | `query` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -47,12 +46,11 @@ Accessor: `client.lagTimeApi` · Source: `src/resources/lag-time-api.ts` · 2 op
 - **Returns**: `FeedId1`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `LagTimeApi.UpdateLagTimeBulkRequest` (8):
+**Fields** — `LagTimeApi.UpdateLagTimeBulkRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `feedType` | `query` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |

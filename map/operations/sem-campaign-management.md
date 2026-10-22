@@ -95,11 +95,10 @@ Accessor: `client.semCampaignManagement` · Source: `src/resources/sem-campaign-
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `SemCampaignManagement.SearchCampaignRecommendationsError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"errorResponse2"` [401] `ErrorResponse` · `"errorResponse3"` [403] `ErrorResponse` · `"errorResponse4"` [422] `ErrorResponse` · `"errorResponse429"` [429] `ErrorResponse429` · `"errorResponse5"` [500] `ErrorResponse` · `"errorResponse6"` [503] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `SemCampaignManagement.SearchCampaignRecommendationsRequest` (8):
+**Fields** — `SemCampaignManagement.SearchCampaignRecommendationsRequest` (7):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | no | `WmGlobalVersion._31` |

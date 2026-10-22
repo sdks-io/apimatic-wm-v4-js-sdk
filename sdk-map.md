@@ -170,14 +170,13 @@ Core types (public members with their declared types; all are `readonly`):
 try {
   const response = await client.authorization.tokenApi({
     wmMarket: "us, mx, ca or cl",
-    authorization: "Basic YzcyOTFjNmItNzI5MC00....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmPartnerId: "43423324",
     grantType: GrantType1.ClientCredentials,
     code: "65CA5DA313A549D49D15D3119D9AD85D",
     redirectUri: "https://example-client-app.com",
-    refreshToken: "APXcIoTpKMH9OQN…….",
+    refreshToken: "APXcIoTpKMH9OQN.....",
   });
 } catch (err) {
   if (err instanceof WalmartApIsError) {
@@ -213,14 +212,13 @@ try {
 try {
   const result = await client.authorization.tokenApi({
     wmMarket: "us, mx, ca or cl",
-    authorization: "Basic YzcyOTFjNmItNzI5MC00....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmPartnerId: "43423324",
     grantType: GrantType1.ClientCredentials,
     code: "65CA5DA313A549D49D15D3119D9AD85D",
     redirectUri: "https://example-client-app.com",
-    refreshToken: "APXcIoTpKMH9OQN…….",
+    refreshToken: "APXcIoTpKMH9OQN.....",
   }).asApiResult();
   // TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
   if (result.ok) {
@@ -331,7 +329,7 @@ Each page below carries one block per operation, with bullets in the fixed order
 
 | Group | Count | Directory |
 | --- | --- | --- |
-| Objects (plain `type`, no class) | 959 | `src/models/` |
+| Objects (plain `type`, no class) | 960 | `src/models/` |
 | Enums (open; const companion plus schema) | 188 | `src/models/` |
 | Unions | 8 | `src/models/unions/` |
 | Typed error classes (`ApiError` subclass, one per typed operation) | 85 | `src/resources/`, in the declaring module's namespace |
@@ -348,7 +346,7 @@ import { type Accept, acceptSchema } from "apimatic-wm-v4-sdk";
 
 ## Servers & auth
 
-**Authentication is per operation.** Every operation declares the requirement it enforces and the SDK sends exactly that: **89 of the 117 operations** require a credential and **28** are public. Each block on a page above carries an **Auth** bullet naming its requirement, `none` included. There is no client-global switch and no per-call override.
+**Authentication is per operation.** Every operation declares the requirement it enforces and the SDK sends exactly that: **90 of the 117 operations** require a credential and **27** are public. Each block on a page above carries an **Auth** bullet naming its requirement, `none` included. There is no client-global switch and no per-call override.
 
 | Scheme (as an **Auth** bullet names it) | Configured with | What the SDK sends |
 | --- | --- | --- |
@@ -371,7 +369,7 @@ A scheme **contributes** headers, query parameters and cookies rather than mutat
 | `ServerEnvironment` member | Value |
 | --- | --- |
 | `ServerEnvironment.Production` *(default)* | `production` |
-| `ServerEnvironment.Environment2` | `environment2` |
+| `ServerEnvironment.Sandbox` | `sandbox` |
 
 **serverOptions.** 1 logical server; each operation is bound to one at generation time, and a block carries a **Server** bullet only when its group is not `default`. Override `serverOptions`.
 
@@ -380,7 +378,7 @@ A scheme **contributes** headers, query parameters and cookies rather than mutat
 | Group | Environment | Base URL template | Template variables (default) |
 | --- | --- | --- | --- |
 | `default` | `production` | `https://marketplace.walmartapis.com` | — |
-| `default` | `environment2` | `https://sandbox.walmartapis.com` | — |
+| `default` | `sandbox` | `https://sandbox.walmartapis.com` | — |
 
 A `baseUrl` override replaces the template verbatim; variable values are percent-encoded into it. Server variables are filled in once, as the client is built; only the path parameters are expanded per request. An environment value the SDK does not know throws `ConfigurationError`, and it is the **constructor** that throws it: every server group is resolved once, by `buildServers`, as the client is built, and an accessor afterwards only attaches the operation's sub-path. No operation method throws synchronously.
 

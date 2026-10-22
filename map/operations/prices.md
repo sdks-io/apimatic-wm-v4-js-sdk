@@ -17,11 +17,10 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.CreateStrategyError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3RepricerStrategy400Error1"` [400] `V3RepricerStrategy400Error1` · `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.CreateStrategyRequest` (7):
+**Fields** — `Prices.CreateStrategyRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -49,12 +48,11 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.DeleteStrategyError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3RepricerStrategy400Error1"` [400] `V3RepricerStrategy400Error1` · `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.DeleteStrategyRequest` (7):
+**Fields** — `Prices.DeleteStrategyRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `strategyCollectionId` | `path` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -79,7 +77,7 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.GetAllIncentivesError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3PriceIncentives400Error1"` [400] `V3PriceIncentives400Error1` · `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.GetAllIncentivesRequest` (12):
+**Fields** — `Prices.GetAllIncentivesRequest` (11):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
@@ -89,7 +87,6 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 | `sortBy` | `query` | — | `SortBy1` | no | `SortBy1.ExpirationDate` |
 | `sortOrder` | `query` | — | `Order` | no | `Order.Desc` |
 | `incentiveType` | `query` | — | `IncentiveType` | no | — |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |
@@ -119,11 +116,10 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.GetRepricerFeedError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.GetRepricerFeedRequest` (7):
+**Fields** — `Prices.GetRepricerFeedRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -149,13 +145,12 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.GetStrategiesError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.GetStrategiesRequest` (8):
+**Fields** — `Prices.GetStrategiesRequest` (7):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
 | `offset` | `query` | — | `string` | no | `"0"` |
 | `limit` | `query` | — | `string` | no | `"10"` |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |
@@ -180,12 +175,11 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.PriceAndPromotionBulkUploadsError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.PriceAndPromotionBulkUploadsRequest` (8):
+**Fields** — `Prices.PriceAndPromotionBulkUploadsRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `feedType` | `query` | — | `FeedType21` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -213,12 +207,11 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.ReducedReferralFeeIncentivesEnrollmentError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.ReducedReferralFeeIncentivesEnrollmentRequest` (8):
+**Fields** — `Prices.ReducedReferralFeeIncentivesEnrollmentRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `feedType` | `query` | — | `FeedType11` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -246,11 +239,10 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.UpdatePriceError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.UpdatePriceRequest` (7):
+**Fields** — `Prices.UpdatePriceRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -277,12 +269,11 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.UpdateStrategyError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3RepricerStrategy400Error1"` [400] `V3RepricerStrategy400Error1` · `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.UpdateStrategyRequest` (8):
+**Fields** — `Prices.UpdateStrategyRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `strategyCollectionId` | `path` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -310,12 +301,11 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.UpdateWalmartFundedIncentivesEnrollmentStatusError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.UpdateWalmartFundedIncentivesEnrollmentStatusRequest` (7):
+**Fields** — `Prices.UpdateWalmartFundedIncentivesEnrollmentStatusRequest` (6):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
 | `autoEnrollEnabled` | `query` | — | `boolean` | no | `true` |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |
@@ -340,12 +330,11 @@ Accessor: `client.prices` · Source: `src/resources/prices.ts` · 11 operations 
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Prices.WalmartFundedIncentivesEnrollmentError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Token400Error1"` [403] `V3Token400Error1` · `"v3Token400Error12"` [500] `V3Token400Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `Prices.WalmartFundedIncentivesEnrollmentRequest` (8):
+**Fields** — `Prices.WalmartFundedIncentivesEnrollmentRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `feedType` | `query` | — | `FeedType2` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |

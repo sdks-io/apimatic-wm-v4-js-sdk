@@ -61,7 +61,6 @@ export class ReportsApi {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           {
@@ -112,7 +111,6 @@ export class ReportsApi {
           { name: "noOfRecords", value: request.noOfRecords, schema: s.int() },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           {
@@ -157,7 +155,6 @@ export class ReportsApi {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           {
@@ -202,7 +199,6 @@ export class ReportsApi {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           {
@@ -247,7 +243,6 @@ export class ReportsApi {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           {
@@ -295,7 +290,6 @@ export class ReportsApi {
         pathParams: [],
         query: [{ name: "reportDate", value: request.reportDate, schema: s.string() }],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           {
@@ -346,7 +340,6 @@ export class ReportsApi {
           { name: "reportVersion", value: request.reportVersion, schema: s.string() },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           {
@@ -368,8 +361,6 @@ export class ReportsApi {
 
 export namespace ReportsApi {
   export type GetAvailableReconReportDatesRequest = {
-    /** The access token retrieved in the Token API call */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID
@@ -391,8 +382,6 @@ export namespace ReportsApi {
     offset: number;
     /** number of records in the report (max limit 1000) */
     noOfRecords: number;
-    /** The access token retrieved in the Token API call */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID
@@ -408,8 +397,6 @@ export namespace ReportsApi {
   };
 
   export type GetAvailableV1ReconReportDatesRequest = {
-    /** The access token retrieved in the Token API call */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID
@@ -425,8 +412,6 @@ export namespace ReportsApi {
   };
 
   export type GetPartnerPerformanceRequest = {
-    /** The access token retrieved in the Token API call */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID
@@ -442,8 +427,6 @@ export namespace ReportsApi {
   };
 
   export type GetPartnerStatementRequest = {
-    /** The access token retrieved in the Token API call */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID
@@ -461,8 +444,6 @@ export namespace ReportsApi {
   export type GetReconReportRequest = {
     /** The date for which the reconcilation file is available */
     reportDate: string;
-    /** The access token retrieved in the Token API call */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID
@@ -490,8 +471,6 @@ export namespace ReportsApi {
     reportDate: string;
     /** Report Version */
     reportVersion: string;
-    /** The access token retrieved in the Token API call */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID

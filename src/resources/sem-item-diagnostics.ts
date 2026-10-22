@@ -126,7 +126,6 @@ export class SemItemDiagnostics {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           {
@@ -247,7 +246,6 @@ export class SemItemDiagnostics {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           {
@@ -285,11 +283,6 @@ export class SemItemDiagnostics {
 
 export namespace SemItemDiagnostics {
   export type GetIssueTypesRequest = {
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     */
-    wmSecAccessToken: string;
     /** Specifies the name of the Walmart service being called. */
     wmSvcName: string;
     /**
@@ -327,11 +320,6 @@ export namespace SemItemDiagnostics {
   }
 
   export type SearchItemIssuesRequest = {
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     */
-    wmSecAccessToken: string;
     /** Specifies the name of the Walmart service being called. */
     wmSvcName: string;
     /**

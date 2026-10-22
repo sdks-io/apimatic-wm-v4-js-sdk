@@ -1,3 +1,4 @@
+import type { AuthSchemes } from "../auth-schemes.js";
 import { ApiError, type Declared, type Undeclared } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
@@ -17,10 +18,12 @@ import type { Servers } from "../servers.js";
 export class Authorization {
   readonly #rawClient: RawClient;
   readonly #servers: Servers;
+  readonly #auth: AuthSchemes;
 
-  constructor(rawClient: RawClient, servers: Servers) {
+  constructor(rawClient: RawClient, servers: Servers, auth: AuthSchemes) {
     this.#rawClient = rawClient;
     this.#servers = servers;
+    this.#auth = auth;
   }
 
   /**
@@ -116,12 +119,11 @@ export class Authorization {
       {
         method: "POST",
         urlTemplate: this.#servers.default("/v3/token"),
-        auth: noneAuth,
+        auth: this.#auth.basicAuth,
         pathParams: [],
         query: [],
         headers: [
           { name: "WM_MARKET", value: request.wmMarket, schema: s.string() },
-          { name: "Authorization", value: request.authorization, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_PARTNER.ID", value: request.wmPartnerId, schema: s.optional(s.string()) },
@@ -140,21 +142,9 @@ export class Authorization {
               value: request.grantType,
               schema: s.defaulted(grantType1Schema, GrantType1.ClientCredentials),
             },
-            {
-              name: "code",
-              value: request.code,
-              schema: s.defaulted(s.string(), "65CA5DA313A549D49D15D3119D9AD85D"),
-            },
-            {
-              name: "redirect_uri",
-              value: request.redirectUri,
-              schema: s.defaulted(s.string(), "https://example-client-app.com"),
-            },
-            {
-              name: "refresh_token",
-              value: request.refreshToken,
-              schema: s.defaulted(s.string(), "APXcIoTpKMH9OQN....."),
-            },
+            { name: "code", value: request.code, schema: s.optional(s.string()) },
+            { name: "redirect_uri", value: request.redirectUri, schema: s.optional(s.string()) },
+            { name: "refresh_token", value: request.refreshToken, schema: s.optional(s.string()) },
           ],
         },
       },
@@ -217,13 +207,6 @@ export namespace Authorization {
      */
     wmMarket: string;
     /**
-     * Basic authorization header. Base 64 encodes the Client ID and Client Secret retrieved in step
-     * two of the integration steps.
-     *
-     * <strong style="color: green;">**Market availability: Global**</strong>
-     */
-    authorization: string;
-    /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID
      *
@@ -264,8 +247,6 @@ export namespace Authorization {
      * the seller resource. <br /> This field is required when **grant_type: authorization_code**
      *
      * <strong style="color: green;">**Market availability: Global**</strong>
-     *
-     * @default "65CA5DA313A549D49D15D3119D9AD85D"
      */
     code?: string;
     /**
@@ -273,8 +254,6 @@ export namespace Authorization {
      * This field is required when **grant_type: authorization_code**
      *
      * <strong style="color: green;">**Market availability: Global**</strong>
-     *
-     * @default "https://example-client-app.com"
      */
     redirectUri?: string;
     /**
@@ -282,8 +261,6 @@ export namespace Authorization {
      * to be used to refresh the access token. The token lifetime is 1 year.
      *
      * <strong style="color: green;">**Market availability: Global**</strong>
-     *
-     * @default "APXcIoTpKMH9OQN....."
      */
     refreshToken?: string;
   };

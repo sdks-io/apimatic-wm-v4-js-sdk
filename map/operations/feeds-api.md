@@ -16,7 +16,7 @@ Accessor: `client.feedsApi` · Source: `src/resources/feeds-api.ts` · 3 operati
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `FeedsApi.GetAllFeedStatusesError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"feedRecordResponse"` [404] `FeedRecordResponse` · `"feedRecordResponse2"` [500] `FeedRecordResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `FeedsApi.GetAllFeedStatusesRequest` (11):
+**Fields** — `FeedsApi.GetAllFeedStatusesRequest` (10):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
@@ -25,7 +25,6 @@ Accessor: `client.feedsApi` · Source: `src/resources/feeds-api.ts` · 3 operati
 | `feedStatus` | `query` | — | `FeedStatus1` | no | — |
 | `offset` | `query` | — | `string` | no | `"0"` |
 | `limit` | `query` | — | `string` | no | `"50"` |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |
@@ -48,13 +47,12 @@ Accessor: `client.feedsApi` · Source: `src/resources/feeds-api.ts` · 3 operati
 - **Returns**: `BinaryContent` — an unread `stream` the caller owns: buffer it with `new Response(…)`, read it with a reader or `for await`, or release it with `stream.cancel()`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `FeedsApi.GetFeedErrorReportRequest` (8):
+**Fields** — `FeedsApi.GetFeedErrorReportRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `feedId` | `path` | — | `string` | yes |
 | `feedType` | `query` | — | `FeedType` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -77,7 +75,7 @@ Accessor: `client.feedsApi` · Source: `src/resources/feeds-api.ts` · 3 operati
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `FeedsApi.GetFeedItemStatusError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Feeds404Error21"` [404] `V3Feeds404Error21` · `"v3Feeds500Error21"` [500] `V3Feeds500Error21` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `FeedsApi.GetFeedItemStatusRequest` (10):
+**Fields** — `FeedsApi.GetFeedItemStatusRequest` (9):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
@@ -85,7 +83,6 @@ Accessor: `client.feedsApi` · Source: `src/resources/feeds-api.ts` · 3 operati
 | `includeDetails` | `query` | — | `string` | no | `"false"` |
 | `offset` | `query` | — | `string` | no | `"0"` |
 | `limit` | `query` | — | `string` | no | `"50"` |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |

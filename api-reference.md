@@ -137,14 +137,13 @@ if (result.ok) {
 try {
   const response = await client.authorization.tokenApi({
     wmMarket: "us, mx, ca or cl",
-    authorization: "Basic YzcyOTFjNmItNzI5MC00....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmPartnerId: "43423324",
     grantType: GrantType1.ClientCredentials,
     code: "65CA5DA313A549D49D15D3119D9AD85D",
     redirectUri: "https://example-client-app.com",
-    refreshToken: "APXcIoTpKMH9OQN…….",
+    refreshToken: "APXcIoTpKMH9OQN.....",
   });
   // TODO: Handle 'response' of type OAuthTokenModel
 } catch (err) {
@@ -163,14 +162,13 @@ try {
 ```ts
 const result = await client.authorization.tokenApi({
   wmMarket: "us, mx, ca or cl",
-  authorization: "Basic YzcyOTFjNmItNzI5MC00....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmPartnerId: "43423324",
   grantType: GrantType1.ClientCredentials,
   code: "65CA5DA313A549D49D15D3119D9AD85D",
   redirectUri: "https://example-client-app.com",
-  refreshToken: "APXcIoTpKMH9OQN…….",
+  refreshToken: "APXcIoTpKMH9OQN.....",
 }).asApiResult();
 // TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
 if (result.ok) {
@@ -191,15 +189,14 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>wmMarket</code> | <code>string</code> | Available marketplace location: us (USA), mx (Mexico), ca (Canada) or cl (Chile)<br><br><strong style="color: green;">**Market availability: Global**</strong> |
-| <code>authorization</code> | <code>string</code> | Basic authorization header. Base 64 encodes the Client ID and Client Secret retrieved in step two of the integration steps. <br><br><strong style="color: green;">**Market availability: Global**</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID <br><br><strong style="color: green;">**Market availability: Global**</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name <br><br><strong style="color: green;">**Market availability: Global**</strong> |
 | <code>wmPartnerId?</code> | <code>string</code> | Partner Id registered in Walmart marketplace to identify a seller. <br /> This field is required when **grant_type: authorization_code** and **grant_type: refresh_token** <br><br><strong style="color: green;">**Market availability: Global**</strong> |
 | <code>wmConsumerChannelType?</code> | <code>string</code> | A unique ID to track the consumer request by channel. Use the Consumer Channel Type received during onboarding. <br><br><strong style="color: green;">**Market availability: Global**</strong> |
 | <code>grantType?</code> | <code>[GrantType1](src/models/grant-type1.ts)</code> | Type of grant requested. <br /> **Available grant types:** authorization_code, refresh_token and client_credentials <br><br><strong style="color: green;">**Market availability: Global**</strong><br>**Default**: "client_credentials" |
-| <code>code?</code> | <code>string</code> | Authorization code obtained by your client app when the seller authorizes your app to access the seller resource. <br /> This field is required when **grant_type: authorization_code** <br><br><strong style="color: green;">**Market availability: Global**</strong><br>**Default**: "65CA5DA313A549D49D15D3119D9AD85D" |
-| <code>redirectUri?</code> | <code>string</code> | This should be same as one of your client app URIs provided while registering the app. <br /> This field is required when **grant_type: authorization_code** <br><br><strong style="color: green;">**Market availability: Global**</strong><br>**Default**: "https://example-client-app.com" |
-| <code>refreshToken?</code> | <code>string</code> | Refresh token received as response of Authentication API with authorization_code grant type, to be used to refresh the access token. The token lifetime is 1 year. <br><br><strong style="color: green;">**Market availability: Global**</strong><br>**Default**: "APXcIoTpKMH9OQN....." |
+| <code>code?</code> | <code>string</code> | Authorization code obtained by your client app when the seller authorizes your app to access the seller resource. <br /> This field is required when **grant_type: authorization_code** <br><br><strong style="color: green;">**Market availability: Global**</strong> |
+| <code>redirectUri?</code> | <code>string</code> | This should be same as one of your client app URIs provided while registering the app. <br /> This field is required when **grant_type: authorization_code** <br><br><strong style="color: green;">**Market availability: Global**</strong> |
+| <code>refreshToken?</code> | <code>string</code> | Refresh token received as response of Authentication API with authorization_code grant type, to be used to refresh the access token. The token lifetime is 1 year. <br><br><strong style="color: green;">**Market availability: Global**</strong> |
 
 </dd>
 </dl>
@@ -632,8 +629,6 @@ Each recommendation includes a `recommendedValueImpact` object with up to three 
 ```ts
 try {
   const response = await client.semCampaignManagement.searchCampaignRecommendations({
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmSvcName: "Walmart Marketplace",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmGlobalVersion: WmGlobalVersion._31,
@@ -657,8 +652,6 @@ try {
 
 ```ts
 const result = await client.semCampaignManagement.searchCampaignRecommendations({
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmSvcName: "Walmart Marketplace",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmGlobalVersion: WmGlobalVersion._31,
@@ -684,7 +677,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs. |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID. |
 | <code>wmGlobalVersion?</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | The version of the global API used.<br>**Default**: "3.1" |
@@ -1940,8 +1932,6 @@ The response is a map keyed by `issueType` (string), where each value is an `Iss
 ```ts
 try {
   const response = await client.semItemDiagnostics.getIssueTypes({
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmSvcName: "Walmart Marketplace",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmGlobalVersion: WmGlobalVersion._31,
@@ -1963,8 +1953,6 @@ try {
 
 ```ts
 const result = await client.semItemDiagnostics.getIssueTypes({
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmSvcName: "Walmart Marketplace",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmGlobalVersion: WmGlobalVersion._31,
@@ -1988,7 +1976,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs. |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID. |
 | <code>wmGlobalVersion?</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | The version of the global API used.<br>**Default**: "3.1" |
@@ -2086,8 +2073,6 @@ Each issue type has an `isFixable` flag available via the `GET /item-issues/issu
 ```ts
 try {
   const response = await client.semItemDiagnostics.searchItemIssues({
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmSvcName: "Walmart Marketplace",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmGlobalVersion: WmGlobalVersion._31,
@@ -2111,8 +2096,6 @@ try {
 
 ```ts
 const result = await client.semItemDiagnostics.searchItemIssues({
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmSvcName: "Walmart Marketplace",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmGlobalVersion: WmGlobalVersion._31,
@@ -2138,7 +2121,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs. |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID. |
 | <code>wmGlobalVersion?</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | The version of the global API used.<br>**Default**: "3.1" |
@@ -3695,7 +3677,6 @@ This API returns the feed statuses for all the specified feed IDs. Use the speci
 ```ts
 try {
   const response = await client.feedsApi.getAllFeedStatuses({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -3717,7 +3698,6 @@ try {
 
 ```ts
 const result = await client.feedsApi.getAllFeedStatuses({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -3746,7 +3726,6 @@ if (result.ok) {
 | <code>feedStatus?</code> | <code>[FeedStatus1](src/models/feed-status1.ts)</code> | Status of the feed.<br><br><strong style="color: green;">**Market availability: Global**</strong> |
 | <code>offset?</code> | <code>string</code> | The object response to start with, where 0 is the first entity that can be requested. <br><br><strong style="color: green;">**Market availability: Global**</strong><br>**Default**: "0" |
 | <code>limit?</code> | <code>string</code> | The number of entities to be returned. It cannot be more than 50 entities.<br><strong style="color: green;">**Market availability: Global**</strong><br>**Default**: "50" |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -3814,7 +3793,6 @@ try {
   const response = await client.feedsApi.getFeedErrorReport({
     feedId: "some example string",
     feedType: FeedType.FitmentAces,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -3838,7 +3816,6 @@ try {
 const result = await client.feedsApi.getFeedErrorReport({
   feedId: "some example string",
   feedType: FeedType.FitmentAces,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -3864,7 +3841,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>feedId</code> | <code>string</code> | Feed Id of the feed.<br><br><strong style="color: green;">**Market availability: US only**</strong> |
 | <code>feedType</code> | <code>[FeedType](src/models/feed-type.ts)</code> | Feed type for which Error Report needs to be downloaded.<br><br><strong style="color: green;">**Market availability: US only**</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -3925,7 +3901,6 @@ Returns the feed and item status for a specified Feed ID.
 try {
   const response = await client.feedsApi.getFeedItemStatus({
     feedId: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -3948,7 +3923,6 @@ try {
 ```ts
 const result = await client.feedsApi.getFeedItemStatus({
   feedId: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -3976,7 +3950,6 @@ if (result.ok) {
 | <code>includeDetails?</code> | <code>string</code> | Includes details for each entity in the feed. When set to true, returns detailed information about each item in the feed, including individual success or failure statuses and any specific error messages. Defaults to false, which returns only high-level feed status. <br><br><strong style="color: green;">**Market availability: Global**</strong><br>**Default**: "false" |
 | <code>offset?</code> | <code>string</code> | The object response to start with, where 0 is the first entity that can be requested. Use only when `includeDetails` is set to true.<br><br><strong style="color: green;">Market availability: Global</strong><br>**Default**: "0" |
 | <code>limit?</code> | <code>string</code> | The number of entities to be returned. It cannot be more than 50 entities. Use only when `includeDetails` is set to true.<br><br><strong style="color: green;">Market availability: Global</strong><br>**Default**: "50" |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -4040,7 +4013,6 @@ Get a list of all item categories that have items with listing quality issues or
 try {
   const response = await client.insightApi.getCategoriesList({
     wmGlobalVersion: WmGlobalVersion._31,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -4062,7 +4034,6 @@ try {
 ```ts
 const result = await client.insightApi.getCategoriesList({
   wmGlobalVersion: WmGlobalVersion._31,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -4093,7 +4064,6 @@ if (result.ok) {
 | <code>limit?</code> | <code>number</code> | Specify the number of items to return. The default is 100, with a maximum value of 1000..<br><b style='color:green;'>Market availability: US only</b> |
 | <code>offset?</code> | <code>number</code> | Specify the offset of item list to be returned.<br><b style='color:green;'>Market availability: US only</b><br>**Default**: 0 |
 | <code>wmGlobalVersion</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -4152,7 +4122,6 @@ Get the total Listing Quality Score for a seller's entire item catalog.<br><b st
 try {
   const response = await client.insightApi.getListingQualityScore({
     wmGlobalVersion: WmGlobalVersion._31,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -4174,7 +4143,6 @@ try {
 ```ts
 const result = await client.insightApi.getListingQualityScore({
   wmGlobalVersion: WmGlobalVersion._31,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -4200,7 +4168,6 @@ if (result.ok) {
 | <code>viewTrendingItems?</code> | <code>boolean</code> | Specify whether or not to include seller's items that are trending in the Listing Quality Score.<br><b style='color:green;'>Market availability: US \| CA \| MX</b> |
 | <code>wfsFlag?</code> | <code>string</code> | Specify whether or not to include WFS-eligible items in the overall Listing Quality Score.<br><b style='color:green;'>Market availability: US \| CA \| MX</b> |
 | <code>wmGlobalVersion</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | Indicates the global version of the API. The value must be set to 3.1.<br><b style='color:green;'>Market availability: Global</span></b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -4259,7 +4226,6 @@ The Pro Seller badge status will provide you with information regarding your cur
 try {
   const response = await client.insightApi.getProSellerBadgeInfo({
     wmGlobalVersion: WmGlobalVersion._31,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -4281,7 +4247,6 @@ try {
 ```ts
 const result = await client.insightApi.getProSellerBadgeInfo({
   wmGlobalVersion: WmGlobalVersion._31,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -4305,7 +4270,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>wmGlobalVersion</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -4364,7 +4328,6 @@ The Pro Seller Tier and Rewards Status API allows you to check your seller’s c
 try {
   const response = await client.insightApi.getSellerIncentivesInfo({
     wmGlobalVersion: WmGlobalVersion._31,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -4386,7 +4349,6 @@ try {
 ```ts
 const result = await client.insightApi.getSellerIncentivesInfo({
   wmGlobalVersion: WmGlobalVersion._31,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -4410,7 +4372,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>wmGlobalVersion</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID. <br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -4470,7 +4431,6 @@ try {
   const response = await client.insightApi.getUnpublishedItemCount({
     fromDate: "2020-09-23",
     wmGlobalVersion: WmGlobalVersion._31,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -4493,7 +4453,6 @@ try {
 const result = await client.insightApi.getUnpublishedItemCount({
   fromDate: "2020-09-23",
   wmGlobalVersion: WmGlobalVersion._31,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -4518,7 +4477,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>fromDate</code> | <code>string</code> | Returns all unpublished items count with reason codes since the given date period<br><b style='color:green;'>Market availability: US \| CA \| MX</b> |
 | <code>wmGlobalVersion</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -4578,7 +4536,6 @@ try {
   const response = await client.insightApi.getUnpublishedItems({
     fromDate: "2020-09-23",
     wmGlobalVersion: WmGlobalVersion._31,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -4601,7 +4558,6 @@ try {
 const result = await client.insightApi.getUnpublishedItems({
   fromDate: "2020-09-23",
   wmGlobalVersion: WmGlobalVersion._31,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -4632,7 +4588,6 @@ if (result.ok) {
 | <code>itemsWithInventory?</code> | <code>string</code> | Filter the item list to return only items that have inventory<br><b style='color:green;'>Market availability: US \| CA \| MX</b><br>**Default**: "true" |
 | <code>isCustomerFavorite?</code> | <code>boolean</code> | Filters items by customer favorite status. When set to `true`, only customer favorites are returned. When set to `false`, only non-favorites are returned. If omitted, all items are returned.<br><b style='color:green;'>Market availability: US only</b> |
 | <code>wmGlobalVersion</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -4691,7 +4646,6 @@ Get each item's listing quality details including: item quality score, offer sco
 try {
   const response = await client.insightApi.itemsDetailsForListing({
     wmGlobalVersion: WmGlobalVersion._31,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -4714,7 +4668,6 @@ try {
 ```ts
 const result = await client.insightApi.itemsDetailsForListing({
   wmGlobalVersion: WmGlobalVersion._31,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -4742,7 +4695,6 @@ if (result.ok) {
 | <code>nextCursor?</code> | <code>string</code> | Specify pagination for long list of items.<br><b style='color:green;'>Market availability: US only</b> |
 | <code>offset?</code> | <code>string</code> | Specify pagination for long list of items.<br><b style='color:green;'>Market availability: CA \| MX</b> |
 | <code>wmGlobalVersion</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | GLOBAL VERSION DEFAULT AS 3.1.<br><b style='color:green;'>Market availability: Global</span></b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -4807,7 +4759,6 @@ You can use this API to get the inventory for a given item.
 try {
   const response = await client.inventoryApi.getInventory({
     sku: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -4830,7 +4781,6 @@ try {
 ```ts
 const result = await client.inventoryApi.getInventory({
   sku: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -4856,7 +4806,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>sku</code> | <code>string</code> | An arbitrary alphanumeric unique ID, specified by the seller, which identifies each item. This will be used by the seller in the XSD file to refer to each item. Special characters in the sku needing encoding are: ':', '/', '?', '#', '[', ']', '@', '!', '$', '&', "'", '(', ')', '*', '+', ',', ';', '=', ‘ ’, '{', '}' as well as '%' itself if it's a part of sku. Make sure to encode space with %20. Other characters don't need to be encoded.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>shipNode?</code> | <code>string</code> | The shipNode for which the inventory is requested. <br><br><strong style="color: green;">Market availability: Global</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -4916,7 +4865,6 @@ This API will retrieve the inventory count for all of a seller's items across al
 ```ts
 try {
   const response = await client.inventoryApi.getMultiNodeInventoryForAllSkuAndAllShipNodes({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -4938,7 +4886,6 @@ try {
 
 ```ts
 const result = await client.inventoryApi.getMultiNodeInventoryForAllSkuAndAllShipNodes({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -4964,7 +4911,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>limit?</code> | <code>string</code> | The number of items returned. Cannot be more than 50.<br><br><strong style="color: green;">Market availability: US only</strong><br>**Default**: "10" |
 | <code>nextCursor?</code> | <code>string</code> | String returned from initial API call to indicate pagination. Specify nextCursor value to retrieve the next 50 items.<br><br><strong style="color: green;">Market availability: US only</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -5025,7 +4971,6 @@ This API will retrieve the inventory count for an item across all ship nodes or 
 try {
   const response = await client.inventoryApi.getMultiNodeInventoryForSkuAndAllShipnodes({
     sku: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -5048,7 +4993,6 @@ try {
 ```ts
 const result = await client.inventoryApi.getMultiNodeInventoryForSkuAndAllShipnodes({
   sku: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -5074,7 +5018,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>sku</code> | <code>string</code> | An arbitrary alphanumeric unique ID, specified by the seller, which identifies each item. This will be used by the seller in the XSD file to refer to each item. Special characters in the sku needing encoding are: ':', '/', '?', '#', '[', ']', '@', '!', '$', '&', "'", '(', ')', '*', '+', ',', ';', '=', ‘ ’ as well as '%' itself if it's a part of sku. Make sure to encode space with %20. Other characters don't need to be encoded.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>shipNode?</code> | <code>string</code> | ShipNode Id of the ship node for which the inventory is requested<br><br><strong style="color: green;">Market availability: Global</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -5134,7 +5077,6 @@ You can use this API to get the current Available to Sell inventory quantities f
 ```ts
 try {
   const response = await client.inventoryApi.getWfsInventory({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -5156,7 +5098,6 @@ try {
 
 ```ts
 const result = await client.inventoryApi.getWfsInventory({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -5186,7 +5127,6 @@ if (result.ok) {
 | <code>limit?</code> | <code>string</code> | Number of Sku to be returned. Cannot be larger than 300.<br><br><strong style="color: green;">Market availability: Global</strong><br>**Default**: "10" |
 | <code>offset?</code> | <code>string</code> | Offset is the number of records you wish to skip before selecting records.<br><br><strong style="color: green;">Market availability: Global</strong><br>**Default**: "0" |
 | <code>shipNodeType?</code> | <code>string</code> | Currently supported: multichannel. This param is enabled only for multi channel sellers. sku becomes mandatory and other params are ineffective while using this param. sku can either contain one item or list of sku's separated by comma (example: sku1,sku2)<br><br><strong style="color: green;">Market availability: US only</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -5261,7 +5201,6 @@ Note: Multi Node Inventory Update Feed (feedType=MP_INVENTORY) only supports JSO
 try {
   const response = await client.inventoryApi.updateBulkInventory({
     feedType: FeedType1.Inventory,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -5285,7 +5224,6 @@ try {
 ```ts
 const result = await client.inventoryApi.updateBulkInventory({
   feedType: FeedType1.Inventory,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -5312,7 +5250,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>feedType</code> | <code>[FeedType1](src/models/feed-type1.ts)</code> | The feed Type<br>Inventory: Global<br>MP_Inventory: US \| MX \| CA<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>shipNode?</code> | <code>string</code> | The shipNode for which the inventory is to be updated. Not required in case of Multi Node Inventory Update Feed (feedType=MP_INVENTORY)<br><br><strong style="color: green;">Market availability: US only</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -5374,7 +5311,6 @@ Updates the inventory for a given item.
 try {
   const response = await client.inventoryApi.updateInventoryForAnItem({
     sku: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -5398,7 +5334,6 @@ try {
 ```ts
 const result = await client.inventoryApi.updateInventoryForAnItem({
   sku: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -5425,7 +5360,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>sku</code> | <code>string</code> | An arbitrary alphanumeric unique ID, specified by the seller, which identifies each item. This will be used by the seller in the XSD file to refer to each item. Special characters in the sku needing encoding are: ':', '/', '?', '#', '[', ']', '@', '!', '$', '&', "'", '(', ')', '*', '+', ',', ';', '=', ‘ ’, '{', '}' as well as '%' itself if it's a part of sku. Make sure to encode space with %20. Other characters don't need to be encoded.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>shipNode?</code> | <code>string</code> | The shipNode for which the inventory is to be updated.<br><br><strong style="color: green;">Market availability: Global</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -5487,7 +5421,6 @@ This API will update the inventory for an item across one or more fulfillment ce
 try {
   const response = await client.inventoryApi.updateMultiNodeInventory({
     sku: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -5518,7 +5451,6 @@ try {
 ```ts
 const result = await client.inventoryApi.updateMultiNodeInventory({
   sku: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -5551,7 +5483,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>sku</code> | <code>string</code> | An arbitrary alphanumeric unique ID, specified by the seller, which identifies each item. This will be used by the seller in the XSD file to refer to each item. Special characters in the sku needing encoding are: ':', '/', '?', '#', '[', ']', '@', '!', '$', '&', "'", '(', ')', '*', '+', ',', ';', '=', ‘ ’ as well as '%' itself if it's a part of sku. Make sure to encode space with %20. Other characters don't need to be encoded.<br><br><strong style="color: green;">Market availability: Global</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -5619,7 +5550,6 @@ Lag Time represents the number of days between when an item is ordered and when 
 try {
   const response = await client.lagTimeApi.getLagTime({
     sku: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -5642,7 +5572,6 @@ try {
 ```ts
 const result = await client.lagTimeApi.getLagTime({
   sku: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -5667,7 +5596,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>sku</code> | <code>string</code> | A unique alphanumeric ID assigned by the seller to identify each item. The seller uses this ID in the XSD file to reference specific items. If the SKU contains any of the following special characters — :, /, ?, #, [, ], @, !, $, &, ', (, ), *, +, ,, ;, =, space, {, }, or % — they must be URL-encoded. For example, encode spaces as %20. No encoding is required for other characters.<br><br><strong style="color: green;">Market availability: Global</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -5730,7 +5658,6 @@ Lag Time represents the number of days between when an item is ordered and when 
 try {
   const response = await client.lagTimeApi.updateLagTimeBulk({
     feedType: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -5754,7 +5681,6 @@ try {
 ```ts
 const result = await client.lagTimeApi.updateLagTimeBulk({
   feedType: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -5780,7 +5706,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>feedType</code> | <code>string</code> | Indicates the feed type. Use 'lagtime'.<br><br><strong style="color: green;">Market availability: Global</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call.<br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -5854,8 +5779,6 @@ URL authentication options
 ```ts
 try {
   const response = await client.notifications.createSubscription({
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Marketplace",
     wmMarket: WmMarket2.Us,
@@ -5895,8 +5818,6 @@ try {
 
 ```ts
 const result = await client.notifications.createSubscription({
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Marketplace",
   wmMarket: WmMarket2.Us,
@@ -5938,7 +5859,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket2](src/models/wm-market2.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</span></b> |
@@ -6001,8 +5921,6 @@ Delete an existing webhook subscription by ID. After deletion, the subscription 
 try {
   const response = await client.notifications.deleteSubscription({
     subscriptionId: "some example string",
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Marketplace",
     wmMarket: WmMarket2.Us,
@@ -6025,8 +5943,6 @@ try {
 ```ts
 const result = await client.notifications.deleteSubscription({
   subscriptionId: "some example string",
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Marketplace",
   wmMarket: WmMarket2.Us,
@@ -6051,7 +5967,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>subscriptionId</code> | <code>string</code> | Unique identifier of the subscription to delete.<br><b style='color:green;'>Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket2](src/models/wm-market2.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</span></b> |
@@ -6112,8 +6027,6 @@ Retrieve details of all webhook subscriptions created using the Create Subscript
 ```ts
 try {
   const response = await client.notifications.getAllSubscriptions({
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Marketplace",
     wmMarket: WmMarket2.Us,
@@ -6135,8 +6048,6 @@ try {
 
 ```ts
 const result = await client.notifications.getAllSubscriptions({
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Marketplace",
   wmMarket: WmMarket2.Us,
@@ -6164,7 +6075,6 @@ if (result.ok) {
 | <code>eventType?</code> | <code>string</code> | Filter results to a specific event type. Refer to the Event Payload section for the list of available event types.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>resourceName?</code> | <code>string</code> | Filter results to a specific resource (functional category). Refer to the Event Payload section for the list of available resource names.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>status?</code> | <code>string</code> | Filter results by subscription status. Allowed values: ACTIVE, INACTIVE.<br><b style='color:green;'>Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket2](src/models/wm-market2.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</span></b> |
@@ -6229,8 +6139,6 @@ Resource names are functional API categories (for example, ITEM, PRICE, ORDER, I
 ```ts
 try {
   const response = await client.notifications.getEventTypes({
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Marketplace",
     wmMarket: WmMarket2.Us,
@@ -6252,8 +6160,6 @@ try {
 
 ```ts
 const result = await client.notifications.getEventTypes({
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Marketplace",
   wmMarket: WmMarket2.Us,
@@ -6277,7 +6183,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket2](src/models/wm-market2.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</span></b> |
@@ -6338,8 +6243,6 @@ Send a test notification to a destination URL using a sample payload.
 ```ts
 try {
   const response = await client.notifications.testNotification({
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Marketplace",
     wmMarket: WmMarket2.Us,
@@ -6374,8 +6277,6 @@ try {
 
 ```ts
 const result = await client.notifications.testNotification({
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Marketplace",
   wmMarket: WmMarket2.Us,
@@ -6412,7 +6313,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket2](src/models/wm-market2.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</span></b> |
@@ -6475,8 +6375,6 @@ Update the details of a subscription. You can update the event version, destinat
 try {
   const response = await client.notifications.updateSubscription({
     subscriptionId: "some example string",
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Marketplace",
     wmMarket: WmMarket2.Us,
@@ -6509,8 +6407,6 @@ try {
 ```ts
 const result = await client.notifications.updateSubscription({
   subscriptionId: "some example string",
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Marketplace",
   wmMarket: WmMarket2.Us,
@@ -6545,7 +6441,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>subscriptionId</code> | <code>string</code> | Unique identifier of the subscription to update.<br><b style='color:green;'>Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket2](src/models/wm-market2.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</span></b> |
@@ -6611,7 +6506,6 @@ Fetches URL to download a generated report.
 try {
   const response = await client.onRequestReportApi.downloadReport({
     requestId: "28fae71e-7f34-4493-ad5b-1edca6afebf7",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -6635,7 +6529,6 @@ try {
 ```ts
 const result = await client.onRequestReportApi.downloadReport({
   requestId: "28fae71e-7f34-4493-ad5b-1edca6afebf7",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -6661,7 +6554,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>requestId</code> | <code>string</code> | Automated ID generated by system that uniquely identifies the report request.<br><br><strong style="color: green;">Market availability: Global</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call. <br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -6727,7 +6619,6 @@ try {
     reportType: ReportType4.Item,
     reportVersion: "v1",
     requestStatus: RequestStatus4.Ready,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -6753,7 +6644,6 @@ const result = await client.onRequestReportApi.getRequestsStatus({
   reportType: ReportType4.Item,
   reportVersion: "v1",
   requestStatus: RequestStatus4.Ready,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -6783,7 +6673,6 @@ if (result.ok) {
 | <code>requestStatus?</code> | <code>[RequestStatus4](src/models/request-status4.ts)</code> | Status of report request. Possible values are RECEIVED, INPROGRESS, READY, ERROR.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>requestSubmissionStartDate?</code> | <code>string</code> | Report request submittal start date for range of reports requested, in format: YYYY-MM-DDTHH:mm:ssZ<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>requestSubmissionEndDate?</code> | <code>string</code> | Report request submittal end date for range of reports requested, in format YYYY-MM-DDTHH:mm:ssZ<br><br><strong style="color: green;">Market availability: Global</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call. <br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -6847,7 +6736,6 @@ You can fetch details of report request created in the last 30 days only.
 try {
   const response = await client.onRequestReportApi.getSingleRequestStatus({
     requestId: "28fae71e-7f34-4493-ad5b-1edca6afebf7",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -6871,7 +6759,6 @@ try {
 ```ts
 const result = await client.onRequestReportApi.getSingleRequestStatus({
   requestId: "28fae71e-7f34-4493-ad5b-1edca6afebf7",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -6897,7 +6784,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>requestId</code> | <code>string</code> | Automated ID generated by system that uniquely identifies the report request.<br><br><strong style="color: green;">Market availability: Global</strong> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call. <br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -6968,7 +6854,6 @@ try {
   const response = await client.onRequestReport.generateReport({
     reportType: ReportType4.Item,
     reportVersion: "v1",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -7006,7 +6891,6 @@ try {
 const result = await client.onRequestReport.generateReport({
   reportType: ReportType4.Item,
   reportVersion: "v1",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -7046,7 +6930,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>reportType</code> | <code>[ReportType4](src/models/report-type4.ts)</code> | Type of report for which the request is created. Example, ITEM for Item Report.<br><br><strong style="color: green;">Market availability: <br><br> ITEM: Global <br>INVENTORY: Global <br>LAGTIME: US\|CA\|MX <br>Other Reports: US only</strong> |
 | <code>reportVersion</code> | <code>string</code> | Version of report for which the request is created.<br><br><strong style="color: green;">Market availability: Global</strong><br><br> \|ReportType \|Market Availabilty \|Version Supported <br>\|--------\|----------\|----------<br>\| ITEM   \|Global\|  v1  (**v3 to v6 : US only**)<br>\|INVENTORY\|Global\| v1 <br>\|LAGTIME\|US,CA,MX\| v1 <br>\|DELIVERY_DEFECT\|US only\| v1 <br>\|ITEM_PERFORMANCE\|US only\| v1 to v3 <br>\|PROMO\|US only\| v1 <br>\|RETURN_OVERRIDES\|US only\| v1 <br>\|CPA\|US only\| v1 <br>\|SHIPPING_CONFIGURATION\|US only\| v1 <br>\|SHIPPING_PROGRAM\|US only\| v1 <br>\|FITMENT_MISSING_ATTR\|US only\| v1 <br>\|FITMENT_ACES_COVERAGE\|US only\| v1 <br>\|BUYBOX\|US only\| v1 <br>\|ASSORTMENT_RECOMMENDATIONS\|US only\| v1 <br>\|CANCELLATION\|US only\| v1 <br>\|INVENTORY_RECOMMENDATIONS\|US only\| v1 \| |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><br><strong style="color: green;">Market availability: Global</strong> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | The target market of the API call. <br><br><strong style="color: green;">Market availability: Global</strong> |
@@ -7116,7 +6999,6 @@ try {
     scheduleId: "some example string",
     wmSvcName: "Walmart Marketplace",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   });
   // TODO: Handle 'response' of type RejectRecommendationsResponsePayload
 } catch (err) {
@@ -7137,7 +7019,6 @@ const result = await client.reportScheduler.deleteReportSchedule({
   scheduleId: "some example string",
   wmSvcName: "Walmart Marketplace",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
 }).asApiResult();
 // TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
 if (result.ok) {
@@ -7160,7 +7041,6 @@ if (result.ok) {
 | <code>scheduleId</code> | <code>string</code> | A unique identifier assigned to the report schedule. |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs. |
 
 </dd>
 </dl>
@@ -7219,7 +7099,6 @@ try {
     reportType: ReportType10.Item,
     wmSvcName: "Walmart Marketplace",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   });
   // TODO: Handle 'response' of type V3ReportsSchedulesResponse
 } catch (err) {
@@ -7240,7 +7119,6 @@ const result = await client.reportScheduler.getAllReportSchedules({
   reportType: ReportType10.Item,
   wmSvcName: "Walmart Marketplace",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
 }).asApiResult();
 // TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
 if (result.ok) {
@@ -7263,7 +7141,6 @@ if (result.ok) {
 | <code>reportType</code> | <code>[ReportType10](src/models/report-type10.ts)</code> | Specifies the type of report to be generated. Example: ITEM for Item Report. |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs. |
 
 </dd>
 </dl>
@@ -7322,7 +7199,6 @@ try {
     scheduleId: "some example string",
     wmSvcName: "Walmart Marketplace",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   });
   // TODO: Handle 'response' of type V3ReportsSchedulesResponse1
 } catch (err) {
@@ -7343,7 +7219,6 @@ const result = await client.reportScheduler.getReportSchedule({
   scheduleId: "some example string",
   wmSvcName: "Walmart Marketplace",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
 }).asApiResult();
 // TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
 if (result.ok) {
@@ -7366,7 +7241,6 @@ if (result.ok) {
 | <code>scheduleId</code> | <code>string</code> | - |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs. |
 
 </dd>
 </dl>
@@ -7425,7 +7299,6 @@ try {
     scheduleId: "some example string",
     wmSvcName: "Walmart Marketplace",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   });
   // TODO: Handle 'response' of type V3ReportsSchedulesResponse1
 } catch (err) {
@@ -7446,7 +7319,6 @@ const result = await client.reportScheduler.updateReportSchedule({
   scheduleId: "some example string",
   wmSvcName: "Walmart Marketplace",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
 }).asApiResult();
 // TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
 if (result.ok) {
@@ -7469,7 +7341,6 @@ if (result.ok) {
 | <code>scheduleId</code> | <code>string</code> | A unique identifier assigned to the report schedule. |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs. |
 | <code>body?</code> | <code>[V3ReportsSchedulesRequest](src/models/v3-reports-schedules-request.ts)</code> | - |
 
 </dd>
@@ -7533,8 +7404,6 @@ try {
     payoutYear: "some example string",
     taxFormType: "some example string",
     formId: "some example string",
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmGlobalVersion: WmGlobalVersion._31,
@@ -7560,8 +7429,6 @@ const result = await client.taxFormApIs.downloadTaxForm({
   payoutYear: "some example string",
   taxFormType: "some example string",
   formId: "some example string",
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmGlobalVersion: WmGlobalVersion._31,
@@ -7590,7 +7457,6 @@ if (result.ok) {
 | <code>payoutYear</code> | <code>string</code> | The tax year associated with the payout (for example, 2024). <br><b style='color:green;'>Market availability: US only</b> |
 | <code>taxFormType</code> | <code>string</code> | The tax form type to download (for example, 1099-K).<br><b style='color:green;'>Market availability: US only</b> |
 | <code>formId</code> | <code>string</code> | The unique form ID returned by the list tax forms endpoint.<br><b style='color:green;'>Market availability: US only</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID. <br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. <br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmGlobalVersion</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | The version of the global API used.<br><strong style="color: green;">Market availability: Global</strong> |
@@ -7652,8 +7518,6 @@ The Get Tax Forms API returns available tax forms for the authenticated seller, 
 ```ts
 try {
   const response = await client.taxFormApIs.getTaxForms({
-    wmSecAccessToken:
-      "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmGlobalVersion: WmGlobalVersion._31,
@@ -7677,8 +7541,6 @@ try {
 
 ```ts
 const result = await client.taxFormApIs.getTaxForms({
-  wmSecAccessToken:
-    "eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmGlobalVersion: WmGlobalVersion._31,
@@ -7704,7 +7566,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID. <br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. <br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmGlobalVersion</code> | <code>[WmGlobalVersion](src/models/wm-global-version.ts)</code> | The version of the global API used.<br><strong style="color: green;">Market availability: Global</strong> |
@@ -7768,7 +7629,6 @@ Creates a new strategy for the seller.<br><b style='color:green;'>Market availab
 ```ts
 try {
   const response = await client.prices.createStrategy({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -7791,7 +7651,6 @@ try {
 
 ```ts
 const result = await client.prices.createStrategy({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -7816,7 +7675,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -7877,7 +7735,6 @@ Deletes the strategy.<br><b style='color:green;'>Market availability: US | CA | 
 try {
   const response = await client.prices.deleteStrategy({
     strategyCollectionId: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -7900,7 +7757,6 @@ try {
 ```ts
 const result = await client.prices.deleteStrategy({
   strategyCollectionId: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -7925,7 +7781,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>strategyCollectionId</code> | <code>string</code> | Unique identifier used to group and manage repricing strategies across different resources.<br><b style='color:green;'>Market availability: US \| CA \| MX</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -7991,7 +7846,6 @@ Enrollment Type and Date for Eligible Reduced Referral Fee incentives will not s
 try {
   const response = await client.prices.getAllIncentives({
     incentiveStatus: IncentiveStatus.Eligible,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -8014,7 +7868,6 @@ try {
 ```ts
 const result = await client.prices.getAllIncentives({
   incentiveStatus: IncentiveStatus.Eligible,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -8044,7 +7897,6 @@ if (result.ok) {
 | <code>sortBy?</code> | <code>[SortBy1](src/models/sort-by1.ts)</code> | Specify the sort criteria for items. Examples of the allowed values are ITEM_ID, PRODUCT_NAME, CURRENT_PRICE, EXPIRATION_DATE, ENROLLMENT_DATE.<br><b style='color:green;'>Market availability: US</b><br>**Default**: "EXPIRATION_DATE" |
 | <code>sortOrder?</code> | <code>[Order](src/models/order.ts)</code> | Specify the sort order for given sort criteria. Examples of the allowed values are ASC or DESC.<br><b style='color:green;'>Market availability: US</b><br>**Default**: "DESC" |
 | <code>incentiveType?</code> | <code>[IncentiveType](src/models/incentive-type.ts)</code> | Specify the incentive type to filter the incentive items. Allowed values include REDUCED_REFERRAL, WALMART_FUNDED.<br><b style='color:green;'>Market availability: US</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -8103,7 +7955,6 @@ Add/Remove one or more items from a strategy.<br><b style='color:green;'>Market 
 ```ts
 try {
   const response = await client.prices.getRepricerFeed({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -8126,7 +7977,6 @@ try {
 
 ```ts
 const result = await client.prices.getRepricerFeed({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -8151,7 +8001,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -8211,7 +8060,6 @@ Get the list of strategies.<br><b style='color:green;'>Market availability: US |
 ```ts
 try {
   const response = await client.prices.getStrategies({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -8233,7 +8081,6 @@ try {
 
 ```ts
 const result = await client.prices.getStrategies({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -8259,7 +8106,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>offset?</code> | <code>string</code> | The response object starts at 0, representing the first entity that can be retrieved.<br><b style='color:green;'>Market availability: CA \| MX</b><br>**Default**: "0" |
 | <code>limit?</code> | <code>string</code> | The number of entities to return, with a maximum limit of 25.<br><b style='color:green;'>Market availability: CA \| MX</b><br>**Default**: "10" |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -8333,7 +8179,6 @@ For more information and usage examples, refer to the <a href="https://developer
 try {
   const response = await client.prices.priceAndPromotionBulkUploads({
     feedType: FeedType21.PriceAndPromotion,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -8357,7 +8202,6 @@ try {
 ```ts
 const result = await client.prices.priceAndPromotionBulkUploads({
   feedType: FeedType21.PriceAndPromotion,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -8383,7 +8227,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>feedType</code> | <code>[FeedType21](src/models/feed-type21.ts)</code> | The feed Type.<br><b style='color:green;'>Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -8444,7 +8287,6 @@ You can use this API endpoint to enroll any eligible reduced referral fee incent
 try {
   const response = await client.prices.reducedReferralFeeIncentivesEnrollment({
     feedType: FeedType11.IncentiveEnrollment,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -8468,7 +8310,6 @@ try {
 ```ts
 const result = await client.prices.reducedReferralFeeIncentivesEnrollment({
   feedType: FeedType11.IncentiveEnrollment,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -8494,7 +8335,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>feedType</code> | <code>[FeedType11](src/models/feed-type11.ts)</code> | The feed Type.<br><b style='color:green;'>Market availability: US</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -8556,7 +8396,6 @@ For more information and usage examples, refer to the <a href="https://developer
 ```ts
 try {
   const response = await client.prices.updatePrice({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -8579,7 +8418,6 @@ try {
 
 ```ts
 const result = await client.prices.updatePrice({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -8604,7 +8442,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -8665,7 +8502,6 @@ Updates the existing strategy.<br><b style='color:green;'>Market availability: U
 try {
   const response = await client.prices.updateStrategy({
     strategyCollectionId: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -8689,7 +8525,6 @@ try {
 ```ts
 const result = await client.prices.updateStrategy({
   strategyCollectionId: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -8715,7 +8550,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>strategyCollectionId</code> | <code>string</code> | Unique identifier used to group and manage repricing strategies across different resources.<br><b style='color:green;'>Market availability: US \| CA \| MX</span></b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</span></b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</span></b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</span></b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -8780,7 +8614,6 @@ Any changes to preferences will lock in (disable) the preference option for a pe
 try {
   const response = await client.prices.updateWalmartFundedIncentivesEnrollmentStatus({
     autoEnrollEnabled: true,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -8803,7 +8636,6 @@ try {
 ```ts
 const result = await client.prices.updateWalmartFundedIncentivesEnrollmentStatus({
   autoEnrollEnabled: true,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -8828,7 +8660,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>autoEnrollEnabled?</code> | <code>boolean</code> | Specify the boolean for enabling auto enrollment. Examples of the allowed values are true or false.<br><b style='color:green;'>Market availability: US</b><br>**Default**: true |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -8890,7 +8721,6 @@ You can also 'Opt-in' items which were previously Opted-out by you at any time u
 try {
   const response = await client.prices.walmartFundedIncentivesEnrollment({
     feedType: FeedType2.WalmartFundedIncentivesEnrollment,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -8914,7 +8744,6 @@ try {
 ```ts
 const result = await client.prices.walmartFundedIncentivesEnrollment({
   feedType: FeedType2.WalmartFundedIncentivesEnrollment,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -8940,7 +8769,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>feedType</code> | <code>[FeedType2](src/models/feed-type2.ts)</code> | The feed Type.<br><b style='color:green;'>Market availability: US</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. Required for authenticating requests to Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br><b style='color:green;'>Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default.<br><b style='color:green;'>Market availability: Global</b> |
@@ -9847,7 +9675,6 @@ This API will list all the available Marketplace reconciliation report dates for
 ```ts
 try {
   const response = await client.reportsApi.getAvailableReconReportDates({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
   });
@@ -9867,7 +9694,6 @@ try {
 
 ```ts
 const result = await client.reportsApi.getAvailableReconReportDates({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
 }).asApiResult();
@@ -9889,7 +9715,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access token retrieved in the Token API call |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name |
 | <code>wmConsumerChannelType?</code> | <code>string</code> | A unique ID to track the consumer request by channel. Use the Consumer Channel Type received during onboarding |
@@ -9949,7 +9774,6 @@ try {
     reportDate: "some example string",
     offset: 1,
     noOfRecords: 1,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
   });
@@ -9972,7 +9796,6 @@ const result = await client.reportsApi.getAvailableV1ReconReportAsJson({
   reportDate: "some example string",
   offset: 1,
   noOfRecords: 1,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
 }).asApiResult();
@@ -9997,7 +9820,6 @@ if (result.ok) {
 | <code>reportDate</code> | <code>string</code> | Date of the settlement report |
 | <code>offset</code> | <code>number</code> | starting number of the bytes, initial value for the offset is zero |
 | <code>noOfRecords</code> | <code>number</code> | number of records in the report (max limit 1000) |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access token retrieved in the Token API call |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name |
 | <code>wmConsumerChannelType?</code> | <code>string</code> | A unique ID to track the consumer request by channel. Use the Consumer Channel Type received during onboarding |
@@ -10054,7 +9876,6 @@ This API will list all the available Marketplace reconciliation report dates for
 ```ts
 try {
   const response = await client.reportsApi.getAvailableV1ReconReportDates({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
   });
@@ -10074,7 +9895,6 @@ try {
 
 ```ts
 const result = await client.reportsApi.getAvailableV1ReconReportDates({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
 }).asApiResult();
@@ -10096,7 +9916,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access token retrieved in the Token API call |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name |
 | <code>wmConsumerChannelType?</code> | <code>string</code> | A unique ID to track the consumer request by channel. Use the Consumer Channel Type received during onboarding |
@@ -10153,7 +9972,6 @@ This API will get a partner's current cycle performance
 ```ts
 try {
   const response = await client.reportsApi.getPartnerPerformance({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
   });
@@ -10173,7 +9991,6 @@ try {
 
 ```ts
 const result = await client.reportsApi.getPartnerPerformance({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
 }).asApiResult();
@@ -10195,7 +10012,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access token retrieved in the Token API call |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name |
 | <code>wmConsumerChannelType?</code> | <code>string</code> | A unique ID to track the consumer request by channel. Use the Consumer Channel Type received during onboarding |
@@ -10252,7 +10068,6 @@ This API will get a partner's current cycle statement
 ```ts
 try {
   const response = await client.reportsApi.getPartnerStatement({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
   });
@@ -10272,7 +10087,6 @@ try {
 
 ```ts
 const result = await client.reportsApi.getPartnerStatement({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
 }).asApiResult();
@@ -10294,7 +10108,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access token retrieved in the Token API call |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name |
 | <code>wmConsumerChannelType?</code> | <code>string</code> | A unique ID to track the consumer request by channel. Use the Consumer Channel Type received during onboarding |
@@ -10352,7 +10165,6 @@ Seller can download the reconciliation report for a specific date using this API
 try {
   const response = await client.reportsApi.getReconReport({
     reportDate: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
   });
@@ -10373,7 +10185,6 @@ try {
 ```ts
 const result = await client.reportsApi.getReconReport({
   reportDate: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
 }).asApiResult();
@@ -10396,7 +10207,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>reportDate</code> | <code>string</code> | The date for which the reconcilation file is available |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access token retrieved in the Token API call |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name |
 | <code>wmConsumerChannelType?</code> | <code>string</code> | A unique ID to track the consumer request by channel. Use the Consumer Channel Type received during onboarding |
@@ -10455,7 +10265,6 @@ try {
   const response = await client.reportsApi.getReconReportV1({
     reportDate: "some example string",
     reportVersion: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
   });
@@ -10477,7 +10286,6 @@ try {
 const result = await client.reportsApi.getReconReportV1({
   reportDate: "some example string",
   reportVersion: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
 }).asApiResult();
@@ -10501,7 +10309,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>reportDate</code> | <code>string</code> | The date for which the reconcilation file is available |
 | <code>reportVersion</code> | <code>string</code> | Report Version |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access token retrieved in the Token API call |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name |
 | <code>wmConsumerChannelType?</code> | <code>string</code> | A unique ID to track the consumer request by channel. Use the Consumer Channel Type received during onboarding |
@@ -11462,7 +11269,6 @@ try {
     limit: "200",
     nextCursor: "*",
     previousCursor: "1374004777531007833",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     accept: "application/json",
@@ -11486,7 +11292,6 @@ const result = await client.seoRecommendations.getSeoRecommendations({
   limit: "200",
   nextCursor: "*",
   previousCursor: "1374004777531007833",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   accept: "application/json",
@@ -11513,7 +11318,6 @@ if (result.ok) {
 | <code>limit?</code> | <code>string</code> | Specify number of items to return. If no limit is specified, API returns 200 items by default. |
 | <code>nextCursor?</code> | <code>string</code> | Link to go to the next page |
 | <code>previousCursor?</code> | <code>string</code> | Link to go to the previous page |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access tok  en retrieved in the Token API call |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name |
 | <code>accept</code> | <code>string</code> | Only supported Media Type : application/json |
@@ -11574,7 +11378,6 @@ try {
   const response = await client.seoRecommendations.updateSeoRecommendations({
     itemId: "some example string",
     decision: Decision.Approved,
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     accept: "application/json",
@@ -11597,7 +11400,6 @@ try {
 const result = await client.seoRecommendations.updateSeoRecommendations({
   itemId: "some example string",
   decision: Decision.Approved,
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   accept: "application/json",
@@ -11622,7 +11424,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>itemId</code> | <code>string</code> | Unique Item Identifier |
 | <code>decision</code> | <code>[Decision](src/models/decision.ts)</code> | approve/reject a recommendation |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access token retrieved in the Token API call |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and used to track and debug issues; use a random generated GUID for this ID |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name |
 | <code>accept</code> | <code>string</code> | Only supported Media Type : application/json |
@@ -11690,7 +11491,6 @@ Generates a shipping label using the provided shipment information. A successful
 try {
   const response = await client.shipWithWalmart.createLabel({
     accept: "application/json",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket1.Us,
@@ -11741,7 +11541,6 @@ try {
 ```ts
 const result = await client.shipWithWalmart.createLabel({
   accept: "application/json",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket1.Us,
@@ -11794,7 +11593,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>accept</code> | <code>string</code> | Specifies the desired response format. The order of media types determines the priority for format selection.<br><br>**Supported values:**<br>- `application/json` : Returns tracking information only (no label file).<br>- `application/json, application/pdf` : Returns the label in PDF format.<br>- `application/json, image/png` : Returns the label in PNG format.<br><br><b style="color: green;">Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called.<br>Example: Walmart Marketplace<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket1](src/models/wm-market1.ts)</code> | Case-sensitive market identifier. Valid values: MX, CA, CL, US <br><br><b style="color: green;">Market availability: Global</b> |
@@ -11856,7 +11654,6 @@ Creates a shipping label for items, supporting multiple packages per request. A 
 ```ts
 try {
   const response = await client.shipWithWalmart.createLabelMps({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket11.Mx,
@@ -11932,7 +11729,6 @@ try {
 
 ```ts
 const result = await client.shipWithWalmart.createLabelMps({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket11.Mx,
@@ -12010,7 +11806,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket11](src/models/wm-market11.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default. Valid values: MX, CA, CL.<br><br><b style="color: green;">Market availability: Global</b> |
@@ -12076,7 +11871,6 @@ try {
   const response = await client.shipWithWalmart.discardLabel({
     carrierShortName: "some example string",
     trackingNo: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket6.Mx,
@@ -12100,7 +11894,6 @@ try {
 const result = await client.shipWithWalmart.discardLabel({
   carrierShortName: "some example string",
   trackingNo: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket6.Mx,
@@ -12126,7 +11919,6 @@ if (result.ok) {
 | --- | --- | --- |
 | <code>carrierShortName</code> | <code>string</code> | The short name of the shipping carrier.<br>Use the carrierShortName value returned from the Supported Carriers API to ensure compatibility.<br><br><b style="color: green;">Market availability: US \| CA \| MX</b> |
 | <code>trackingNo</code> | <code>string</code> | The shipment tracking number.<br><br><br><br><b style="color: green;">Market availability: US \| CA \| MX</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br><br><b style="color: green;">Market availability: Global </b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID that identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID. <br> Example: b3261d2d-028a-4ef7-8602-633c23200af6 <br> <b style="color: green;">Market availability: Global </b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. <br> Example: Walmart Marketplace.<br><br><b style="color: green;">Market availability: Global </b> |
 | <code>wmMarket</code> | <code>[WmMarket6](src/models/wm-market6.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default. Valid values: MX, US<br><br><b style="color: green;">Market availability: Global </b> |
@@ -12188,7 +11980,6 @@ This API retrieves all supported package types for the selected carrier.
 try {
   const response = await client.shipWithWalmart.getCarrierPackageTypes({
     carrierShortName: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket11.Mx,
@@ -12211,7 +12002,6 @@ try {
 ```ts
 const result = await client.shipWithWalmart.getCarrierPackageTypes({
   carrierShortName: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket11.Mx,
@@ -12236,7 +12026,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>carrierShortName</code> | <code>string</code> | carrierShortName fetched from carrier API response or pass 'ALL' to fetch all package types of supported carriers<br><br><b style="color: green;">Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br> Example: eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a random generated GUID for this ID.<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket11](src/models/wm-market11.ts)</code> | Identifies the Walmart Marketplace region for the request. If not specified, US is used by default. Valid values: MX, CA, CL.<br><br><b style="color: green;">Market availability: Global</b> |
@@ -12297,7 +12086,6 @@ This API retrieves all carriers supported by Ship With Walmart.
 ```ts
 try {
   const response = await client.shipWithWalmart.getCarriers({
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket11.Mx,
@@ -12319,7 +12107,6 @@ try {
 
 ```ts
 const result = await client.shipWithWalmart.getCarriers({
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket11.Mx,
@@ -12343,7 +12130,6 @@ if (result.ok) {
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>wmSecAccessToken</code> | <code>string</code> | The access token retrieved in the Token API call<br><br><b style="color: green;">Market availability:Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket11](src/models/wm-market11.ts)</code> | Case-sensitive market identifier. Valid values: MX, CA, CL<br><br><b style="color: green;">Market availability: Global</b> |
@@ -12405,7 +12191,6 @@ This API retrieves all label details generated for a purchase order id.
 try {
   const response = await client.shipWithWalmart.getLabel({
     purchaseOrderId: "some example string",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket11.Mx,
@@ -12428,7 +12213,6 @@ try {
 ```ts
 const result = await client.shipWithWalmart.getLabel({
   purchaseOrderId: "some example string",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket11.Mx,
@@ -12453,7 +12237,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>purchaseOrderId</code> | <code>string</code> | purchaseOrderId<br><br><b style="color: green;">Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs. <br> Example: eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket11](src/models/wm-market11.ts)</code> | Case-sensitive market identifier. Valid values: MX, CA, CL<br><br><b style="color: green;">Market availability: Global</b> |
@@ -12518,7 +12301,6 @@ try {
     carrierShortName: "some example string",
     trackingNo: "some example string",
     accept: "application/pdf",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket11.Mx,
@@ -12542,7 +12324,6 @@ const result = await client.shipWithWalmart.getLabelByTrackingAndCarrier({
   carrierShortName: "some example string",
   trackingNo: "some example string",
   accept: "application/pdf",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket11.Mx,
@@ -12569,7 +12350,6 @@ if (result.ok) {
 | <code>carrierShortName</code> | <code>string</code> | carrierShortName<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>trackingNo</code> | <code>string</code> | trackingNo<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>accept</code> | <code>string</code> | Supported media types for US, CA, MX are:\napplication/pdf, image/png. For CL, the supported media type is\napplication/pdf, image/png, application/zpl.\n\n<b style=\"color: green;\">Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br> Example: eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Walmart Service Name<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket11](src/models/wm-market11.ts)</code> | Case-sensitive market identifier. Valid values: MX, CA, CL<br><br><b style="color: green;">Market availability: Global</b> |
@@ -12745,7 +12525,6 @@ This API retrieves shipping cost estimates for available shipping services based
 try {
   const response = await client.shipWithWalmart.getShippingEstimate({
     accept: "application/json",
-    wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
     wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
     wmSvcName: "Walmart Service Name",
     wmMarket: WmMarket11.Mx,
@@ -12799,7 +12578,6 @@ try {
 ```ts
 const result = await client.shipWithWalmart.getShippingEstimate({
   accept: "application/json",
-  wmSecAccessToken: "eyJraWQiOiIzZjVhYTFmNS1hYWE5LTQzM.....",
   wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
   wmSvcName: "Walmart Service Name",
   wmMarket: WmMarket11.Mx,
@@ -12855,7 +12633,6 @@ if (result.ok) {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>accept</code> | <code>string</code> | Response type. The order of media types in the Accept header determines the priority for response format selection.<br><br><b style="color: green;">Market availability: Global</b> |
-| <code>wmSecAccessToken</code> | <code>string</code> | Access token obtained from the Token API. This is required for authenticating requests to Walmart Marketplace APIs.<br>Example: eyJraWQiOiIxNWNhNGIyYi0yODVjLTQ0ZDUtYmExNC05ZDk1NTlkZmUwNjgiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiZGlyIn0....<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmQosCorrelationId</code> | <code>string</code> | A unique ID which identifies each API call and is used to track and debug issues. Use a randomly generated GUID for this ID.<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmSvcName</code> | <code>string</code> | Specifies the name of the Walmart service being called. <br> Example: Walmart Marketplace<br><br><b style="color: green;">Market availability: Global</b> |
 | <code>wmMarket</code> | <code>[WmMarket11](src/models/wm-market11.ts)</code> | Case-sensitive market identifier. Valid values: MX, CA, CL<br><br><b style="color: green;">Market availability: Global</b> |

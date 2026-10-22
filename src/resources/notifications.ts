@@ -103,7 +103,6 @@ export class Notifications {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket2Schema },
@@ -154,7 +153,6 @@ export class Notifications {
         pathParams: [{ name: "subscriptionId", value: request.subscriptionId, schema: s.string() }],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket2Schema },
@@ -210,7 +208,6 @@ export class Notifications {
           { name: "status", value: request.status, schema: s.optional(s.string()) },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket2Schema },
@@ -268,7 +265,6 @@ export class Notifications {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket2Schema },
@@ -317,7 +313,6 @@ export class Notifications {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket2Schema },
@@ -369,7 +364,6 @@ export class Notifications {
         pathParams: [{ name: "subscriptionId", value: request.subscriptionId, schema: s.string() }],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket2Schema },
@@ -394,11 +388,6 @@ export class Notifications {
 
 export namespace Notifications {
   export type CreateSubscriptionRequestParams = {
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
@@ -435,11 +424,6 @@ export namespace Notifications {
      * availability: Global</b>
      */
     subscriptionId: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
@@ -491,11 +475,6 @@ export namespace Notifications {
      */
     status?: string;
     /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
      * Global</b>
@@ -525,11 +504,6 @@ export namespace Notifications {
 
   export type GetEventTypesRequest = {
     /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
      * Global</b>
@@ -558,11 +532,6 @@ export namespace Notifications {
   };
 
   export type TestNotificationRequestParams = {
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
@@ -599,11 +568,6 @@ export namespace Notifications {
      * availability: Global</b>
      */
     subscriptionId: string;
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:

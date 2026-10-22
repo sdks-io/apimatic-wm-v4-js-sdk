@@ -17,12 +17,11 @@ Accessor: `client.shipWithWalmart` · Source: `src/resources/ship-with-walmart.t
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `ShipWithWalmart.CreateLabelError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3ShippingLabels500Error1"` [500] `V3ShippingLabels500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `ShipWithWalmart.CreateLabelRequest` (8):
+**Fields** — `ShipWithWalmart.CreateLabelRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `accept` | `header` | `Accept` | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -49,11 +48,10 @@ Accessor: `client.shipWithWalmart` · Source: `src/resources/ship-with-walmart.t
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `ShipWithWalmart.CreateLabelMpsError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"error400"` [400] `Error5[]` · `"v3ShippingMultiPackageLabels500Error1"` [500] `V3ShippingMultiPackageLabels500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `ShipWithWalmart.CreateLabelMpsRequest` (8):
+**Fields** — `ShipWithWalmart.CreateLabelMpsRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket11` | yes |
@@ -82,13 +80,12 @@ Accessor: `client.shipWithWalmart` · Source: `src/resources/ship-with-walmart.t
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `ShipWithWalmart.DiscardLabelError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"error400"` [400] `V3ShippingLabelsCarriersTrackings400Error1[]` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `ShipWithWalmart.DiscardLabelRequest` (8):
+**Fields** — `ShipWithWalmart.DiscardLabelRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `carrierShortName` | `path` | — | `string` | yes |
 | `trackingNo` | `path` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket6` | yes |
@@ -111,12 +108,11 @@ Accessor: `client.shipWithWalmart` · Source: `src/resources/ship-with-walmart.t
 - **Returns**: `V3ShippingLabelsCarriersPackageTypesResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ShipWithWalmart.GetCarrierPackageTypesRequest` (7):
+**Fields** — `ShipWithWalmart.GetCarrierPackageTypesRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `carrierShortName` | `path` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket11` | yes |
@@ -138,11 +134,10 @@ Accessor: `client.shipWithWalmart` · Source: `src/resources/ship-with-walmart.t
 - **Returns**: `V3ShippingLabelsCarriersResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ShipWithWalmart.GetCarriersRequest` (6):
+**Fields** — `ShipWithWalmart.GetCarriersRequest` (5):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket11` | yes |
@@ -164,12 +159,11 @@ Accessor: `client.shipWithWalmart` · Source: `src/resources/ship-with-walmart.t
 - **Returns**: `V3ShippingLabelsPurchaseOrdersResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ShipWithWalmart.GetLabelRequest` (7):
+**Fields** — `ShipWithWalmart.GetLabelRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `purchaseOrderId` | `path` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket11` | yes |
@@ -191,14 +185,13 @@ Accessor: `client.shipWithWalmart` · Source: `src/resources/ship-with-walmart.t
 - **Returns**: `undefined` — the operation resolves to nothing
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ShipWithWalmart.GetLabelByTrackingAndCarrierRequest` (9):
+**Fields** — `ShipWithWalmart.GetLabelByTrackingAndCarrierRequest` (8):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `carrierShortName` | `path` | — | `string` | yes |
 | `trackingNo` | `path` | — | `string` | yes |
 | `accept` | `header` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket11` | yes |
@@ -247,12 +240,11 @@ Accessor: `client.shipWithWalmart` · Source: `src/resources/ship-with-walmart.t
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `ShipWithWalmart.GetShippingEstimateError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"error400"` [400] `V3ShippingLabelsShippingEstimates400Error1[]` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `ShipWithWalmart.GetShippingEstimateRequest` (8):
+**Fields** — `ShipWithWalmart.GetShippingEstimateRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `accept` | `header` | `Accept` | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket11` | yes |

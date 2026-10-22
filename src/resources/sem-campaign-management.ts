@@ -302,7 +302,6 @@ export class SemCampaignManagement {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           {
@@ -545,11 +544,6 @@ export namespace SemCampaignManagement {
   }
 
   export type SearchCampaignRecommendationsRequest = {
-    /**
-     * Access token obtained from the Token API. This is required for authenticating requests to
-     * Walmart Marketplace APIs.
-     */
-    wmSecAccessToken: string;
     /** Specifies the name of the Walmart service being called. */
     wmSvcName: string;
     /**

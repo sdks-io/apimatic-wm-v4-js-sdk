@@ -16,14 +16,13 @@ Accessor: `client.reportScheduler` · Source: `src/resources/report-scheduler.ts
 - **Returns**: `RejectRecommendationsResponsePayload`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ReportScheduler.DeleteReportScheduleRequest` (4):
+**Fields** — `ReportScheduler.DeleteReportScheduleRequest` (3):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `scheduleId` | `path` | — | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -38,14 +37,13 @@ Accessor: `client.reportScheduler` · Source: `src/resources/report-scheduler.ts
 - **Returns**: `V3ReportsSchedulesResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ReportScheduler.GetAllReportSchedulesRequest` (4):
+**Fields** — `ReportScheduler.GetAllReportSchedulesRequest` (3):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `reportType` | `query` | — | `ReportType10` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -61,14 +59,13 @@ Accessor: `client.reportScheduler` · Source: `src/resources/report-scheduler.ts
 - **Returns**: `V3ReportsSchedulesResponse1`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ReportScheduler.GetReportScheduleRequest` (4):
+**Fields** — `ReportScheduler.GetReportScheduleRequest` (3):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `scheduleId` | `path` | — | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -84,14 +81,13 @@ Accessor: `client.reportScheduler` · Source: `src/resources/report-scheduler.ts
 - **Returns**: `V3ReportsSchedulesResponse1`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `ReportScheduler.UpdateReportScheduleRequest` (5):
+**Fields** — `ReportScheduler.UpdateReportScheduleRequest` (4):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `scheduleId` | `path` | — | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `body` | `body` | — | `V3ReportsSchedulesRequest` | no |
 
 | Type | Schema value | Source |

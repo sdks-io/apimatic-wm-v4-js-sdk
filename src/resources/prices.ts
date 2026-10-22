@@ -121,7 +121,6 @@ export class Prices {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -172,7 +171,6 @@ export class Prices {
         ],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -252,7 +250,6 @@ export class Prices {
           },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -301,7 +298,6 @@ export class Prices {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -353,7 +349,6 @@ export class Prices {
           { name: "limit", value: request.limit, schema: s.defaulted(s.string(), "10") },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -431,7 +426,6 @@ export class Prices {
         pathParams: [],
         query: [{ name: "feedType", value: request.feedType, schema: feedType21Schema }],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -485,7 +479,6 @@ export class Prices {
         pathParams: [],
         query: [{ name: "feedType", value: request.feedType, schema: feedType11Schema }],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -541,7 +534,6 @@ export class Prices {
         pathParams: [],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -592,7 +584,6 @@ export class Prices {
         ],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -657,7 +648,6 @@ export class Prices {
           },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -710,7 +700,6 @@ export class Prices {
         pathParams: [],
         query: [{ name: "feedType", value: request.feedType, schema: feedType2Schema }],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -739,11 +728,6 @@ export class Prices {
 
 export namespace Prices {
   export type CreateStrategyRequest = {
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
@@ -801,11 +785,6 @@ export namespace Prices {
      * resources.<br><b style='color:green;'>Market availability: US | CA | MX</b>
      */
     strategyCollectionId: string;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
@@ -895,11 +874,6 @@ export namespace Prices {
      */
     incentiveType?: IncentiveType;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
      * Global</b>
@@ -946,11 +920,6 @@ export namespace Prices {
   }
 
   export type GetRepricerFeedRequest = {
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
@@ -1008,11 +977,6 @@ export namespace Prices {
      */
     limit?: string;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
      * Global</b>
@@ -1055,11 +1019,6 @@ export namespace Prices {
   export type PriceAndPromotionBulkUploadsRequest = {
     /** The feed Type.<br><b style='color:green;'>Market availability: Global</b> */
     feedType: FeedType21;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
@@ -1109,11 +1068,6 @@ export namespace Prices {
     /** The feed Type.<br><b style='color:green;'>Market availability: US</b> */
     feedType: FeedType11;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
      * Global</b>
@@ -1159,11 +1113,6 @@ export namespace Prices {
   }
 
   export type UpdatePriceRequest = {
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
@@ -1215,11 +1164,6 @@ export namespace Prices {
      * resources.<br><b style='color:green;'>Market availability: US | CA | MX</span></b>
      */
     strategyCollectionId: string;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</span></b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
@@ -1277,11 +1221,6 @@ export namespace Prices {
      */
     autoEnrollEnabled?: boolean;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
      * Global</b>
@@ -1324,11 +1263,6 @@ export namespace Prices {
   export type WalmartFundedIncentivesEnrollmentRequest = {
     /** The feed Type.<br><b style='color:green;'>Market availability: US</b> */
     feedType: FeedType2;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:

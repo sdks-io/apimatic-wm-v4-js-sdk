@@ -6,7 +6,7 @@ import * as s from "./core/validation/index.js";
 
 export const ServerEnvironment = {
   Production: "production",
-  Environment2: "environment2",
+  Sandbox: "sandbox",
 } as const;
 export type ServerEnvironment = (typeof ServerEnvironment)[keyof typeof ServerEnvironment];
 
@@ -18,7 +18,7 @@ const productionSchemas = {
   baseUrl: s.of(s.defaulted(s.string(), "https://marketplace.walmartapis.com")),
 };
 
-const environment2Schemas = {
+const sandboxSchemas = {
   baseUrl: s.of(s.defaulted(s.string(), "https://sandbox.walmartapis.com")),
 };
 
@@ -37,8 +37,8 @@ function defaultServer(options: ClientOptions): ServerBase {
     case ServerEnvironment.Production:
     case undefined:
       return { baseUrl: productionSchemas.baseUrl.decode(options.serverOptions?.baseUrl) };
-    case ServerEnvironment.Environment2:
-      return { baseUrl: environment2Schemas.baseUrl.decode(options.serverOptions?.baseUrl) };
+    case ServerEnvironment.Sandbox:
+      return { baseUrl: sandboxSchemas.baseUrl.decode(options.serverOptions?.baseUrl) };
     default:
       unknownEnvironment(environment);
   }

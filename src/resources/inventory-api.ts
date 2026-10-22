@@ -79,7 +79,6 @@ export class InventoryApi {
           { name: "shipNode", value: request.shipNode, schema: s.optional(s.string()) },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -136,7 +135,6 @@ export class InventoryApi {
           { name: "nextCursor", value: request.nextCursor, schema: s.optional(s.string()) },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -186,7 +184,6 @@ export class InventoryApi {
         pathParams: [{ name: "sku", value: request.sku, schema: s.string() }],
         query: [{ name: "shipNode", value: request.shipNode, schema: s.optional(s.string()) }],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -244,7 +241,6 @@ export class InventoryApi {
           { name: "shipNodeType", value: request.shipNodeType, schema: s.optional(s.string()) },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -310,7 +306,6 @@ export class InventoryApi {
           { name: "shipNode", value: request.shipNode, schema: s.optional(s.string()) },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -363,7 +358,6 @@ export class InventoryApi {
           { name: "shipNode", value: request.shipNode, schema: s.optional(s.string()) },
         ],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -413,7 +407,6 @@ export class InventoryApi {
         pathParams: [{ name: "sku", value: request.sku, schema: s.string() }],
         query: [],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -454,13 +447,6 @@ export namespace InventoryApi {
      * <strong style="color: green;">Market availability: Global</strong>
      */
     shipNode?: string;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.
@@ -524,13 +510,6 @@ export namespace InventoryApi {
      */
     nextCursor?: string;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.
      *
@@ -593,13 +572,6 @@ export namespace InventoryApi {
      * <strong style="color: green;">Market availability: Global</strong>
      */
     shipNode?: string;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.
@@ -694,13 +666,6 @@ export namespace InventoryApi {
      */
     shipNodeType?: string;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.
      *
@@ -763,13 +728,6 @@ export namespace InventoryApi {
      */
     shipNode?: string;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.
      *
@@ -826,13 +784,6 @@ export namespace InventoryApi {
      * <strong style="color: green;">Market availability: Global</strong>
      */
     shipNode?: string;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.
@@ -892,13 +843,6 @@ export namespace InventoryApi {
      * <strong style="color: green;">Market availability: Global</strong>
      */
     sku: string;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.

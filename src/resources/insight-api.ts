@@ -136,7 +136,6 @@ export class InsightApi {
         ],
         headers: [
           { name: "WM_GLOBAL_VERSION", value: request.wmGlobalVersion, schema: wmGlobalVersionSchema },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -188,7 +187,6 @@ export class InsightApi {
         ],
         headers: [
           { name: "WM_GLOBAL_VERSION", value: request.wmGlobalVersion, schema: wmGlobalVersionSchema },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -238,7 +236,6 @@ export class InsightApi {
         query: [],
         headers: [
           { name: "WM_GLOBAL_VERSION", value: request.wmGlobalVersion, schema: wmGlobalVersionSchema },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -289,7 +286,6 @@ export class InsightApi {
         query: [],
         headers: [
           { name: "WM_GLOBAL_VERSION", value: request.wmGlobalVersion, schema: wmGlobalVersionSchema },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -338,7 +334,6 @@ export class InsightApi {
         query: [{ name: "fromDate", value: request.fromDate, schema: s.string() }],
         headers: [
           { name: "WM_GLOBAL_VERSION", value: request.wmGlobalVersion, schema: wmGlobalVersionSchema },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -406,7 +401,6 @@ export class InsightApi {
         ],
         headers: [
           { name: "WM_GLOBAL_VERSION", value: request.wmGlobalVersion, schema: wmGlobalVersionSchema },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -460,7 +454,6 @@ export class InsightApi {
         ],
         headers: [
           { name: "WM_GLOBAL_VERSION", value: request.wmGlobalVersion, schema: wmGlobalVersionSchema },
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -528,11 +521,6 @@ export namespace InsightApi {
     /** GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> */
     wmGlobalVersion: WmGlobalVersion;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:
      * Global</b>
@@ -593,11 +581,6 @@ export namespace InsightApi {
      */
     wmGlobalVersion: WmGlobalVersion;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID<br><b style='color:green;'>Market availability: Global</b>
      */
@@ -643,11 +626,6 @@ export namespace InsightApi {
   export type GetProSellerBadgeInfoRequest = {
     /** GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> */
     wmGlobalVersion: WmGlobalVersion;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID<br><b style='color:green;'>Market availability: Global</b>
@@ -695,11 +673,6 @@ export namespace InsightApi {
     /** GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> */
     wmGlobalVersion: WmGlobalVersion;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID. <br><b style='color:green;'>Market availability:
      * Global</b>
@@ -745,11 +718,6 @@ export namespace InsightApi {
     fromDate: string;
     /** GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> */
     wmGlobalVersion: WmGlobalVersion;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID<br><b style='color:green;'>Market availability: Global</b>
@@ -837,11 +805,6 @@ export namespace InsightApi {
     /** GLOBAL VERSION DEFAULT AS 3.1<br><b style='color:green;'>Market availability: Global</b> */
     wmGlobalVersion: WmGlobalVersion;
     /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
-    /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID<br><b style='color:green;'>Market availability: Global</b>
      */
@@ -903,11 +866,6 @@ export namespace InsightApi {
      * Global</span></b>
      */
     wmGlobalVersion: WmGlobalVersion;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.<br><b style='color:green;'>Market availability: Global</b>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID that identifies each API call and is used to track and debug issues. Use a
      * randomly generated GUID for this ID.<br><b style='color:green;'>Market availability:

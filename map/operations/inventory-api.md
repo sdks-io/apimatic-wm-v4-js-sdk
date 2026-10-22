@@ -16,13 +16,12 @@ Accessor: `client.inventoryApi` · Source: `src/resources/inventory-api.ts` · 7
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InventoryApi.GetInventoryError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"inventory1"` [400] `Inventory1` · `"inventory12"` [404] `Inventory1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InventoryApi.GetInventoryRequest` (8):
+**Fields** — `InventoryApi.GetInventoryRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `sku` | `query` | — | `string` | yes |
 | `shipNode` | `query` | — | `string` | no |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -45,13 +44,12 @@ Accessor: `client.inventoryApi` · Source: `src/resources/inventory-api.ts` · 7
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InventoryApi.GetMultiNodeInventoryForAllSkuAndAllShipNodesError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3Inventories403Error1"` [403] `V3Inventories403Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InventoryApi.GetMultiNodeInventoryForAllSkuAndAllShipNodesRequest` (8):
+**Fields** — `InventoryApi.GetMultiNodeInventoryForAllSkuAndAllShipNodesRequest` (7):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
 | `limit` | `query` | — | `string` | no | `"10"` |
 | `nextCursor` | `query` | — | `string` | no | — |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |
@@ -75,13 +73,12 @@ Accessor: `client.inventoryApi` · Source: `src/resources/inventory-api.ts` · 7
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InventoryApi.GetMultiNodeInventoryForSkuAndAllShipnodesError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"inventoriesDto"` [400] `InventoriesDto` · `"inventoriesDto2"` [404] `InventoriesDto` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InventoryApi.GetMultiNodeInventoryForSkuAndAllShipnodesRequest` (8):
+**Fields** — `InventoryApi.GetMultiNodeInventoryForSkuAndAllShipnodesRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `sku` | `path` | — | `string` | yes |
 | `shipNode` | `query` | — | `string` | no |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -104,7 +101,7 @@ Accessor: `client.inventoryApi` · Source: `src/resources/inventory-api.ts` · 7
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InventoryApi.GetWfsInventoryError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v3FulfillmentInventory403Error1"` [403] `V3FulfillmentInventory403Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InventoryApi.GetWfsInventoryRequest` (12):
+**Fields** — `InventoryApi.GetWfsInventoryRequest` (11):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
@@ -114,7 +111,6 @@ Accessor: `client.inventoryApi` · Source: `src/resources/inventory-api.ts` · 7
 | `limit` | `query` | — | `string` | no | `"10"` |
 | `offset` | `query` | — | `string` | no | `"0"` |
 | `shipNodeType` | `query` | — | `string` | no | — |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes | — |
@@ -138,13 +134,12 @@ Accessor: `client.inventoryApi` · Source: `src/resources/inventory-api.ts` · 7
 - **Returns**: `FeedId`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `InventoryApi.UpdateBulkInventoryRequest` (9):
+**Fields** — `InventoryApi.UpdateBulkInventoryRequest` (8):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `feedType` | `query` | — | `FeedType1` | yes |
 | `shipNode` | `query` | — | `string` | no |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -170,13 +165,12 @@ Accessor: `client.inventoryApi` · Source: `src/resources/inventory-api.ts` · 7
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InventoryApi.UpdateInventoryForAnItemError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"inventory1"` [400] `Inventory1` · `"inventory12"` [404] `Inventory1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InventoryApi.UpdateInventoryForAnItemRequest` (9):
+**Fields** — `InventoryApi.UpdateInventoryForAnItemRequest` (8):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `sku` | `query` | — | `string` | yes |
 | `shipNode` | `query` | — | `string` | no |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -202,12 +196,11 @@ Accessor: `client.inventoryApi` · Source: `src/resources/inventory-api.ts` · 7
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `InventoryApi.UpdateMultiNodeInventoryError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"multiNodeInventoryUpdateResponseDto"` [400] `MultiNodeInventoryUpdateResponseDto` · `"multiNodeInventoryUpdateResponseDto2"` [404] `MultiNodeInventoryUpdateResponseDto` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `InventoryApi.UpdateMultiNodeInventoryRequest` (8):
+**Fields** — `InventoryApi.UpdateMultiNodeInventoryRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `sku` | `path` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |

@@ -16,11 +16,10 @@ Accessor: `client.semItemDiagnostics` · Source: `src/resources/sem-item-diagnos
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `SemItemDiagnostics.GetIssueTypesError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [401] `ErrorResponse` · `"errorResponse2"` [403] `ErrorResponse` · `"errorResponse429"` [429] `ErrorResponse429` · `"errorResponse3"` [500] `ErrorResponse` · `"errorResponse4"` [503] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `SemItemDiagnostics.GetIssueTypesRequest` (6):
+**Fields** — `SemItemDiagnostics.GetIssueTypesRequest` (5):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | no | `WmGlobalVersion._31` |
@@ -46,11 +45,10 @@ Accessor: `client.semItemDiagnostics` · Source: `src/resources/sem-item-diagnos
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `SemItemDiagnostics.SearchItemIssuesError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"errorResponse2"` [401] `ErrorResponse` · `"errorResponse3"` [403] `ErrorResponse` · `"errorResponse4"` [422] `ErrorResponse` · `"errorResponse429"` [429] `ErrorResponse429` · `"errorResponse5"` [500] `ErrorResponse` · `"errorResponse6"` [503] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `SemItemDiagnostics.SearchItemIssuesRequest` (8):
+**Fields** — `SemItemDiagnostics.SearchItemIssuesRequest` (7):
 
 | Field | Channel | Wire | Type | Req | Default |
 | --- | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes | — |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes | — |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes | — |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | no | `WmGlobalVersion._31` |

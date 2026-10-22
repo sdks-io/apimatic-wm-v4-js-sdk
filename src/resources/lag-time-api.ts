@@ -59,7 +59,6 @@ export class LagTimeApi {
         pathParams: [],
         query: [{ name: "sku", value: request.sku, schema: s.string() }],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -111,7 +110,6 @@ export class LagTimeApi {
         pathParams: [],
         query: [{ name: "feedType", value: request.feedType, schema: s.string() }],
         headers: [
-          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
           { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
           { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           { name: "WM_MARKET", value: request.wmMarket, schema: wmMarket1Schema },
@@ -146,13 +144,6 @@ export namespace LagTimeApi {
      * <strong style="color: green;">Market availability: Global</strong>
      */
     sku: string;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.
@@ -208,13 +199,6 @@ export namespace LagTimeApi {
      * <strong style="color: green;">Market availability: Global</strong>
      */
     feedType: string;
-    /**
-     * Access token obtained from the Token API. Required for authenticating requests to Walmart
-     * Marketplace APIs.
-     *
-     * <strong style="color: green;">Market availability: Global</strong>
-     */
-    wmSecAccessToken: string;
     /**
      * A unique ID which identifies each API call and used to track and debug issues; use a random
      * generated GUID for this ID.

@@ -15,12 +15,11 @@ Accessor: `client.onRequestReportApi` · Source: `src/resources/on-request-repor
 - **Returns**: `DownloadReportResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `OnRequestReportApi.DownloadReportRequest` (8):
+**Fields** — `OnRequestReportApi.DownloadReportRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `requestId` | `query` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -43,7 +42,7 @@ Accessor: `client.onRequestReportApi` · Source: `src/resources/on-request-repor
 - **Returns**: `RequestsStatusResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `OnRequestReportApi.GetRequestsStatusRequest` (12):
+**Fields** — `OnRequestReportApi.GetRequestsStatusRequest` (11):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
@@ -52,7 +51,6 @@ Accessor: `client.onRequestReportApi` · Source: `src/resources/on-request-repor
 | `requestStatus` | `query` | — | `RequestStatus4` | no |
 | `requestSubmissionStartDate` | `query` | — | `string` | no |
 | `requestSubmissionEndDate` | `query` | — | `string` | no |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |
@@ -77,12 +75,11 @@ Accessor: `client.onRequestReportApi` · Source: `src/resources/on-request-repor
 - **Returns**: `RequestStatusResponse`
 - **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `OnRequestReportApi.GetSingleRequestStatusRequest` (8):
+**Fields** — `OnRequestReportApi.GetSingleRequestStatusRequest` (7):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `requestId` | `path` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmMarket` | `header` | `WM_MARKET` | `WmMarket1` | yes |

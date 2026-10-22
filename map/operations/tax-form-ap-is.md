@@ -16,14 +16,13 @@ Accessor: `client.taxFormApIs` · Source: `src/resources/tax-form-ap-is.ts` · 2
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `TaxFormApIs.DownloadTaxFormError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v1SettingsDownloadtaxformprofile502Error1"` [502] `V1SettingsDownloadtaxformprofile502Error1` · `"v1SettingsDownloadtaxformprofile404Error1"` [404] `V1SettingsDownloadtaxformprofile404Error1` · `"v1SettingsDownloadtaxformprofile400Error1"` [400] `V1SettingsDownloadtaxformprofile400Error1` · `"v1SettingsDownloadtaxformprofile500Error1"` [500] `V1SettingsDownloadtaxformprofile500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `TaxFormApIs.DownloadTaxFormRequest` (10):
+**Fields** — `TaxFormApIs.DownloadTaxFormRequest` (9):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `payoutYear` | `query` | — | `string` | yes |
 | `taxFormType` | `query` | — | `string` | yes |
 | `formId` | `query` | — | `string` | yes |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
@@ -49,11 +48,10 @@ Accessor: `client.taxFormApIs` · Source: `src/resources/tax-form-ap-is.ts` · 2
 - **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `TaxFormApIs.GetTaxFormsError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"v1SettingsGettaxformprofile404Error1"` [404] `V1SettingsGettaxformprofile404Error1` · `"v1SettingsGettaxformprofile400Error1"` [400] `V1SettingsGettaxformprofile400Error1` · `"v1SettingsGettaxformprofile500Error1"` [500] `V1SettingsGettaxformprofile500Error1` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
-**Fields** — `TaxFormApIs.GetTaxFormsRequest` (7):
+**Fields** — `TaxFormApIs.GetTaxFormsRequest` (6):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
-| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
 | `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
 | `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
 | `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
