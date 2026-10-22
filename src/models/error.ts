@@ -1,15 +1,28 @@
 import * as s from "../core/validation/index.js";
-import type { EnumSchema } from "../core/validation/schema.js";
+import type { Schema } from "../core/validation/schema.js";
 
-/** Machine-readable error code. */
-export const Error = {
-  InvalidRequest: "invalid_request",
-  InvalidClient: "invalid_client",
-  InvalidGrant: "invalid_grant",
-  UnauthorizedClient: "unauthorized_client",
-  UnsupportedGrantType: "unsupported_grant_type",
-  InvalidScope: "invalid_scope",
-} as const;
-export type Error = (typeof Error)[keyof typeof Error] | (string & {});
+export type Error = {
+  /** @default "INVALID_REQUEST_HEADER.GMP_GATEWAY_API" */
+  code?: string;
+  field?: string;
+  /** @default "Incorrect Authorization header" */
+  description?: string;
+  info?: string;
+  /** @default "ERROR" */
+  severity?: string;
+  /** @default "DATA" */
+  category?: string;
+  causes?: Record<string, unknown>[];
+  errorIdentifiers?: Record<string, unknown>;
+};
 
-export const errorSchema: EnumSchema<Error> = s.enumOf<Error>(Error);
+export const errorSchema: Schema<Error> = s.object<Error>({
+  code: s.defaulted(s.string(), "INVALID_REQUEST_HEADER.GMP_GATEWAY_API"),
+  field: s.optional(s.string()),
+  description: s.defaulted(s.string(), "Incorrect Authorization header"),
+  info: s.optional(s.string()),
+  severity: s.defaulted(s.string(), "ERROR"),
+  category: s.defaulted(s.string(), "DATA"),
+  causes: s.optional(s.array(s.record(s.string(), s.unknown()))),
+  errorIdentifiers: s.optional(s.record(s.string(), s.unknown())),
+});

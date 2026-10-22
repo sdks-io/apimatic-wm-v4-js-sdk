@@ -1,16 +1,18 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
+/** carriers */
 export type Carrier = {
-  id: string;
-  /**
-   * Carrier display name. Walmart-specific enum-widening for internally-fulfilled carriers (e.g.
-   * WALMART_GROUND) is captured by leaving this as a free string rather than a closed enum.
-   */
-  name: string;
+  /** The carrier ID. A unique identifier for the carrier. */
+  carrierId?: string;
+  /** The carrier short name. */
+  shortName?: string;
+  /** The carrier name. */
+  carrierName?: string;
 };
 
 export const carrierSchema: Schema<Carrier> = s.object<Carrier>({
-  id: s.string(),
-  name: s.string(),
+  carrierId: s.optional(s.string()),
+  shortName: s.optional(s.string()),
+  carrierName: s.optional(s.string()),
 });

@@ -1,13 +1,16 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
-import { itemIdentifierSchema, type ItemIdentifier } from "./item-identifier.js";
 
+/**
+ * <br><b style='color:green;'>Market availability: US</b>, Item Identifier which needs to be
+ * migrated., Item Identifier which needs to be migrated. <br><b style='color:green;'>Market
+ * availability: US</span></b>
+ */
 export type ItemIdentifiers = {
-  marketplaceWalmartItemId?: ItemIdentifier[];
-  skuIdentifiers?: ItemIdentifier[];
+  /** <br><b style='color:green;'>Market availability: US</b> */
+  sku?: string;
 };
 
 export const itemIdentifiersSchema: Schema<ItemIdentifiers> = s.object<ItemIdentifiers>({
-  marketplaceWalmartItemId: s.optional(s.array(s.lazy(() => itemIdentifierSchema))),
-  skuIdentifiers: s.optional(s.array(s.lazy(() => itemIdentifierSchema))),
+  sku: s.optional(s.string()),
 });

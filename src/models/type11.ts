@@ -1,9 +1,12 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Document category; one of PROOF_OF_DAMAGED_ITEM, INVOICE, OTHER, PPOD. */
 export const Type11 = {
-  Pickup: "PICKUP",
-  Dropoff: "DROPOFF",
+  ProofOfDamagedItem: "PROOF_OF_DAMAGED_ITEM",
+  Invoice: "INVOICE",
+  Other: "OTHER",
+  Ppod: "PPOD",
 } as const;
 export type Type11 = (typeof Type11)[keyof typeof Type11] | (string & {});
 

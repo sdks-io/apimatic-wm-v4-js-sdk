@@ -1,229 +1,166 @@
-import type { AuthSchemes } from "../auth-schemes.js";
-import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
+import { ApiError, type Declared, type Undeclared } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import { noneAuth } from "../core/auth/schemes.js";
 import type { RawClient } from "../core/raw-client.js";
+import type { ErrorDecoders } from "../core/response-decoder.js";
 import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
-import { authorizeErrorSchema, type AuthorizeError } from "../models/authorize-error.js";
-import {
-  clientRegistrationRequestSchema,
-  type ClientRegistrationRequest,
-} from "../models/client-registration-request.js";
-import {
-  clientRegistrationResponseSchema,
-  type ClientRegistrationResponse,
-} from "../models/client-registration-response.js";
-import { codeChallengeMethodSchema, type CodeChallengeMethod } from "../models/code-challenge-method.js";
-import { grantTypeSchema, type GrantType } from "../models/grant-type.js";
-import { oAuthErrorSchema, type OAuthError } from "../models/oauth-error.js";
-import { registrationErrorSchema, type RegistrationError } from "../models/registration-error.js";
-import { responseType1Schema, type ResponseType1 } from "../models/response-type1.js";
-import { tokenResponseSchema, type TokenResponse } from "../models/token-response.js";
+import { GrantType1, grantType1Schema } from "../models/grant-type1.js";
+import { oAuthTokenModelSchema, type OAuthTokenModel } from "../models/oauth-token-model.js";
+import { tokenDetailResponseSchema, type TokenDetailResponse } from "../models/token-detail-response.js";
+import { v3Token400Error1Schema, type V3Token400Error1 } from "../models/v3-token400-error1.js";
+import { v3Token401Error1Schema, type V3Token401Error1 } from "../models/v3-token401-error1.js";
+import { v3Token500Error1Schema, type V3Token500Error1 } from "../models/v3-token500-error1.js";
 import type { Servers } from "../servers.js";
 
-/**
- * OAuth 2.0 / 2.1 token issuance, delegated consent, and client registration.
- */
 export class Authorization {
   readonly #rawClient: RawClient;
   readonly #servers: Servers;
-  readonly #auth: AuthSchemes;
 
-  constructor(rawClient: RawClient, servers: Servers, auth: AuthSchemes) {
+  constructor(rawClient: RawClient, servers: Servers) {
     this.#rawClient = rawClient;
     this.#servers = servers;
-    this.#auth = auth;
   }
 
   /**
-   * Authorization endpoint (delegated consent)
+   * Token Detail
    *
    * @remarks
-   * Browser endpoint for the authorization-code grant (RFC 6749 §3.1). The Solution Provider
-   * redirects the seller here; the seller authenticates and consents at Walmart IAM, and the
-   * response redirects to `redirect_uri` with a single-use `code`.
+   * This process retrieves the access permissions granted by sellers to applications in the context
+   * of OAuth 2.0. The scope encompasses various API categories, each with its respective access
+   * levels, for example Reports: View Only, Item: Full Access, etc. <br><b
+   * style='color:green;'>Market availability: Global</b>
    *
-   * - **PKCE required** — `code_challenge` + `code_challenge_method=S256` (RFC 7636). `plain` is
-   *   not accepted.
-   * - **Exact** `redirect_uri` match against a value registered for the client.
-   * - `state` required; echoed back verbatim (CSRF).
-   * - The success and error redirects (performed by IAM) carry `iss` (RFC 9207); clients MUST
-   *   validate it.
+   * @returns Successful Operation
    *
-   * **Error handling.** For a valid request, this endpoint `302`-redirects to the Walmart IAM
-   * consent URL; IAM then drives consent and performs the RFC 6749 §4.1.2.1 redirect back to the
-   * client's `redirect_uri` (success or error), because IAM is the party that can verify the
-   * `redirect_uri` is registered. For request-level errors that `the Authorization API` itself
-   * detects (missing/invalid `client_id`/`redirect_uri`, `response_type` != `code`,
-   * `code_challenge_method` != `S256`), it returns a JSON `400` (`AuthorizeError`). It deliberately
-   * does **not** redirect these errors to the supplied `redirect_uri`: the proxy has no client
-   * registry, so self-redirecting to an unverified URI would be an open redirect.
-   *
-   * > **Upstream status (, pending):** `iss` emission, exact-redirect > enforcement, and
-   * server-side rejection of `code_challenge_method=plain` are > IAM / app-store responsibilities
-   * not yet fully in place. the Authorization API > enforces the request-side invariants it can and
-   * redirects valid requests to > IAM; the full guarantee lands when those upstream changes ship.
-   *
-   * @throws {@link Authorization.AuthorizeApiError} when the API answers with an error status —
-   * narrow on `err.payload.kind`
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link WalmartApIsError} when no usable response was produced: a connection failure, a
    * timeout, a body that would not decode, a value that would not encode, or a credential that
    * could not be obtained
    */
-  authorize(
-    request: Authorization.AuthorizeRequest,
+  getTokenDetail(
+    request: Authorization.GetTokenDetailRequest,
     options?: RequestOptions,
-  ): ApiPromise<undefined, Authorization.AuthorizeApiError> {
+  ): ApiPromise<TokenDetailResponse, ApiError> {
     return this.#rawClient.execute(
       {
         method: "GET",
-        urlTemplate: this.#servers.default("/auth/v4/authorize"),
+        urlTemplate: this.#servers.default("/v3/token/detail"),
         auth: noneAuth,
         pathParams: [],
-        query: [
-          { name: "response_type", value: request.responseType, schema: responseType1Schema },
-          { name: "client_id", value: request.clientId, schema: s.string() },
-          { name: "redirect_uri", value: request.redirectUri, schema: s.string() },
-          { name: "scope", value: request.scope, schema: s.string() },
-          { name: "state", value: request.state, schema: s.string() },
-          { name: "code_challenge", value: request.codeChallenge, schema: s.string() },
+        query: [],
+        headers: [
+          { name: "WM_SEC.ACCESS_TOKEN", value: request.wmSecAccessToken, schema: s.string() },
+          { name: "WM_MARKET", value: request.wmMarket, schema: s.string() },
+          { name: "Content-Type", value: request.contentType, schema: s.string() },
+          { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
+          { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
           {
-            name: "code_challenge_method",
-            value: request.codeChallengeMethod,
-            schema: codeChallengeMethodSchema,
+            name: "WM_CONSUMER.CHANNEL.TYPE",
+            value: request.wmConsumerChannelType,
+            schema: s.optional(s.string()),
           },
         ],
-        headers: [],
         body: { kind: "empty" },
       },
       {
-        success: { kind: "empty" },
-        errorFactory: Authorization.AuthorizeApiError,
+        success: { kind: "json", schema: tokenDetailResponseSchema },
+        errorFactory: ApiError,
       },
       options,
     );
   }
 
   /**
-   * Issue an access token (client_credentials, authorization_code, or refresh_token)
+   * Token API
    *
    * @remarks
-   * Exchanges a grant for an OAuth access token. Supported `grant_type` values:
+   * <p>This endpoint issues access tokens required for authenticating API requests. It supports
+   * multiple OAuth 2.0 grant types to accommodate various integration scenarios.</p> <b
+   * style='color:green;'>Market availability: Global</b><br/><h3>Supported Grant
+   * Types</h3><table><tr><th>Grant Type</th><th>Description</th><th>How to get the
+   * credentials</th></tr><tr><td>authorization_code</td><td>Exchanges an authorization code for an
+   * access token.</td><td>Used in app integration only via the OAuth consent screen. This is
+   * applicable to the <strong>US market only</strong>. Refer to <a
+   * href=/global-marketplace/docs/oauth-20-authorization>OAuth 2.0 authorization</a> for more
+   * details.</td></tr><tr><td>client_credentials</td><td>Issues a token using client ID and
+   * secret.</td><td>For <strong>sellers</strong>: Obtain client_id and client_secret from the
+   * <strong>Developer Portal</strong>.<br/>For <strong>solution providers</strong>: Obtain
+   * credentials from sellers via <a href=/global-marketplace/docs/delegated-access-auth>Delegated
+   * Access authorization</a>.</td></tr><tr><td>refresh_token</td><td>Issues a new access token
+   * using a refresh token.</td><td>Provided during the authorization_code flow. This is applicable
+   * to the <strong>US market only</strong>. Refer to <a
+   * href=/global-marketplace/docs/oauth-20-authorization>OAuth 2.0 authorization</a> for more
+   * details.</td></tr></table><br/><b>Note:<br/></b> Use authorization_code and refresh_token
+   * <b>only for app-based integrations.</b> These grant types are currently <b>supported only in
+   * the US market</b>.<br/><br/><h3>Token Lifetimes</h3><table><tr><th>Token
+   * Type</th><th>Duration</th></tr><tr><td>Access Token</td><td>15 minutes <i>(900
+   * seconds)</i></td></tr><tr><td>Refresh Token</td><td>1 year <i>(365 days)</i></td></tr></table>
    *
-   * | grant_type | Flow | Required (besides grant_type) |
-   * |----------------------|------------------|---------------------------------|
-   * | `client_credentials` | seller-direct | client auth (see below) |
-   * | `authorization_code` | delegated | `code`, `code_verifier` (PKCE) |
-   * | `refresh_token` | delegated | `refresh_token` |
+   * @returns Successful Operation
    *
-   * **Client authentication:** credentials in the form body (`client_secret_post`) — `client_id` +
-   * `client_secret`. HTTP Basic is also accepted. **Public clients** (Solution-Provider apps
-   * registered `token_endpoint_auth_method: none`) send no secret on the delegated grants; PKCE
-   * protects the code.
-   *
-   * **`client_credentials`:** issues **no** refresh token (re-mint on expiry). **`scope` is
-   * decorative here** — accepted for compatibility but **not honored**; access is governed by the
-   * scopes provisioned per client in IAM ; there is no down-scoping and the response does not echo
-   * `scope`. (Verified: `/v3/token` ignores any `scope=` value.)
-   *
-   * **`authorization_code`:** `redirect_uri` is accepted for OAuth 2.0 back-compat but not required
-   * in 2.1 (PKCE covers injection).
-   *
-   * **`refresh_token`:** the response includes a **rotated** `refresh_token` — the presented token
-   * is invalidated (OAuth 2.1 §4.3.1; IAM rotates today, ~1-year TTL). A requested `scope` MUST NOT
-   * exceed the originally granted scope.
-   *
-   * **Token:** `Bearer` (RFC 6750), sent downstream as `Authorization: Bearer <token>` — **not**
-   * `WM_SEC.ACCESS_TOKEN`.
-   *
-   * **Implemented by `the Authorization API` as a stateless proxy to Walmart IAM .**
-   *
-   * @returns Access token issued.
-   *
-   * @throws {@link Authorization.CreateTokenError} when the API answers with an error status —
-   * narrow on `err.payload.kind`
+   * @throws {@link Authorization.TokenApiError} when the API answers with an error status — narrow
+   * on `err.payload.kind`
    *
    * @throws {@link WalmartApIsError} when no usable response was produced: a connection failure, a
    * timeout, a body that would not decode, a value that would not encode, or a credential that
    * could not be obtained
    */
-  createToken(
-    request: Authorization.CreateTokenRequest,
+  tokenApi(
+    request: Authorization.TokenApiRequest,
     options?: RequestOptions,
-  ): ApiPromise<TokenResponse, Authorization.CreateTokenError> {
+  ): ApiPromise<OAuthTokenModel, Authorization.TokenApiError> {
     return this.#rawClient.execute(
       {
         method: "POST",
-        urlTemplate: this.#servers.default("/auth/v4/token"),
-        auth: this.#auth.basicClientAuth,
+        urlTemplate: this.#servers.default("/v3/token"),
+        auth: noneAuth,
         pathParams: [],
         query: [],
-        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
+        headers: [
+          { name: "WM_MARKET", value: request.wmMarket, schema: s.string() },
+          { name: "Authorization", value: request.authorization, schema: s.string() },
+          { name: "WM_QOS.CORRELATION_ID", value: request.wmQosCorrelationId, schema: s.string() },
+          { name: "WM_SVC.NAME", value: request.wmSvcName, schema: s.string() },
+          { name: "WM_PARTNER.ID", value: request.wmPartnerId, schema: s.optional(s.string()) },
+          {
+            name: "WM_CONSUMER.CHANNEL.TYPE",
+            value: request.wmConsumerChannelType,
+            schema: s.optional(s.string()),
+          },
+          { name: "Idempotency-Key", value: uuid(), schema: s.string() },
+        ],
         body: {
           kind: "formUrlEncoded",
           value: [
-            { name: "grant_type", value: request.grantType, schema: grantTypeSchema },
-            { name: "client_id", value: request.clientId, schema: s.optional(s.string()) },
-            { name: "client_secret", value: request.clientSecret, schema: s.optional(s.string()) },
-            { name: "code", value: request.code, schema: s.optional(s.string()) },
-            { name: "code_verifier", value: request.codeVerifier, schema: s.optional(s.string()) },
-            { name: "refresh_token", value: request.refreshToken, schema: s.optional(s.string()) },
-            { name: "redirect_uri", value: request.redirectUri, schema: s.optional(s.string()) },
-            { name: "scope", value: request.scope, schema: s.optional(s.string()) },
+            {
+              name: "grant_type",
+              value: request.grantType,
+              schema: s.defaulted(grantType1Schema, GrantType1.ClientCredentials),
+            },
+            {
+              name: "code",
+              value: request.code,
+              schema: s.defaulted(s.string(), "65CA5DA313A549D49D15D3119D9AD85D"),
+            },
+            {
+              name: "redirect_uri",
+              value: request.redirectUri,
+              schema: s.defaulted(s.string(), "https://example-client-app.com"),
+            },
+            {
+              name: "refresh_token",
+              value: request.refreshToken,
+              schema: s.defaulted(s.string(), "APXcIoTpKMH9OQN....."),
+            },
           ],
         },
       },
       {
-        success: { kind: "json", schema: tokenResponseSchema },
-        errorFactory: Authorization.CreateTokenError,
-      },
-      options,
-    );
-  }
-
-  /**
-   * Dynamic Client Registration (RFC 7591)
-   *
-   * @remarks
-   * Registers a Solution Provider client and returns its `client_id` (RFC 7591). Lets Solution
-   * Providers onboard without manual registration.
-   *
-   * Public clients set `token_endpoint_auth_method: none` (no secret; PKCE required). Confidential
-   * clients receive a `client_secret`. `redirect_uris` are validated and later enforced by exact
-   * match at `/auth/v4/authorize`.
-   *
-   * Proxied to Walmart IAM's registration endpoint (/). RFC 7592 registration management
-   * (read/update/delete via a `registration_access_token`) is not offered in this version.
-   *
-   * @returns Client registered.
-   *
-   * @throws {@link Authorization.RegisterClientError} when the API answers with an error status —
-   * narrow on `err.payload.kind`
-   *
-   * @throws {@link WalmartApIsError} when no usable response was produced: a connection failure, a
-   * timeout, a body that would not decode, a value that would not encode, or a credential that
-   * could not be obtained
-   */
-  registerClient(
-    request: Authorization.RegisterClientRequest,
-    options?: RequestOptions,
-  ): ApiPromise<ClientRegistrationResponse, Authorization.RegisterClientError> {
-    return this.#rawClient.execute(
-      {
-        method: "POST",
-        urlTemplate: this.#servers.default("/auth/v4/register"),
-        auth: noneAuth,
-        pathParams: [],
-        query: [],
-        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
-        body: { kind: "json", value: request.body, schema: clientRegistrationRequestSchema },
-      },
-      {
-        success: { kind: "json", schema: clientRegistrationResponseSchema },
-        errorFactory: Authorization.RegisterClientError,
+        success: { kind: "json", schema: oAuthTokenModelSchema },
+        errorFactory: Authorization.TokenApiError,
       },
       options,
     );
@@ -231,99 +168,137 @@ export class Authorization {
 }
 
 export namespace Authorization {
-  export type AuthorizeRequest = {
-    /** Must be `code`. */
-    responseType: ResponseType1;
-    /** The registered client identifier. */
-    clientId: string;
-    /** Callback URI; must exactly match a registered value. */
-    redirectUri: string;
-    /** Space-delimited scopes. Include `offline_access` to receive a refresh token. */
-    scope: string;
-    /** Opaque CSRF token; echoed back unchanged. */
-    state: string;
-    /** PKCE challenge — base64url(SHA-256(code_verifier)). */
-    codeChallenge: string;
-    /** Must be `S256`. */
-    codeChallengeMethod: CodeChallengeMethod;
+  export type GetTokenDetailRequest = {
+    /**
+     * The access token retrieved in the Token API call
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmSecAccessToken: string;
+    /**
+     * Available marketplace location: us (USA), mx (Mexico), ca (Canada) or cl (Chile)
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmMarket: string;
+    /**
+     * Content type of the request body.
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    contentType: string;
+    /**
+     * A unique ID which identifies each API call and used to track and debug issues; use a random
+     * generated GUID for this ID
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmQosCorrelationId: string;
+    /**
+     * Walmart Service Name
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmSvcName: string;
+    /**
+     * A unique ID to track the consumer request by channel. Use the Consumer Channel Type received
+     * during onboarding.
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmConsumerChannelType?: string;
   };
 
-  export class AuthorizeApiError extends ApiError {
-    declare readonly payload: ErrorPayload<
-      | Declared<"error302", undefined>
-      | Declared<"authorizeError", AuthorizeError>
-      | Declared<"oAuthError", OAuthError>
-      | Declared<"oAuthError2", OAuthError>
-    >;
-
-    static readonly errors: ErrorDecoders<AuthorizeApiError> = [
-      { on: 302, kind: "error302", decode: { kind: "empty" } },
-      { on: 400, kind: "authorizeError", decode: { kind: "json", schema: authorizeErrorSchema } },
-      { on: 429, kind: "oAuthError", decode: { kind: "json", schema: oAuthErrorSchema } },
-      { on: 500, kind: "oAuthError2", decode: { kind: "json", schema: oAuthErrorSchema } },
-    ];
-  }
-
-  export type CreateTokenRequest = {
-    /** The OAuth grant type. */
-    grantType: GrantType;
-    /** Client identifier (client_secret_post / public clients). Omit if using HTTP Basic. */
-    clientId?: string;
-    /** Client secret (client_secret_post). Omit for public clients or HTTP Basic. */
-    clientSecret?: string;
-    /** Authorization code from `/auth/v4/authorize` (authorization_code grant). */
+  export type TokenApiRequest = {
+    /**
+     * Available marketplace location: us (USA), mx (Mexico), ca (Canada) or cl (Chile)
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmMarket: string;
+    /**
+     * Basic authorization header. Base 64 encodes the Client ID and Client Secret retrieved in step
+     * two of the integration steps.
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    authorization: string;
+    /**
+     * A unique ID which identifies each API call and used to track and debug issues; use a random
+     * generated GUID for this ID
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmQosCorrelationId: string;
+    /**
+     * Walmart Service Name
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmSvcName: string;
+    /**
+     * Partner Id registered in Walmart marketplace to identify a seller. <br /> This field is
+     * required when **grant_type: authorization_code** and **grant_type: refresh_token**
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmPartnerId?: string;
+    /**
+     * A unique ID to track the consumer request by channel. Use the Consumer Channel Type received
+     * during onboarding.
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     */
+    wmConsumerChannelType?: string;
+    /**
+     * Type of grant requested. <br /> **Available grant types:** authorization_code, refresh_token
+     * and client_credentials
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     *
+     * @default GrantType1.ClientCredentials
+     */
+    grantType?: GrantType1;
+    /**
+     * Authorization code obtained by your client app when the seller authorizes your app to access
+     * the seller resource. <br /> This field is required when **grant_type: authorization_code**
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     *
+     * @default "65CA5DA313A549D49D15D3119D9AD85D"
+     */
     code?: string;
     /**
-     * PKCE verifier whose S256 hash equals the earlier `code_challenge` (authorization_code grant).
-     */
-    codeVerifier?: string;
-    /** A previously issued refresh token (refresh_token grant). Rotated on use. */
-    refreshToken?: string;
-    /**
-     * Accepted for OAuth 2.0 back-compat on authorization_code; not required in 2.1 (PKCE covers
-     * injection).
+     * This should be same as one of your client app URIs provided while registering the app. <br />
+     * This field is required when **grant_type: authorization_code**
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     *
+     * @default "https://example-client-app.com"
      */
     redirectUri?: string;
     /**
-     * **client_credentials:** accepted for compatibility but **not honored** — no down-scoping; not
-     * echoed. **refresh_token:** optional; MUST NOT exceed the originally granted scope.
+     * Refresh token received as response of Authentication API with authorization_code grant type,
+     * to be used to refresh the access token. The token lifetime is 1 year.
+     *
+     * <strong style="color: green;">**Market availability: Global**</strong>
+     *
+     * @default "APXcIoTpKMH9OQN....."
      */
-    scope?: string;
+    refreshToken?: string;
   };
 
-  export class CreateTokenError extends ApiError {
-    declare readonly payload: ErrorPayload<
-      | Declared<"oAuthError", OAuthError>
-      | Declared<"oAuthError2", OAuthError>
-      | Declared<"oAuthError3", OAuthError>
-      | Declared<"oAuthError4", OAuthError>
-    >;
+  export class TokenApiError extends ApiError {
+    declare readonly payload:
+      | Declared<"v3Token400Error1", V3Token400Error1>
+      | Declared<"v3Token401Error1", V3Token401Error1>
+      | Declared<"v3Token500Error1", V3Token500Error1>
+      | Undeclared;
 
-    static readonly errors: ErrorDecoders<CreateTokenError> = [
-      { on: 400, kind: "oAuthError", decode: { kind: "json", schema: oAuthErrorSchema } },
-      { on: 401, kind: "oAuthError2", decode: { kind: "json", schema: oAuthErrorSchema } },
-      { on: 429, kind: "oAuthError3", decode: { kind: "json", schema: oAuthErrorSchema } },
-      { on: 500, kind: "oAuthError4", decode: { kind: "json", schema: oAuthErrorSchema } },
-    ];
-  }
-
-  export type RegisterClientRequest = {
-    body: ClientRegistrationRequest;
-  };
-
-  export class RegisterClientError extends ApiError {
-    declare readonly payload: ErrorPayload<
-      | Declared<"registrationError", RegistrationError>
-      | Declared<"registrationError2", RegistrationError>
-      | Declared<"oAuthError", OAuthError>
-      | Declared<"oAuthError2", OAuthError>
-    >;
-
-    static readonly errors: ErrorDecoders<RegisterClientError> = [
-      { on: 400, kind: "registrationError", decode: { kind: "json", schema: registrationErrorSchema } },
-      { on: 401, kind: "registrationError2", decode: { kind: "json", schema: registrationErrorSchema } },
-      { on: 429, kind: "oAuthError", decode: { kind: "json", schema: oAuthErrorSchema } },
-      { on: 500, kind: "oAuthError2", decode: { kind: "json", schema: oAuthErrorSchema } },
+    static readonly errors: ErrorDecoders<TokenApiError> = [
+      { on: 400, kind: "v3Token400Error1", decode: { kind: "json", schema: v3Token400Error1Schema } },
+      { on: 401, kind: "v3Token401Error1", decode: { kind: "json", schema: v3Token401Error1Schema } },
+      { on: 500, kind: "v3Token500Error1", decode: { kind: "json", schema: v3Token500Error1Schema } },
     ];
   }
 }

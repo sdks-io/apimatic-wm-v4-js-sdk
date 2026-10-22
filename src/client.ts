@@ -4,255 +4,176 @@ import { buildCoreClientOptions } from "./core/client-options.js";
 import { RawClient } from "./core/raw-client.js";
 import * as host from "./core/runtime-environment.js";
 import * as s from "./core/validation/index.js";
+import { AssortmentRecommendations } from "./resources/assortment-recommendations.js";
 import { Authorization } from "./resources/authorization.js";
-import { Catalog } from "./resources/catalog.js";
-import { DataKiosk } from "./resources/data-kiosk.js";
 import { Disputes } from "./resources/disputes.js";
-import { Feeds } from "./resources/feeds.js";
-import { FinalPayout } from "./resources/final-payout.js";
-import { Finances } from "./resources/finances.js";
-import { FulfillmentOutbound } from "./resources/fulfillment-outbound.js";
-import { Inventory } from "./resources/inventory.js";
-import { ListingsItems } from "./resources/listings-items.js";
-import { ListingsRestrictions } from "./resources/listings-restrictions.js";
-import { MerchantFulfillment } from "./resources/merchant-fulfillment.js";
-import { Messaging } from "./resources/messaging.js";
+import { FeedsApi } from "./resources/feeds-api.js";
+import { InsightApi } from "./resources/insight-api.js";
+import { InventoryApi } from "./resources/inventory-api.js";
+import { LagTimeApi } from "./resources/lag-time-api.js";
 import { Notifications } from "./resources/notifications.js";
-import { Orders } from "./resources/orders.js";
-import { Payouts } from "./resources/payouts.js";
-import { ProductFees } from "./resources/product-fees.js";
-import { ProductPricing } from "./resources/product-pricing.js";
-import { ProductTypeDefinitions } from "./resources/product-type-definitions.js";
-import { Reconciliation } from "./resources/reconciliation.js";
-import { ReportSchedules } from "./resources/report-schedules.js";
-import { Reports } from "./resources/reports.js";
-import { Sales } from "./resources/sales.js";
-import { Sellers } from "./resources/sellers.js";
-import { Settlement } from "./resources/settlement.js";
-import { Shipping } from "./resources/shipping.js";
-import { Solicitations } from "./resources/solicitations.js";
-import { Uploads } from "./resources/uploads.js";
-import { WfsInbound } from "./resources/wfs-inbound.js";
-import { WfsInventory } from "./resources/wfs-inventory.js";
+import { OnRequestReportApi } from "./resources/on-request-report-api.js";
+import { OnRequestReport } from "./resources/on-request-report.js";
+import { Prices } from "./resources/prices.js";
+import { Promotions } from "./resources/promotions.js";
+import { RecommendationsApi } from "./resources/recommendations-api.js";
+import { ReportScheduler } from "./resources/report-scheduler.js";
+import { ReportsApi } from "./resources/reports-api.js";
+import { ReturnsRefund } from "./resources/returns-refund.js";
+import { Reviews } from "./resources/reviews.js";
+import { RichMedia } from "./resources/rich-media.js";
+import { SemCampaignManagement } from "./resources/sem-campaign-management.js";
+import { SemCatalog } from "./resources/sem-catalog.js";
+import { SemItemDiagnostics } from "./resources/sem-item-diagnostics.js";
+import { SemReporting } from "./resources/sem-reporting.js";
+import { SeoRecommendations } from "./resources/seo-recommendations.js";
+import { ShipWithWalmart } from "./resources/ship-with-walmart.js";
+import { ShipmentProtection } from "./resources/shipment-protection.js";
+import { SimplifiedShippingSettings } from "./resources/simplified-shipping-settings.js";
+import { TaxFormApIs } from "./resources/tax-form-ap-is.js";
+import { WalmartSellerFulfilled } from "./resources/walmart-seller-fulfilled.js";
+import { WsrAttributionReports } from "./resources/wsr-attribution-reports.js";
 import { buildServers, type Servers } from "./servers.js";
 
 /**
- * OAuth token issuance for Walmart Marketplace, covering **both** v4 authorization flows in one
- * contract:
+ * The Walmart Marketplace APIs use OAuth for token-based authentication and authorization.<Br /> We
+ * also introduced OAuth 2.0 for solution providers to enable new authorizations using authorization
+ * code grant type. Sellers can now connect with solution provider apps seamlessly through this new
+ * Walmart's OAuth 2.0 user experience. Refer to the [Guide section](/doc/us/mp/us-mp-auth2/#606)
+ * for comprehensive instructions. Existing seller connections using the previous authorization
+ * method will remain operational., The Advertising API provides comprehensive advertising solutions
+ * for Walmart sellers, including:
  *
- * 1. **Seller-direct** (`client_credentials`) — a seller's own application exchanges its client
- *    credentials for a short-lived access token, then calls the v4 APIs with `Authorization: Bearer
- *    <token>`.
- * 2. **Solution-Provider delegated** (`authorization_code` + PKCE, `refresh_token`, and Dynamic
- *    Client Registration) — a seller grants a Solution Provider's application access to their
- *    Marketplace account.
+ * ## Search Engine Marketing (SEM)
+ * Search Engine Marketing allows you to promote your listings through Google Shopping Ads and reach
+ * customers who are searching on Google for products like yours.
  *
- * Both flows are served by `the Authorization API` as a **stateless proxy** to Walmart IAM : IAM
- * remains the sole issuer; no secrets are stored and no tokens are signed here. Access tokens are
- * opaque, `Bearer`-type, short-lived; refresh tokens (delegated flow) are rotated on use. Never log
- * tokens.
+ * ## Walmart Seller Affiliate Program (WSR)
+ * The Attribution Reports API provides sellers with detailed performance analytics and item-level
+ * metrics for their affiliate marketing campaigns. This API enables sellers to track campaign
+ * effectiveness, monitor click-through rates, conversions, and revenue attribution across different
+ * campaign hierarchies.<br><b style='color:green;'>Market availability: US only</b>
  *
- * ## One token endpoint, grant dispatch
- * `POST /auth/v4/token` handles all three grants (`client_credentials`, `authorization_code`,
- * `refresh_token`) via `grant_type` dispatch — the merged v4 contract ( for seller-direct, for
- * delegated). This is why the two formerly separate specs (`openapi.yaml` + `delegated-oauth.yaml`)
- * are now a single document: a path can carry exactly one `post:`, so one file makes the shared
- * endpoint unambiguous for codegen and for the implementing controller.
+ * ## Authentication
+ * All API requests require authentication using Walmart's standard OAuth 2.0 authentication.
+ * Include the following headers with each request:
+ * - `WM_SEC.ACCESS_TOKEN`: Your access token
+ * - `WM_CONSUMER.CHANNEL.TYPE`: Consumer Channel Type received during onboarding
+ * - `WM_SVC.NAME`: Walmart Service Name
+ * - `WM_QOS.CORRELATION_ID`: Unique request correlation ID
  *
- * ## Posture
- * - **Seller-direct is OAuth 2.0** : documents what IAM/Apigee already do. IAM cannot add new auth
- *   features for this flow, so `client_credentials` issues **no** refresh token, `scope=` is
- *   accepted-but-ignored (no down-scoping), and introspection (RFC 7662) / revocation (RFC 7009) /
- *   discovery (RFC 8414) are **deliberately absent**.
- * - **Delegated is OAuth 2.1** : IAM already supports PKCE (`S256`), refresh rotation (~1-year TTL
- *   via `offline_access`), and Dynamic Client Registration (RFC 7591), so this flow specifies them
- *   properly.
+ * ## Rate Limits
+ * - 10 requests per second per seller
+ * - 1000 requests per hour per seller
  *
- * The one modernization over `/v3` shared by both flows is the **access-token header**: v4 uses the
- * standard `Authorization: Bearer` and **does not use `WM_SEC.ACCESS_TOKEN`** (the gateway already
- * tolerates Bearer).
+ * ## Data Freshness
+ * Performance data is updated daily. Data for the current day may be incomplete., Assortment
+ * recommendations help sellers understand customer demand in Walmart and the external market by
+ * providing personalized item recommendations. These insights are generated by leveraging demand
+ * signals like:
+ * * Internal and external search
+ * * Best Sellers
+ * * Trending items
  *
- * ## Delegated-flow upstream gaps (, pending)
- * `GET /auth/v4/authorize` documents the OAuth-2.1-correct target. Three of its guarantees depend
- * on upstream changes that are **not yet in place**: `iss` emission (RFC 9207), exact
- * `redirect_uri` enforcement, and server-side PKCE `S256` enforcement (rejecting `plain`) are IAM /
- * app-store responsibilities tracked in . the Authorization API validates the request-side
- * invariants it can and redirects correctly; the full end-to-end guarantee lands when IAM +
- * app-store ship those changes.
+ * The assortment recommendations API can be used to view customer favorites (In-demand items),
+ * demand trends, filter, reject, and bulk download the recommendations. These recommended items can
+ * be set up using the [Item Setup API](https://developer.walmart.com/api/us/mp/items). Sellers need
+ * to provide API access key on [developer
+ * portal](https://developer.walmart.com/account/generateKey) for ‘Analytics & Growth’ to solution
+ * providers and channel partners to be able to access Assortment Growth APIs., Endpoints for
+ * creating and tracking Ship with Walmart (SWW) shipment-protection claims., The Dispute Management
+ * APIs allows you to raise a dispute and check the status of an item under dispute.
  *
- * **Pod Owner:** Pod 0 — Core & Auth **Implementation target:** the Authorization API (proxy) →
- * Walmart IAM , Retrieve catalog and product information from the Walmart Marketplace catalog.
+ * Throttling: These APIs are limited to an aggregated total of 10 transactions per minute (TPM) per
+ * seller., Feeds are constructed to handle bulk functions. A feed consists of an HTTP request with
+ * an attached file. Once you upload the Feeds, you can use the Feed ID to track the status of the
+ * feeds and the status of the item within those Feeds., The Insights Management API provides
+ * sellers with actionable information to optimize their listings:
+ * * Sellers can locate best-selling items with Trending Items API so they can add those to their
+ *   catalog of item offerings.
+ * * Sellers can find out reasons why items go unpublished, fix the issue and republish those items.
+ * * Sellers can use Listing Quality APIs to gather listing quality metrics about their items and
+ *   find out any post-production issues that they can fix.
+ * * Sellers can obtain their overall Listing Quality score, and locate any categories that show
+ *   items with listing quality issues., Maintaining up-to-date inventory for your items on
+ *   Walmart.com ensures a great experience for your customers and greater sales opportunities for
+ *   you., This API allows the retrieval of Lag Time for an item with a given SKU., Notifications
+ *   Management API, The On Request Reports API allows you to request reports immediately about your
+ *   items for faster retrieval. You can request the report, check status on the report
+ *   availability, and then download the report URL when report is ready. You can also get a list of
+ *   all reports requested., These APIs are specifically designed for payment use cases within the
+ *   Walmart Marketplace., The price is a fundamental building block for your listing on
+ *   Walmart.com. You can use the price management APIs to set up and manage the price for a given
+ *   item, Sellers can set regular or promotional prices for their items. Setting the Promotional
+ *   prices is an option to create unique pricing for events such as clearance sales or to call out
+ *   a comparison price, APIs for providing recommendations to sellers., Please transition ASAP to
+ *   using onRequest Reports (https://developer.walmart.com/doc/us/us-mp/us-mp-onrequestreports/).
+ *   On July 29th, all PreGenerated reports other than recon report will be retired and only
+ *   available onRequest. The Pregenerated Reports API allows you to obtain any pregenerated report
+ *   that you need, including: item, item performance, buy box, CAP, promotions, reconciliation,
+ *   return item override, shipping program and shipping configuration., The Reviews Acceleration
+ *   API provides sellers with capability to view and enroll items into review accelerator programs:
  *
- *
- * **Pod Owner:** Pod 1 — Items & Catalog **Implementation target:** Partner Item Query Service
- * (PIQS), Submit analytics queries and retrieve structured data from Walmart's data platform.
- * Modeled after Walmart Seller API Data Kiosk API.
- *
- * ADR pending: GraphQL vs REST query language — see docs/adr/ once filed. Until the ADR resolves,
- * the query body is treated as an opaque string.
- *
- * **Pod Owner:** Pod 4 — Feeds & Reports **Implementation target:** Walmart Analytics / Data
- * Platform, Submit bulk data to Walmart Marketplace via asynchronous feed processing. Sellers
- * submit a feed file in a single API call; the server handles document storage and initiates async
- * processing. Poll feed status with the feedId returned in the submission response.
- *
- * **Pod Owner:** Pod 4 — Feeds & Reports **Implementation target:** Walmart Feed Service / Bulk
- * Operations
- *
- * <!-- hello: Atul Soman (@a0s1r2d) joined Pod 4 — 2026-06-04 --> <!-- hello: Ramprabhu Murugesan
- * (@rmurug3) joined Pod 4 as lead — 2026-06-04 -->, WFS Inbound Plans API. Walmart Seller API —
- * Fulfillment Inbound contract. Terminology: WFS = Walmart Fulfillment Services, Ship Node =
- * fulfillment center., WFS Inbound Delivery Windows, Self-Ship Appointments & Operation Status API.
- * Walmart Seller API — Fulfillment Inbound contract. Terminology: WFS = Walmart Fulfillment
- * Services, Ship Node = fulfillment center., WFS Inbound Packing. Walmart Seller API — Fulfillment
- * Inbound contract. Terminology: WFS = Walmart Fulfillment Services, Ship Node = fulfillment
- * center., WFS Inbound Packing & Placement API. Walmart Seller API — Fulfillment Inbound contract.
- * Terminology: WFS = Walmart Fulfillment Services, Ship Node = fulfillment center., WFS Inbound
- * Items, Compliance, Labels & Prep API. Walmart Seller API — Fulfillment Inbound contract.
- * Terminology: WFS = Walmart Fulfillment Services, Ship Node = fulfillment center., WFS Inbound
- * Shipments API. Walmart Seller API — Fulfillment Inbound contract. Terminology: WFS = Walmart
- * Fulfillment Services, Ship Node = fulfillment center., Create and manage WFS (Walmart Fulfillment
- * Services) outbound fulfillment orders. Sellers ship inventory to Walmart ship nodes; Walmart
- * picks, packs, and ships to end customers.
- *
- *
- * **Pod Owner:** Pod 2 — Orders & Fulfillment **Implementation target:** WFS Outbound / Ship Node
- * Service, Manage seller inventory on the Walmart Marketplace.
- *
- *
- * **Pod Owner:** Pod 3 — Inventory & Pricing **Implementation target:** Walmart Inventory Service,
- * Create, fully update, patch, and delete listings items for sellers on the Walmart Marketplace.
- * Modeled after Walmart Seller API Listings Items API.
- *
- * **Pod Owner:** Pod 1 — Items & Catalog **Implementation target:** Walmart Item Setup Service, Get
- * information about listing restrictions on items in the Walmart Marketplace. Identifies compliance
- * blocks, category restrictions, and approval requirements.
- *
- *
- * **Pod Owner:** Pod 3 — Inventory & Pricing **Implementation target:** Walmart Item Compliance /
- * Restriction Service, SUPERSEDED — NOT SCHEDULED FOR IMPLEMENTATION. the Merchant Fulfillment API
- * is obsolete: its operations are covered by the Shipping API, and both front the same upstream
- * (Ship With Walmart). Per Suresh's SWW-consolidation analysis, every operation below is marked
- * counts toward Pod 2 implementation scope. This spec is retained for reference only (tombstone) —
- * no code is being built against it. New seller-fulfilled shipping work goes to the Shipping API.
- *
- * Tracking: (this deprecation). The one partial-coverage gap (MFN full-record `getShipment` has no
- * single the Shipping API equivalent) is owned by Suresh for decision in .
- *
- * --- Get eligible shipping services and purchase shipping labels for seller-fulfilled orders.
- * Modeled after Walmart Seller API Merchant Fulfillment API.
- *
- * **Pod Owner:** Pod 2 — Orders & Fulfillment **Implementation target:** Ship With Walmart (SWW) —
- * SWW-LABEL-SERVICE (internal `/v3/sww/labels/*` synchronous REST; see
- * docs/mapper/mfn-mapper-feasibility.md), Retrieve and manage Walmart Marketplace orders.
- *
- *
- * **Pod Owner:** Pod 2 — Orders & Fulfillment **Implementation target:** Walmart Order Management
- * Service (OMS) <!-- hello: Vikram Godbole (@vgodbol) joined Pod 2 — 2026-06-03 --> <!-- hello:
- * Suresh Dussa (@s0d08o6) joined Pod 2 — 2026-06-08 --> <!-- hello: Leon Jiang (@r0j09pq) joined
- * Pod 2 — 2026-08-10 --> <!-- hello: Rashmi Das (@r0d01sm) joined Pod 2 — 2026-08-18 -->, Unified
- * Payments domain API for Walmart Marketplace sellers. Consolidates Pod 5 (Finances / financial
- * event reporting) and Pod 6 (Outbound Payments — settlement, reconciliation, payout execution)
- * into a single service under the Payments domain .
- *
- * **Category A (7 routes):** Reporting — delegated to mp-payment-reporting upstream. **Category B
- * (9 routes):** Execution — delegated to GMPPayments upstream. **Finances (4 routes):** Financial
- * event reporting — delegated to GMP partnerTxnSearch and commission endpoints (, ).
- *
- * Routes with x-walmart-pii: true contain order/seller PII and require an RDT issued by the Tokens
- * service (Pod 0, ) in production.
- *
- * **Domain Owner:** Payments Domain (consolidated Pod 5 + Pod 6) **Tech Lead:** \@cssehga
- * **Replaces:** the payments settlement backend (v3 BFF); the Payments API (Pod 5), Pricing
- * information for seller items and competitive pricing summaries. Aligned to SP-API
- * productPricingV0 surface (April 2026 release), with Walmart Item ID substituted for ASIN as the
- * primary item identifier .
- *
- * Three GET endpoints are backed by IQS / GCI catalog_index . Five batch/item endpoints are Phase 1
- * stubs pending implementation — through .
- *
- * **Pod Owner:** Pod 3 — Inventory & Pricing **Implementation target:** Walmart Price Service /
- * Competitive Intelligence, Fee estimate endpoints for seller items. Aligned to SP-API
- * productFeesV0 surface, with Walmart Item ID substituted for ASIN as the primary item identifier ,
- * and Amazon-specific branding replaced with Walmart equivalents.
- *
- * All three endpoints are Phase 2 implementations backed by:
- * - IQS catalog_index — item enrichment (category, weight, dims, GTIN)
- * - Partner Rate Service (Columbus) — referral fee by category
- * - WFS Fulfillment Fee Service (payment-app.wfs) — WFS pick-and-pack fees
- *
- * **Pod Owner:** Pod 3 — Inventory & Pricing, Retrieve Walmart product type definitions, attribute
- * schemas, and item classification rules used when setting up seller listings.
- *
- * **Pod Owner:** Pod 1 — Items & Catalog **Implementation target:** Walmart Item Classification
- * Service, Create, cancel, and retrieve seller reports. Supports scheduled and on-demand reports
- * with async processing.
- *
- *
- * **Pod Owner:** Pod 4 — Feeds & Reports **Implementation target:** Walmart Seller Reporting
- * Service, Retrieve information about a seller's Walmart Marketplace account and marketplace
- * participations.
- *
- *
- * **Pod Owner:** Pod 5 — Seller & Finances **Implementation target:** Walmart Seller Account
- * Service / Seller Center, Shipping API for sellers to request rates, purchase shipping labels,
- * track shipments, and manage delivery exceptions across Walmart Marketplace and WFS channels.
- *
- * Surface aligned with industry SP-API Shipping v2. Pod 2 — Orders & Fulfillment owns this service.
- * Common types (Address, Money, Weight, PackageDimensions) are inlined per Pod 2 convention,
- * byte-identical to the canonical copies in the Merchant Fulfillment API; (proposed) defines the
- * future promotion path to models/_shared/ once the Rule of Three triggers a coordinated extraction
- * PR., Create upload destinations (pre-signed URLs) for feed documents and retrieve previously
- * uploaded documents. Used in conjunction with the Feeds service for async bulk operations.
- *
- *
- * Pre-signed URLs must not appear in logs — treat as secrets.
- *
- * **Pod Owner:** Pod 4 — Feeds & Reports **Implementation target:** Walmart Document Store / S3
- * pre-signed URLs
+ * * Sellers can view their eligible product catalog that can be enrolled into Review Accelerator
+ *   program(RAP) using Get RAP post-purchase items API
+ * * Sellers can view their currently enrolled products using Get RAP post-purchase items API
+ * * Sellers can leverage Get RAP post-purchase items API to get all products that have attained
+ *   target reviews after enrolment into the program
+ * * Sellers can filter the products on the basis of category and price. They can also sort based on
+ *   item priority and search using product name and SKU
+ * * Sellers can enroll a product/multiple products into the program using update item status API,
+ *   Use the rich media management APIs to upload, link, delink, and manage 360-spin images and
+ *   videos for Walmart Marketplace items. After registration, use your consumer ID and private key
+ *   to authenticate and begin integration., SEO recommendations powered by Walmart AI-LLM model to
+ *   optimize SEO traffic. This will help sellers enhance their product listings with keywords
+ *   suggestions, improved content, optimized meta descriptions, and actionable insights, driving
+ *   more organic traffic and increasing visibility and sales., The Ship With Walmart (SWW) APIs
+ *   enables walmart.com sellers to buy shipping at competitively discounted rates directly from
+ *   Walmart to ship their goods to US customers., The Simplified Shipping Settings APIs allows
+ *   sellers to manage all the simplified shipping configuration for better shipping and delivery
+ *   promise experience, API for bulk enrollment/unenrollment of items in Walmart Plus program
  */
 export class WalmartApIsClient {
   readonly #rawClient: RawClient;
   readonly #servers: Servers;
   readonly #auth: AuthSchemes;
   #authorization?: Authorization;
-  #catalog?: Catalog;
-  #dataKiosk?: DataKiosk;
-  #feeds?: Feeds;
-  #wfsInbound?: WfsInbound;
-  #fulfillmentOutbound?: FulfillmentOutbound;
-  #inventory?: Inventory;
-  #wfsInventory?: WfsInventory;
-  #listingsItems?: ListingsItems;
-  #listingsRestrictions?: ListingsRestrictions;
-  #merchantFulfillment?: MerchantFulfillment;
-  #orders?: Orders;
-  #settlement?: Settlement;
-  #reconciliation?: Reconciliation;
-  #reports?: Reports;
-  #payouts?: Payouts;
+  #semCampaignManagement?: SemCampaignManagement;
+  #semCatalog?: SemCatalog;
+  #semReporting?: SemReporting;
+  #wsrAttributionReports?: WsrAttributionReports;
+  #semItemDiagnostics?: SemItemDiagnostics;
+  #assortmentRecommendations?: AssortmentRecommendations;
+  #shipmentProtection?: ShipmentProtection;
   #disputes?: Disputes;
-  #finalPayout?: FinalPayout;
-  #finances?: Finances;
-  #productPricing?: ProductPricing;
-  #productFees?: ProductFees;
-  #productTypeDefinitions?: ProductTypeDefinitions;
-  #reportSchedules?: ReportSchedules;
-  #sales?: Sales;
-  #messaging?: Messaging;
+  #feedsApi?: FeedsApi;
+  #insightApi?: InsightApi;
+  #inventoryApi?: InventoryApi;
+  #lagTimeApi?: LagTimeApi;
   #notifications?: Notifications;
-  #solicitations?: Solicitations;
-  #sellers?: Sellers;
-  #shipping?: Shipping;
-  #uploads?: Uploads;
+  #onRequestReportApi?: OnRequestReportApi;
+  #onRequestReport?: OnRequestReport;
+  #reportScheduler?: ReportScheduler;
+  #taxFormApIs?: TaxFormApIs;
+  #prices?: Prices;
+  #promotions?: Promotions;
+  #recommendationsApi?: RecommendationsApi;
+  #reportsApi?: ReportsApi;
+  #returnsRefund?: ReturnsRefund;
+  #reviews?: Reviews;
+  #richMedia?: RichMedia;
+  #seoRecommendations?: SeoRecommendations;
+  #shipWithWalmart?: ShipWithWalmart;
+  #simplifiedShippingSettings?: SimplifiedShippingSettings;
+  #walmartSellerFulfilled?: WalmartSellerFulfilled;
 
   constructor(options: ClientOptions = {}) {
     this.#rawClient = new RawClient({
       ...buildCoreClientOptions(options, "WALMART_AP_IS_CLIENT_LOG"),
       defaultHeaders: [
-        { name: "User-Agent", value: "WalmartApIsClient/4.0.0 TypeScript", schema: s.string() },
+        { name: "User-Agent", value: "WalmartApIsClient/1.0.0 TypeScript", schema: s.string() },
         { name: "X-APIMatic-Lang", value: "TypeScript", schema: s.string() },
-        { name: "X-APIMatic-Package-Version", value: "4.0.0", schema: s.string() },
+        { name: "X-APIMatic-Package-Version", value: "1.0.0", schema: s.string() },
         { name: "X-APIMatic-Gen-Version", value: "4.0.0", schema: s.string() },
         { name: "X-APIMatic-OS", value: host.operatingSystem(), schema: s.optional(s.string()) },
         { name: "X-APIMatic-Runtime", value: host.runtimeDescription(), schema: s.optional(s.string()) },
@@ -263,179 +184,151 @@ export class WalmartApIsClient {
 
     this.#servers = buildServers(options);
 
-    this.#auth = buildAuthSchemes(options, this.#servers, this.#rawClient);
+    this.#auth = buildAuthSchemes(options);
   }
 
-  /**
-   * OAuth 2.0 / 2.1 token issuance, delegated consent, and client registration.
-   */
   get authorization(): Authorization {
-    return (this.#authorization ??= new Authorization(this.#rawClient, this.#servers, this.#auth));
+    return (this.#authorization ??= new Authorization(this.#rawClient, this.#servers));
   }
 
-  get catalog(): Catalog {
-    return (this.#catalog ??= new Catalog(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  get dataKiosk(): DataKiosk {
-    return (this.#dataKiosk ??= new DataKiosk(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  get feeds(): Feeds {
-    return (this.#feeds ??= new Feeds(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  get wfsInbound(): WfsInbound {
-    return (this.#wfsInbound ??= new WfsInbound(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  get fulfillmentOutbound(): FulfillmentOutbound {
-    return (this.#fulfillmentOutbound ??= new FulfillmentOutbound(
+  /**
+   * Endpoints for managing Search Engine Marketing campaigns
+   */
+  get semCampaignManagement(): SemCampaignManagement {
+    return (this.#semCampaignManagement ??= new SemCampaignManagement(
       this.#rawClient,
       this.#servers,
       this.#auth,
     ));
   }
 
-  get inventory(): Inventory {
-    return (this.#inventory ??= new Inventory(this.#rawClient, this.#servers, this.#auth));
+  /**
+   * Endpoints for managing catalog items for SEM campaigns
+   */
+  get semCatalog(): SemCatalog {
+    return (this.#semCatalog ??= new SemCatalog(this.#rawClient, this.#servers, this.#auth));
   }
 
-  get wfsInventory(): WfsInventory {
-    return (this.#wfsInventory ??= new WfsInventory(this.#rawClient, this.#servers, this.#auth));
+  /**
+   * Endpoints for retrieving SEM campaign performance reports
+   */
+  get semReporting(): SemReporting {
+    return (this.#semReporting ??= new SemReporting(this.#rawClient, this.#servers, this.#auth));
   }
 
-  get listingsItems(): ListingsItems {
-    return (this.#listingsItems ??= new ListingsItems(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  get listingsRestrictions(): ListingsRestrictions {
-    return (this.#listingsRestrictions ??= new ListingsRestrictions(
+  /**
+   * Endpoints for retrieving affiliate campaign performance reports
+   */
+  get wsrAttributionReports(): WsrAttributionReports {
+    return (this.#wsrAttributionReports ??= new WsrAttributionReports(
       this.#rawClient,
       this.#servers,
       this.#auth,
     ));
   }
 
-  get merchantFulfillment(): MerchantFulfillment {
-    return (this.#merchantFulfillment ??= new MerchantFulfillment(
+  get semItemDiagnostics(): SemItemDiagnostics {
+    return (this.#semItemDiagnostics ??= new SemItemDiagnostics(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get assortmentRecommendations(): AssortmentRecommendations {
+    return (this.#assortmentRecommendations ??= new AssortmentRecommendations(
       this.#rawClient,
       this.#servers,
-      this.#auth,
     ));
   }
 
-  get orders(): Orders {
-    return (this.#orders ??= new Orders(this.#rawClient, this.#servers, this.#auth));
+  get shipmentProtection(): ShipmentProtection {
+    return (this.#shipmentProtection ??= new ShipmentProtection(this.#rawClient, this.#servers));
   }
 
-  /**
-   * Settlement periods and detailed transaction records.
-   */
-  get settlement(): Settlement {
-    return (this.#settlement ??= new Settlement(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  /**
-   * Reconciliation report availability and download.
-   */
-  get reconciliation(): Reconciliation {
-    return (this.#reconciliation ??= new Reconciliation(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  /**
-   * Settlement summary report download (new and legacy formats).
-   */
-  get reports(): Reports {
-    return (this.#reports ??= new Reports(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  /**
-   * Payout status, eligibility, and initiation.
-   */
-  get payouts(): Payouts {
-    return (this.#payouts ??= new Payouts(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  /**
-   * Dispute eligibility for payment issues.
-   */
   get disputes(): Disputes {
-    return (this.#disputes ??= new Disputes(this.#rawClient, this.#servers, this.#auth));
+    return (this.#disputes ??= new Disputes(this.#rawClient, this.#servers));
   }
 
-  /**
-   * Final payout case management.
-   */
-  get finalPayout(): FinalPayout {
-    return (this.#finalPayout ??= new FinalPayout(this.#rawClient, this.#servers, this.#auth));
+  get feedsApi(): FeedsApi {
+    return (this.#feedsApi ??= new FeedsApi(this.#rawClient, this.#servers, this.#auth));
   }
 
-  /**
-   * Financial event groups, financial events, and order-level financial events (consolidated from
-   * Pod 5).
-   */
-  get finances(): Finances {
-    return (this.#finances ??= new Finances(this.#rawClient, this.#servers, this.#auth));
+  get insightApi(): InsightApi {
+    return (this.#insightApi ??= new InsightApi(this.#rawClient, this.#servers, this.#auth));
   }
 
-  /**
-   * Product pricing and competitive pricing operations
-   */
-  get productPricing(): ProductPricing {
-    return (this.#productPricing ??= new ProductPricing(this.#rawClient, this.#servers, this.#auth));
+  get inventoryApi(): InventoryApi {
+    return (this.#inventoryApi ??= new InventoryApi(this.#rawClient, this.#servers, this.#auth));
   }
 
-  /**
-   * Fee estimate operations for seller items
-   */
-  get productFees(): ProductFees {
-    return (this.#productFees ??= new ProductFees(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  get productTypeDefinitions(): ProductTypeDefinitions {
-    return (this.#productTypeDefinitions ??= new ProductTypeDefinitions(
-      this.#rawClient,
-      this.#servers,
-      this.#auth,
-    ));
-  }
-
-  get reportSchedules(): ReportSchedules {
-    return (this.#reportSchedules ??= new ReportSchedules(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  get sales(): Sales {
-    return (this.#sales ??= new Sales(this.#rawClient, this.#servers, this.#auth));
-  }
-
-  get messaging(): Messaging {
-    return (this.#messaging ??= new Messaging(this.#rawClient, this.#servers, this.#auth));
+  get lagTimeApi(): LagTimeApi {
+    return (this.#lagTimeApi ??= new LagTimeApi(this.#rawClient, this.#servers, this.#auth));
   }
 
   get notifications(): Notifications {
     return (this.#notifications ??= new Notifications(this.#rawClient, this.#servers, this.#auth));
   }
 
-  get solicitations(): Solicitations {
-    return (this.#solicitations ??= new Solicitations(this.#rawClient, this.#servers, this.#auth));
+  get onRequestReportApi(): OnRequestReportApi {
+    return (this.#onRequestReportApi ??= new OnRequestReportApi(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get onRequestReport(): OnRequestReport {
+    return (this.#onRequestReport ??= new OnRequestReport(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get reportScheduler(): ReportScheduler {
+    return (this.#reportScheduler ??= new ReportScheduler(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get taxFormApIs(): TaxFormApIs {
+    return (this.#taxFormApIs ??= new TaxFormApIs(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get prices(): Prices {
+    return (this.#prices ??= new Prices(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get promotions(): Promotions {
+    return (this.#promotions ??= new Promotions(this.#rawClient, this.#servers));
   }
 
   /**
-   * Seller account and marketplace participation information
+   * APIs for providing recommendations to sellers.
    */
-  get sellers(): Sellers {
-    return (this.#sellers ??= new Sellers(this.#rawClient, this.#servers, this.#auth));
+  get recommendationsApi(): RecommendationsApi {
+    return (this.#recommendationsApi ??= new RecommendationsApi(this.#rawClient, this.#servers));
   }
 
-  /**
-   * Rate quotes, label purchase, tracking, and delivery for seller shipments.
-   */
-  get shipping(): Shipping {
-    return (this.#shipping ??= new Shipping(this.#rawClient, this.#servers, this.#auth));
+  get reportsApi(): ReportsApi {
+    return (this.#reportsApi ??= new ReportsApi(this.#rawClient, this.#servers, this.#auth));
   }
 
-  get uploads(): Uploads {
-    return (this.#uploads ??= new Uploads(this.#rawClient, this.#servers, this.#auth));
+  get returnsRefund(): ReturnsRefund {
+    return (this.#returnsRefund ??= new ReturnsRefund(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get reviews(): Reviews {
+    return (this.#reviews ??= new Reviews(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get richMedia(): RichMedia {
+    return (this.#richMedia ??= new RichMedia(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get seoRecommendations(): SeoRecommendations {
+    return (this.#seoRecommendations ??= new SeoRecommendations(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get shipWithWalmart(): ShipWithWalmart {
+    return (this.#shipWithWalmart ??= new ShipWithWalmart(this.#rawClient, this.#servers, this.#auth));
+  }
+
+  get simplifiedShippingSettings(): SimplifiedShippingSettings {
+    return (this.#simplifiedShippingSettings ??= new SimplifiedShippingSettings(
+      this.#rawClient,
+      this.#servers,
+    ));
+  }
+
+  get walmartSellerFulfilled(): WalmartSellerFulfilled {
+    return (this.#walmartSellerFulfilled ??= new WalmartSellerFulfilled(this.#rawClient, this.#servers));
   }
 }

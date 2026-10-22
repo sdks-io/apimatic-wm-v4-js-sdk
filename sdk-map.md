@@ -8,8 +8,8 @@
 | --- | --- |
 | SDK display name | Walmart APIs |
 | Package | `apimatic-wm-v4-sdk` |
-| Package version | `4.0.0` |
-| API spec version | `v4` |
+| Package version | `1.0.0` |
+| API spec version | `1.0` |
 | Import specifier | `apimatic-wm-v4-sdk` — the package root is the **only** entry. Deep imports (`apimatic-wm-v4-sdk/models/...`) do not resolve; the `exports` map exposes `.` and `./package.json` and nothing else |
 | Module format | dual ESM + CommonJS, as folder dialects (`dist/esm`, `dist/commonjs`), each with its own `package.json` marker. No `.mjs`, `.cjs`, `.d.mts` or `.d.cts` files exist |
 | Node floor | `>=20.3` (`engines.node`) |
@@ -26,23 +26,17 @@ All `Source` paths on this map and its sub-pages are relative to the **SDK root*
 ## Getting a client
 
 ```ts
-import { PkceMethod, ServerEnvironment, WalmartApIsClient } from "apimatic-wm-v4-sdk";
+import { ServerEnvironment, WalmartApIsClient } from "apimatic-wm-v4-sdk";
 
 const client = new WalmartApIsClient({
   serverEnvironment: ServerEnvironment.Production,
-  sellerAuthAuthorizationCode: {
-    clientId: "YOUR_CLIENT_ID",
-    redirectUri: "YOUR_REDIRECT_URI",
-    pkce: PkceMethod.S256,
-    promptForAuthorizationCode: (authorizationUrl, signal) => Promise.resolve("YOUR_AUTHORIZATION_CODE"),
-  },
-  sellerAuthClientCredentials: { clientId: "YOUR_CLIENT_ID", clientSecret: "YOUR_CLIENT_SECRET" },
-  basicClientAuth: { username: "YOUR_USERNAME", password: "YOUR_PASSWORD" },
-  walletAuth: { clientId: "YOUR_CLIENT_ID", clientSecret: "YOUR_CLIENT_SECRET" },
+  basicAuth: { username: "YOUR_USERNAME", password: "YOUR_PASSWORD" },
+  bearerAuth: "YOUR_BEARER_TOKEN",
+  accessToken: "YOUR_API_KEY",
 });
 ```
 
-The only constructor is `new WalmartApIsClient(options: ClientOptions = {})`, so `new WalmartApIsClient()` is the minimum. Resources are memoized lazy getters on the client — `client.authorization`, `client.catalog`, `client.dataKiosk`, `client.feeds`, `client.wfsInbound`, `client.fulfillmentOutbound`, `client.inventory`, `client.wfsInventory`, `client.listingsItems`, `client.listingsRestrictions`, `client.merchantFulfillment`, `client.orders`, `client.settlement`, `client.reconciliation`, `client.reports`, `client.payouts`, `client.disputes`, `client.finalPayout`, `client.finances`, `client.productPricing`, `client.productFees`, `client.productTypeDefinitions`, `client.reportSchedules`, `client.sales`, `client.messaging`, `client.notifications`, `client.solicitations`, `client.sellers`, `client.shipping`, `client.uploads` — and their classes are exported only for their merged namespaces and for `instanceof`; their constructors take engine internals that are not exported, so reach a resource only through its getter.
+The only constructor is `new WalmartApIsClient(options: ClientOptions = {})`, so `new WalmartApIsClient()` is the minimum. Resources are memoized lazy getters on the client — `client.authorization`, `client.semCampaignManagement`, `client.semCatalog`, `client.semReporting`, `client.wsrAttributionReports`, `client.semItemDiagnostics`, `client.assortmentRecommendations`, `client.shipmentProtection`, `client.disputes`, `client.feedsApi`, `client.insightApi`, `client.inventoryApi`, `client.lagTimeApi`, `client.notifications`, `client.onRequestReportApi`, `client.onRequestReport`, `client.reportScheduler`, `client.taxFormApIs`, `client.prices`, `client.promotions`, `client.recommendationsApi`, `client.reportsApi`, `client.returnsRefund`, `client.reviews`, `client.richMedia`, `client.seoRecommendations`, `client.shipWithWalmart`, `client.simplifiedShippingSettings`, `client.walmartSellerFulfilled` — and their classes are exported only for their merged namespaces and for `instanceof`; their constructors take engine internals that are not exported, so reach a resource only through its getter.
 
 All `ClientOptions` fields (source: `src/client-options.ts`; every field is `readonly`):
 
@@ -53,15 +47,11 @@ All `ClientOptions` fields (source: `src/client-options.ts`; every field is `rea
 | `retry` | `RetryOptions` | the `RetryOptions` defaults below |
 | `logging` | `LoggingOptions` | off — the `LoggingOptions` defaults below |
 | `fetch` | `FetchLike \| undefined` | the global `fetch`, resolved by the transport |
-| `sellerAuthAuthorizationCode` | `OAuth2AuthorizationCodeCredentials \| undefined` | unset |
-| `sellerAuthAuthorizationCodeStrategy` | `OAuth2RefreshableTokenStrategy<OAuth2AuthorizationCodeCredentials> \| undefined` | the built-in grant |
-| `sellerAuthClientCredentials` | `OAuth2ClientCredentials \| undefined` | unset |
-| `sellerAuthClientCredentialsStrategy` | `OAuth2TokenStrategy<OAuth2ClientCredentials> \| undefined` | the built-in grant |
-| `basicClientAuth` | `BasicAuthCredentials \| undefined` | unset |
-| `walletAuth` | `OAuth2ClientCredentials \| undefined` | unset |
-| `walletAuthStrategy` | `OAuth2TokenStrategy<OAuth2ClientCredentials> \| undefined` | the built-in grant |
+| `basicAuth` | `BasicAuthCredentials \| undefined` | unset |
+| `bearerAuth` | `TokenProvider \| undefined` | unset |
+| `accessToken` | `TokenProvider \| undefined` | unset |
 
-The 7 auth fields are all optional, and an unset one is not an error — the operation that wanted it simply sends no credential. What each one puts on the wire, and which operations require it, are under Servers & auth.
+The 3 auth fields are all optional, and an unset one is not an error — the operation that wanted it simply sends no credential. What each one puts on the wire, and which operations require it, are under Servers & auth.
 
 When no `fetch` is reachable the **constructor** throws `ConfigurationError`, not the first call.
 
@@ -115,9 +105,9 @@ Logging types named by the fields above — their **declared types**, verbatim f
 | `Logger` — the `logger` field | `error(message: string, details: LogDetails): void` · `warn(message: string, details: LogDetails): void` · `info(message: string, details: LogDetails): void` · `debug(message: string, details: LogDetails): void` | `src/core/logging.ts` |
 | `LogDetails` — narrow on `event` | `HttpRequestDetails \| RequestHeadersDetails \| RequestBodyDetails \| HttpResponseDetails \| ResponseHeadersDetails \| HttpRetryingDetails \| HttpFailedDetails`, each exported as a type | `src/core/logging.ts` |
 
-**`ClientOptions.fetch` is the one transport extension point** — there are no hooks, no middleware and no interceptors, so a proxy, a custom agent and extra headers all go here. The SDK calls a replacement with one argument, the `Request` of the attempt, and no `init`. A replacement **must forward that `Request`, or its `signal`,** to whatever actually performs the request. Drop the signal and both the per-call signal and `retry.timeout` go inert — the call neither aborts nor times out. To add a header, copy the `Request` with `new Request(request)` and set it on the copy's `headers`: passing `{ headers }` to the copy replaces every header the SDK set rather than adding to them. A replacement may reject with an error of its own when that signal aborts; the SDK reads the `reason` of the signal it built the `Request` with to tell the deadline's `TimeoutError` from an abort of `RequestOptions.signal`, so a timeout is still retried, and an abort still rejects with the caller's own `reason`.
+**`ClientOptions.fetch` is the one transport extension point** — there are no hooks, no middleware and no interceptors, so a proxy, a custom agent and extra headers all go here. The SDK calls a replacement with one argument, the `Request` of the attempt, and no `init`. A replacement **must forward that `Request`, or its `signal`,** to whatever actually performs the request. Drop the signal and both the per-call signal and `retry.timeout` go inert — the call neither aborts nor times out. To add a header, copy the `Request` with `new Request(request)` and set it on the copy's `headers`: passing `{ headers }` to the copy replaces every header the SDK set rather than adding to them. A replacement may reject with an error of its own when that signal aborts: a timeout is still a `TimeoutError` that is retried, and an abort of `RequestOptions.signal` still rejects with the caller's own `reason`.
 
-**Cancellation.** The `signal` on `RequestOptions` is the per-request cancellation surface. Aborting rejects with the signal's **own `reason`** — whatever you passed to `abort()`, or the platform `DOMException` a bare `abort()` supplies — unwrapped, so it is **not** an `WalmartApIsError` and a `catch` that tests the family must rethrow it. An already-aborted signal rejects immediately. The `retry.timeout` that bounded the attempt is the SDK's own and does stay in the family, as `err.kind === "timeout"`. It starts once the credential is in hand and covers the request up to its response headers — not obtaining the credential and not reading the body, which only the signal bounds, so a body that stalls after its headers holds a call with no signal until the transport gives up. A built-in OAuth2 token request is timed on its own, so a slow token endpoint ends the call with a `TimeoutError` whose `uri` is the token endpoint.
+**Cancellation.** The `signal` on `RequestOptions` is the per-request cancellation surface. Aborting rejects with the signal's **own `reason`** — whatever you passed to `abort()`, or the platform `DOMException` a bare `abort()` supplies — unwrapped, so it is **not** an `WalmartApIsError` and a `catch` that tests the family must rethrow it. An already-aborted signal rejects immediately. The `retry.timeout` that bounded the attempt is the SDK's own and does stay in the family, as `err.kind === "timeout"`. It starts once the credential is in hand and covers the request up to its response headers — not obtaining the credential and not reading the body, which only the signal bounds, so a body that stalls after its headers holds a call with no signal until the transport gives up.
 
 The entire per-request surface is the optional second argument of every operation:
 
@@ -156,11 +146,10 @@ Core types (public members with their declared types; all are `readonly`):
 | `TimeoutError` | `kind: "timeout"` · `timeout: number` | `src/core/errors.ts` |
 | `DecodeError`, `EncodeError`, `ConnectionError`, `AuthError` | their `kind`, and nothing beyond the two rows above | `src/core/errors.ts` |
 | `Declared<K, B>` | `kind: K` · `body: B` | `src/core/api-error.ts` |
-| `ErrorPayload<P>` | `P` or `{ kind: "undeclared"; rawBody: ArrayBuffer }` | `src/core/api-error.ts` |
-| `Undeclared` | `kind: "undeclared"` · `rawBody: ArrayBuffer` — the always-present arm, carrying the untouched bytes of a status the spec does not describe | `src/core/api-error.ts` |
-| `ApiResult<T, E>` | on success `{ ok: true; status; headers; value: T }`, on failure `{ ok: false; status; headers; message: string; method: HttpMethod; uri: string; payload: ErrorPayload<P> }` — the failure branch carries the error's own members, never the error object | `src/core/api-promise.ts` |
+| `Undeclared` | `kind: "undeclared"` · `rawBody: ArrayBuffer` — the last arm of every error class, carrying the untouched bytes of a status no arm covers, a middleware's included | `src/core/api-error.ts` |
+| `ApiResult<T, E>` | on success `{ ok: true; status; headers; value: T }`, on failure `{ ok: false; status; headers; message: string; method: HttpMethod; uri: string; payload: P }`, `P` being the error class's payload union — the failure branch carries the error's own members, never the error object | `src/core/api-promise.ts` |
 
-`WalmartApIsError` and `ResponseError` are each a **type and a value**: the type is the union, the value is the abstract class every leaf extends, so `instanceof` and `err.kind` select the same set. Neither can be constructed or extended. `uri` is the absolute URL the call dialled, with the server variables expanded and the path parameters filled. It carries no query, fragment or userinfo, so no query parameter reaches it. One failure names an unresolved URI: a path parameter rejected by its schema arrives as an `EncodeError` whose `uri` still shows the unfilled `{braces}` — an `undefined` one included, since a path parameter is always required, so its schema rejects it first. On an `AuthError` the pair names the **operation you called**, not the token endpoint, which appears after it in the message.
+`WalmartApIsError` and `ResponseError` are each a **type and a value**: the type is the union, the value is the abstract class every leaf extends, so `instanceof` and `err.kind` select the same set. Neither can be constructed or extended. `uri` is the absolute URL the call dialled, with the server variables expanded and the path parameters filled. It carries no query, fragment or userinfo, so no query parameter reaches it. One failure names an unresolved URI: a path parameter rejected by its schema arrives as an `EncodeError` whose `uri` still shows the unfilled `{braces}` — an `undefined` one included, since a path parameter is always required, so its schema rejects it first.
 
 `ErrorKind` is closed, so a `switch` over `err.kind` is exhaustive:
 
@@ -173,20 +162,22 @@ Core types (public members with their declared types; all are `readonly`):
 | `"timeout"` | `ClientOptions.retry.timeout` elapsed. `timeout` is the budget that ran out | `timeout` |
 | `"auth"` | a credential could not be **obtained**, per the paragraph below | — |
 
-**Four throwables sit outside the family**, so `instanceof WalmartApIsError` is `false` on each and a `catch` that tests it has to rethrow what is left. `ConfigurationError` comes out of the **`WalmartApIsClient` constructor**, synchronously and before any `ApiPromise` exists: no reachable `fetch`, a `basicClientAuth.username` containing a colon (invalid per RFC 7617 §2, because the first colon separates user-id from password), an unknown `ClientOptions.serverEnvironment`, or a `ClientOptions.retry` or `ClientOptions.logging` whose reads throw. One call can reject with it too: a `RequestOptions.retry` or `RequestOptions.logging` whose reads throw. Either way the failed read is on `cause`. `SchemaError` is what a codec throws when called directly — `accessPointSchema.decode(json)` — so it names no call; through an operation the same failure arrives one level down, on `DecodeError.cause` or `EncodeError.cause`, and a `serverOptions` override whose value is not a string raises it from the constructor too. Bugs stay outside the family and reach you raw — an unparseable `baseUrl` and a non-file value where a `FileInput` was declared are both `TypeError`. And a caller abort arrives as the signal's own `reason`, unwrapped. The first two are exported from the package root; the other two are not ours to export.
+**Four throwables sit outside the family**, so `instanceof WalmartApIsError` is `false` on each and a `catch` that tests it has to rethrow what is left. `ConfigurationError` comes out of the **`WalmartApIsClient` constructor**, synchronously and before any `ApiPromise` exists: no reachable `fetch`, a `basicAuth.username` containing a colon (invalid per RFC 7617 §2, because the first colon separates user-id from password), an unknown `ClientOptions.serverEnvironment`, or a `ClientOptions.retry` or `ClientOptions.logging` whose reads throw. One call can reject with it too: a `RequestOptions.retry` or `RequestOptions.logging` whose reads throw. Either way the failed read is on `cause`. `SchemaError` is what a codec throws when called directly — `acceptSchema.decode(json)` — so it names no call; through an operation the same failure arrives one level down, on `DecodeError.cause` or `EncodeError.cause`, and a `serverOptions` override whose value is not a string raises it from the constructor too. Bugs stay outside the family and reach you raw — an unparseable `baseUrl` and a non-file value where a `FileInput` was declared are both `TypeError`. And a caller abort arrives as the signal's own `reason`, unwrapped. The first two are exported from the package root; the other two are not ours to export.
 
-**`AuthError` is about obtaining a credential, never about being refused one** — a refused token endpoint, PKCE disabled with no client secret, or your own `promptForAuthorizationCode` rejecting. A 401 *from the API* is an `ApiError` like any other status. A 401 does have one auth consequence: it invalidates whatever that operation's scheme had cached, so the **next** call re-acquires.
+**`AuthError` is about obtaining a credential, never about being refused one.** A 401 *from the API* is an `ApiError` like any other status. A 401 does have one auth consequence: it invalidates whatever that operation's scheme had cached, so the **next** call re-acquires.
 
 ```ts
 try {
-  await client.authorization.authorize({
-    responseType: ResponseType1.Code,
-    clientId: "some example string",
-    redirectUri: "https://example.com",
-    scope: "some example string",
-    state: "some example string",
-    codeChallenge: "some example string",
-    codeChallengeMethod: CodeChallengeMethod.S256,
+  const response = await client.authorization.tokenApi({
+    wmMarket: "us, mx, ca or cl",
+    authorization: "Basic YzcyOTFjNmItNzI5MC00....",
+    wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
+    wmSvcName: "Walmart Service Name",
+    wmPartnerId: "43423324",
+    grantType: GrantType1.ClientCredentials,
+    code: "65CA5DA313A549D49D15D3119D9AD85D",
+    redirectUri: "https://example-client-app.com",
+    refreshToken: "APXcIoTpKMH9OQN…….",
   });
 } catch (err) {
   if (err instanceof WalmartApIsError) {
@@ -214,24 +205,26 @@ try {
 
 **Narrowing the payload.** A typed subclass declares its arms as literals, so `switch (err.payload.kind)` narrows `payload.body` to exactly one model. The `kind` is named after the arm's **body**, *not* its status code: a body that references a model takes that model's name in lower camel, any other body `error{Status}`, and a second arm that would land on the same name takes a numeric suffix. On the base `ApiError` — what an operation with no declared error bodies rejects with — `payload.kind` is `string`, so comparing it to `"undeclared"` narrows **nothing**: use `"rawBody" in err.payload`. Which arms an operation declares, with the status each covers, is the **Error arms** bullet on its page below.
 
-**Matcher precedence** for a subclass with several arms, in three passes: an exact numeric status is looked up across the whole table **first**, then the first covering `[lo, hi]` range, and last a `"default"` arm where the spec declared one. A body that does not fit the arm it matched is a `DecodeError` — except on `"default"`, which describes no status in particular and so **degrades to the `"undeclared"` arm** rather than throwing.
+**Matcher precedence** for a subclass with several arms, in two passes: an exact numeric status is looked up across the whole table **first**, then the first covering `[lo, hi]` range. A body that does not fit the arm it matched is a `DecodeError`. A status no row covers is the `"undeclared"` arm with its bytes untouched — a spec's `default` response is not a row, so a gateway's or a WAF's own status lands there rather than failing the `default` schema.
 
 **The non-throwing form exists on every operation.** `.asApiResult()` returns `ApiResult<T, E>` and does **not** reject for an HTTP error status — every other failure still rejects, `DecodeError` included, so the `catch` stays. It must be called on the value the operation returned: `ApiPromise` overrides `Symbol.species`, so `.then()`, `.catch()` and `.finally()` hand back a plain `Promise` and the method is gone.
 
 ```ts
 try {
-  const result = await client.authorization.authorize({
-    responseType: ResponseType1.Code,
-    clientId: "some example string",
-    redirectUri: "https://example.com",
-    scope: "some example string",
-    state: "some example string",
-    codeChallenge: "some example string",
-    codeChallengeMethod: CodeChallengeMethod.S256,
+  const result = await client.authorization.tokenApi({
+    wmMarket: "us, mx, ca or cl",
+    authorization: "Basic YzcyOTFjNmItNzI5MC00....",
+    wmQosCorrelationId: "b3261d2d-028a-4ef7-8602-633c23200af6",
+    wmSvcName: "Walmart Service Name",
+    wmPartnerId: "43423324",
+    grantType: GrantType1.ClientCredentials,
+    code: "65CA5DA313A549D49D15D3119D9AD85D",
+    redirectUri: "https://example-client-app.com",
+    refreshToken: "APXcIoTpKMH9OQN…….",
   }).asApiResult();
   // TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
   if (result.ok) {
-    // TODO: The call succeeded and resolves to no body
+    // TODO: Use 'result.value' — what this operation resolves to
   } else {
     // TODO: Use 'result.message', 'result.method' and 'result.uri', and narrow 'result.payload'
   }
@@ -244,13 +237,13 @@ try {
 }
 ```
 
-`result.payload` is the same `ErrorPayload<P>` a thrown `ApiError` carries on `err.payload`, and `result.message`, `result.method` and `result.uri` are that error's own members — so the **Error arms** bullet on an operation's page enumerates the payload either way, and the `catch` above it is for the rest of the family. `result.method` and `result.uri` are named on this map alone.
+`result.payload` is the same payload union a thrown `ApiError` carries on `err.payload`, and `result.message`, `result.method` and `result.uri` are that error's own members — so the **Error arms** bullet on an operation's page enumerates the payload either way, and the `catch` above it is for the rest of the family. `result.method` and `result.uri` are named on this map alone.
 
-Of **174 operations**, **174** declare typed error bodies and **0** reject with the base `ApiError`, whose payload is always the `"undeclared"` arm.
+Of **117 operations**, **85** declare typed error bodies and **32** reject with the base `ApiError`, whose payload is always the `"undeclared"` arm.
 
 ---
 
-## Operations — by resource (30 groups, 174 operations)
+## Operations — by resource (29 groups, 117 operations)
 
 Each page below carries one block per operation, with bullets in the fixed order **Server**, **Signature**, **Wire**, **Auth**, **Request body**, **SDK-sent**, **Returns**, **Error**, **Error arms**, then a **Fields** table mapping every request field to the channel it travels on, and a **Type sources** table naming the declaring file and schema value of every type the operation mentions. With `api-reference.md` documenting operations only, that table is the route from an operation to the file declaring what it takes.
 
@@ -298,38 +291,37 @@ Each page below carries one block per operation, with bullets in the fixed order
 
 **Endpoint prose is not on this map.** Where the *semantics* of an operation decide what you must pass — a field whose value changes server-side behaviour, an ordering or exclusivity rule between fields — read `api-reference.md`, whose entries are keyed by the same signature these pages print. Blocks here give you the contract: names, channels, types, defaults, errors.
 
-| Resource (`client.X`) | Ops | Page |
-| --- | --- | --- |
-| `authorization` | 3 | [map/operations/authorization.md](map/operations/authorization.md) |
-| `catalog` | 2 | [map/operations/catalog.md](map/operations/catalog.md) |
-| `dataKiosk` | 5 | [map/operations/data-kiosk.md](map/operations/data-kiosk.md) |
-| `feeds` | 5 | [map/operations/feeds.md](map/operations/feeds.md) |
-| `wfsInbound` | 45 | [map/operations/wfs-inbound.md](map/operations/wfs-inbound.md) |
-| `fulfillmentOutbound` | 7 | [map/operations/fulfillment-outbound.md](map/operations/fulfillment-outbound.md) |
-| `inventory` | 4 | [map/operations/inventory.md](map/operations/inventory.md) |
-| `wfsInventory` | 1 | [map/operations/wfs-inventory.md](map/operations/wfs-inventory.md) |
-| `listingsItems` | 5 | [map/operations/listings-items.md](map/operations/listings-items.md) |
-| `listingsRestrictions` | 1 | [map/operations/listings-restrictions.md](map/operations/listings-restrictions.md) |
-| `merchantFulfillment` | 5 | [map/operations/merchant-fulfillment.md](map/operations/merchant-fulfillment.md) |
-| `orders` | 14 | [map/operations/orders.md](map/operations/orders.md) |
-| `settlement` | 3 | [map/operations/settlement.md](map/operations/settlement.md) |
-| `reconciliation` | 3 | [map/operations/reconciliation.md](map/operations/reconciliation.md) |
-| `reports` | 7 | [map/operations/reports.md](map/operations/reports.md) |
-| `payouts` | 5 | [map/operations/payouts.md](map/operations/payouts.md) |
-| `disputes` | 1 | [map/operations/disputes.md](map/operations/disputes.md) |
-| `finalPayout` | 2 | [map/operations/final-payout.md](map/operations/final-payout.md) |
-| `finances` | 4 | [map/operations/finances.md](map/operations/finances.md) |
-| `productPricing` | 8 | [map/operations/product-pricing.md](map/operations/product-pricing.md) |
-| `productFees` | 3 | [map/operations/product-fees.md](map/operations/product-fees.md) |
-| `productTypeDefinitions` | 2 | [map/operations/product-type-definitions.md](map/operations/product-type-definitions.md) |
-| `reportSchedules` | 4 | [map/operations/report-schedules.md](map/operations/report-schedules.md) |
-| `sales` | 1 | [map/operations/sales.md](map/operations/sales.md) |
-| `messaging` | 11 | [map/operations/messaging.md](map/operations/messaging.md) |
-| `notifications` | 9 | [map/operations/notifications.md](map/operations/notifications.md) |
-| `solicitations` | 2 | [map/operations/solicitations.md](map/operations/solicitations.md) |
-| `sellers` | 2 | [map/operations/sellers.md](map/operations/sellers.md) |
-| `shipping` | 9 | [map/operations/shipping.md](map/operations/shipping.md) |
-| `uploads` | 1 | [map/operations/uploads.md](map/operations/uploads.md) |
+| Resource (`client.X`) | Ops | Operations | Page |
+| --- | --- | --- | --- |
+| `authorization` | 2 | `getTokenDetail` · `tokenApi` | [map/operations/authorization.md](map/operations/authorization.md) |
+| `semCampaignManagement` | 6 | `createCampaign` · `deleteCampaign` · `getCampaignDetails` · `searchCampaignRecommendations` · `stopCampaign` · `updateCampaign` | [map/operations/sem-campaign-management.md](map/operations/sem-campaign-management.md) |
+| `semCatalog` | 2 | `getEligibleItems` · `getItemRecommendations` | [map/operations/sem-catalog.md](map/operations/sem-catalog.md) |
+| `semReporting` | 3 | `getBillingHistory` · `getCampaignLevelSummary` · `getItemLevelSummary` | [map/operations/sem-reporting.md](map/operations/sem-reporting.md) |
+| `wsrAttributionReports` | 3 | `getTagTemplates` · `getWsrItemReport` · `getWsrPerformanceReport` | [map/operations/wsr-attribution-reports.md](map/operations/wsr-attribution-reports.md) |
+| `semItemDiagnostics` | 2 | `getIssueTypes` · `searchItemIssues` | [map/operations/sem-item-diagnostics.md](map/operations/sem-item-diagnostics.md) |
+| `assortmentRecommendations` | 5 | `getAssortmentRecommendationTrends` · `getAssortmentRecommendationVariants` · `getAssortmentRecommendations` · `getCategorizationDetailsOfAssortmentRecommendations` · `rejectAssortmentRecommendations` | [map/operations/assortment-recommendations.md](map/operations/assortment-recommendations.md) |
+| `shipmentProtection` | 6 | `downloadClaimDocuments` · `getClaimDetails` · `getClaimHistory` · `listClaims` · `submitAdditionalInfo` · `submitClaim` | [map/operations/shipment-protection.md](map/operations/shipment-protection.md) |
+| `disputes` | 2 | `postContest` · `postStatus` | [map/operations/disputes.md](map/operations/disputes.md) |
+| `feedsApi` | 3 | `getAllFeedStatuses` · `getFeedErrorReport` · `getFeedItemStatus` | [map/operations/feeds-api.md](map/operations/feeds-api.md) |
+| `insightApi` | 7 | `getCategoriesList` · `getListingQualityScore` · `getProSellerBadgeInfo` · `getSellerIncentivesInfo` · `getUnpublishedItemCount` · `getUnpublishedItems` · `itemsDetailsForListing` | [map/operations/insight-api.md](map/operations/insight-api.md) |
+| `inventoryApi` | 7 | `getInventory` · `getMultiNodeInventoryForAllSkuAndAllShipNodes` · `getMultiNodeInventoryForSkuAndAllShipnodes` · `getWfsInventory` · `updateBulkInventory` · `updateInventoryForAnItem` · `updateMultiNodeInventory` | [map/operations/inventory-api.md](map/operations/inventory-api.md) |
+| `lagTimeApi` | 2 | `getLagTime` · `updateLagTimeBulk` | [map/operations/lag-time-api.md](map/operations/lag-time-api.md) |
+| `notifications` | 6 | `createSubscription` · `deleteSubscription` · `getAllSubscriptions` · `getEventTypes` · `testNotification` · `updateSubscription` | [map/operations/notifications.md](map/operations/notifications.md) |
+| `onRequestReportApi` | 3 | `downloadReport` · `getRequestsStatus` · `getSingleRequestStatus` | [map/operations/on-request-report-api.md](map/operations/on-request-report-api.md) |
+| `onRequestReport` | 1 | `generateReport` | [map/operations/on-request-report.md](map/operations/on-request-report.md) |
+| `reportScheduler` | 4 | `deleteReportSchedule` · `getAllReportSchedules` · `getReportSchedule` · `updateReportSchedule` | [map/operations/report-scheduler.md](map/operations/report-scheduler.md) |
+| `taxFormApIs` | 2 | `downloadTaxForm` · `getTaxForms` | [map/operations/tax-form-ap-is.md](map/operations/tax-form-ap-is.md) |
+| `prices` | 11 | `createStrategy` · `deleteStrategy` · `getAllIncentives` · `getRepricerFeed` · `getStrategies` · `priceAndPromotionBulkUploads` · `reducedReferralFeeIncentivesEnrollment` · `updatePrice` · `updateStrategy` · `updateWalmartFundedIncentivesEnrollmentStatus` · `walmartFundedIncentivesEnrollment` | [map/operations/prices.md](map/operations/prices.md) |
+| `promotions` | 3 | `getPromotionalPrices` · `priceBulkUploads` · `updatePromotionalPrices` | [map/operations/promotions.md](map/operations/promotions.md) |
+| `recommendationsApi` | 4 | `getFulfillWithWfsRecommendations` · `getRestockRecommendations` · `getShipmentQuantityRecommendations` · `getUnpublishedRecommendations` | [map/operations/recommendations-api.md](map/operations/recommendations-api.md) |
+| `reportsApi` | 7 | `getAvailableReconReportDates` · `getAvailableV1ReconReportAsJson` · `getAvailableV1ReconReportDates` · `getPartnerPerformance` · `getPartnerStatement` · `getReconReport` · `getReconReportV1` | [map/operations/reports-api.md](map/operations/reports-api.md) |
+| `returnsRefund` | 3 | `getReturns` · `refundRequest` · `returnOrderCursor` | [map/operations/returns-refund.md](map/operations/returns-refund.md) |
+| `reviews` | 3 | `bulkUpdateItemStatus` · `getIrpCategories` · `getIrpItems` | [map/operations/reviews.md](map/operations/reviews.md) |
+| `richMedia` | 2 | `getAllAssets` · `richMediaOperation` | [map/operations/rich-media.md](map/operations/rich-media.md) |
+| `seoRecommendations` | 2 | `getSeoRecommendations` · `updateSeoRecommendations` | [map/operations/seo-recommendations.md](map/operations/seo-recommendations.md) |
+| `shipWithWalmart` | 10 | `createLabel` · `createLabelMps` · `discardLabel` · `getCarrierPackageTypes` · `getCarriers` · `getLabel` · `getLabelByTrackingAndCarrier` · `getScanFormByManifestId` · `getShippingEstimate` · `scanForm` | [map/operations/ship-with-walmart.md](map/operations/ship-with-walmart.md) |
+| `simplifiedShippingSettings` | 5 | `bulkMigrateOffersForSimplifiedShippingSettings` · `createSimplifiedShippingSettings` · `getSimplifiedShippingSettings` · `updateFcLevelSimplifiedShippingSettings` · `updateSimplifiedShippingSettings` | [map/operations/simplified-shipping-settings.md](map/operations/simplified-shipping-settings.md) |
+| `walmartSellerFulfilled` | 1 | `walmartPlusEnrollment` | [map/operations/walmart-seller-fulfilled.md](map/operations/walmart-seller-fulfilled.md) |
 
 ---
 
@@ -339,30 +331,30 @@ Each page below carries one block per operation, with bullets in the fixed order
 
 | Group | Count | Directory |
 | --- | --- | --- |
-| Objects (plain `type`, no class) | 410 | `src/models/` |
-| Enums (open; const companion plus schema) | 119 | `src/models/` |
-| Typed error classes (`ApiError` subclass, one per typed operation) | 174 | `src/resources/`, in the declaring module's namespace |
+| Objects (plain `type`, no class) | 959 | `src/models/` |
+| Enums (open; const companion plus schema) | 188 | `src/models/` |
+| Unions | 8 | `src/models/unions/` |
+| Typed error classes (`ApiError` subclass, one per typed operation) | 85 | `src/resources/`, in the declaring module's namespace |
 
 Conventions: every model is a plain `type`, not a class — build one with an object literal; there is no constructor and no builder. `f: T` is required, `f?: T` is optional (omit the key), and `f: T | null` is a **required, nullable** field where `null` is a value distinct from an omitted key. Optional properties are declared `f?: T`, not `f?: T | undefined`, so under `exactOptionalPropertyTypes` you must **omit or spread** an absent field rather than assign `undefined` to it. A schema value is directly usable both ways: `Schema<T, W = Encoded<T>>` is `{ decode(v: unknown): T; encode(v: unknown): W }`, and `Encoded<T>` is the wire projection — a `Date` becomes `string | number`, a `Uint8Array` becomes a base64 `string`, recursing through arrays and objects. `EnumSchema<T>` adds `readonly values: readonly T[]`, so an enum's known set is testable at run time. Enums are **not** TypeScript `enum`s and are open: a `const` companion plus a union that includes `(string & {})` or `(number & {})`, so **any** value of the base type is assignable and the schema validates the base type only, never membership — read the member names and the values they send off the companion, and use `.values` to test membership yourself. A discriminated union is narrowed with an exhaustive `switch` on its tag, with no fallback arm and no type guard to import; one without a discriminant is narrowed on the shape of its arms, which its declaration spells out. A property default is filled by the SDK on **encode as well as decode**, so omitting one still sends it — read it off the `defaulted(…)` entry in the schema, or off the property's `@default`. A numeric property is a `number` whatever its format, and its schema follows the type. `type: integer` with no format, `int32` or `int64` rejects a fraction and any value outside the safe-integer range; `type: number` with no format, `float`, `double` or `bigdecimal` rejects a non-finite value. A property's wire name is its `_keysMap` entry in the schema and may differ from the TypeScript name — read it there rather than deriving it. A named spec schema whose resolved form is a bare container, or which is used only as a form-encoded body, gets no model file and no exported name: the first is written inline at each use site, the second is flattened onto the operation's request type, one field per property, so read that field list from the request type.
 
 Every name comes from the package root — there is no default export, and no deep imports:
 
 ```ts
-import { type AccessPoint, accessPointSchema } from "apimatic-wm-v4-sdk";
+import { type Accept, acceptSchema } from "apimatic-wm-v4-sdk";
 ```
 
 ---
 
 ## Servers & auth
 
-**Authentication is per operation.** Every operation declares the requirement it enforces and the SDK sends exactly that: **172 of the 174 operations** require a credential and **2** are public. Each block on a page above carries an **Auth** bullet naming its requirement, `none` included. There is no client-global switch and no per-call override.
+**Authentication is per operation.** Every operation declares the requirement it enforces and the SDK sends exactly that: **89 of the 117 operations** require a credential and **28** are public. Each block on a page above carries an **Auth** bullet naming its requirement, `none` included. There is no client-global switch and no per-call override.
 
 | Scheme (as an **Auth** bullet names it) | Configured with | What the SDK sends |
 | --- | --- | --- |
-| `sellerAuthAuthorizationCode` | `sellerAuthAuthorizationCode: { clientId, clientSecret?, redirectUri, scope?, state?, pkce?, promptForAuthorizationCode }` | `Authorization: Bearer <access token>` |
-| `sellerAuthClientCredentials` | `sellerAuthClientCredentials: { clientId, clientSecret, scope? }` | `Authorization: Bearer <access token>` |
-| `basicClientAuth` | `basicClientAuth: { username, password }` | `Authorization: Basic <base64 of username:password>`, UTF-8 |
-| `walletAuth` | `walletAuth: { clientId, clientSecret, scope? }` | `Authorization: Bearer <access token>` |
+| `basicAuth` | `basicAuth: { username, password }` | `Authorization: Basic <base64 of username:password>`, UTF-8 |
+| `bearerAuth` | `bearerAuth` | `Authorization: Bearer <token>` |
+| `accessToken` | `accessToken` | header `WM_SEC.ACCESS_TOKEN: <key>` |
 
 A scheme **contributes** headers, query parameters and cookies rather than mutating the request, so a credential is encoded by exactly the code that encodes an operation's own parameters. The auth layer goes on **last**, which means a scheme's `Authorization` wins over one the operation declared.
 
@@ -372,28 +364,6 @@ A scheme **contributes** headers, query parameters and cookies rather than mutat
 
 **An unconfigured scheme does not throw.** The request goes out without that credential and the server decides. So a 401 on a call you believed was authenticated is usually an unset credential field rather than an SDK failure — check the operation's **Auth** bullet against what the client was given.
 
-**OAuth2 fetches and caches its own token.** The token request goes through the same client as every other call — same `fetch`, same `retry` policy. It sends a form-urlencoded body, and **decodes** the response against a schema rather than casting it. An access token is cached until shortly before it expires; a response carrying no `expires_in` is treated as never expiring (RFC 6749 §5.1); concurrent callers share one in-flight fetch, and one of them aborting ends only its own wait — unless it is the caller that started the fetch, whose signal the fetch runs under. A refused token endpoint rejects with `AuthError` wrapping the underlying `ApiError` as `cause` — untyped, so its payload is the `"undeclared"` arm — so it never looks like the business call failing.
-
-| Flow | Token endpoint | Client credentials travel |
-| --- | --- | --- |
-| `sellerAuthAuthorizationCode` | `default` + `/auth/v4/token` | as `Authorization: Basic` |
-| `sellerAuthClientCredentials` | `default` + `/auth/v4/token` | as `Authorization: Basic` |
-| `walletAuth` | `default1` + `/auth/token` | as `Authorization: Basic` |
-
-The authorization-code grant differs in three ways. It needs a human, so `promptForAuthorizationCode` is a **required** member of its credentials: the SDK builds the authorization URL from `default` + `/auth/v4/authorize` and hands it over, and never opens it itself. PKCE is on by default — `pkce` defaults to `PkceMethod.S256`, and `null` disables it, which then requires a client secret or the scheme throws `AuthError` before prompting. And it is the only grant that can refresh, so acquisition is a ladder: live cache, then a refresh attempt, then a full re-authorization. **A prompt that rejects is an `AuthError`, not a transport failure** — the user declined, closed the window, or your callback threw — and it carries your error as `cause` with no token request sent. That is the distinction to catch on: a `ConnectionError` invites a retry, a declined consent needs the user asked again. Two rejections pass through as themselves rather than being wrapped: a `ConnectionError` or `TimeoutError` raised while acquiring, and — when you cancelled the call underneath the prompt — the signal's own `reason`. No timeout covers the prompt; the call's signal is the only thing that ends it.
-
-**Replacing a grant.** Each OAuth2 scheme's token request is a strategy you can substitute — `sellerAuthAuthorizationCodeStrategy`, `sellerAuthClientCredentialsStrategy`, `walletAuthStrategy` on `ClientOptions`. A strategy is one method, `getToken(credentials, signal)`, plus `tryRefreshToken(...)` for the refreshable one. `signal` is the one the call was given, or one that never aborts when it was given none; nothing times a strategy of your own. Supply it and the built-in token request is not used, while the caching, the expiry buffer and the single-flight behaviour above still apply.
-
-**The auth types you can name.** Every row below is exported from the package root. `Source` is where to read the declaration, never what to import — the credential shapes themselves are already spelled in the scheme table above.
-
-| Type | Source |
-| --- | --- |
-| `OAuthToken` | `src/core/auth/oauth2-strategies.ts` |
-| `OAuth2CredentialPlacement` | `src/core/auth/oauth2-strategies.ts` |
-| `OAuthTokenRefreshable` | `src/core/auth/oauth2-strategies.ts` |
-| `AuthorizationCodePrompt` | `src/core/auth/credentials.ts` |
-| `PkceMethod` | `src/core/auth/credentials.ts` |
-
 **A 401 invalidates the cached credential.** On a **401** — 401 only, not 403 — the SDK clears whatever that operation's scheme had cached, so the *next* call re-acquires. The current request still rejects with the operation's `ApiError`. The credential fields are on `ClientOptions`.
 
 **Environments.** `ClientOptions.serverEnvironment` selects one for the whole client (source: `src/servers.ts`). `ServerEnvironment` is a `const` object with a derived union type, not a TypeScript `enum` — and unlike the model enums it is **closed**, so only the values below are assignable.
@@ -402,20 +372,15 @@ The authorization-code grant differs in three ways. It needs a human, so `prompt
 | --- | --- |
 | `ServerEnvironment.Production` *(default)* | `production` |
 | `ServerEnvironment.Environment2` | `environment2` |
-| `ServerEnvironment.Environment3` | `environment3` |
 
-**serverOptions.** 2 logical servers; each operation is bound to one at generation time, and a block carries a **Server** bullet only when its group is not `default`. Override `serverOptions.default` and `serverOptions.default1`.
+**serverOptions.** 1 logical server; each operation is bound to one at generation time, and a block carries a **Server** bullet only when its group is not `default`. Override `serverOptions`.
 
-**Base URLs and overrides.** One row per group-and-environment pair, and every cell is overridden at `serverOptions.<group>.<name>`, where `<name>` is `baseUrl` for the whole template or the variable name for one substitution. Which environment a cell belongs to is selected by `serverEnvironment`, not written into the path — the options type only admits the keys legal under the environment named there. An override merges with the built-in defaults **per pair, key by key**.
+**Base URLs and overrides.** One row per group-and-environment pair, and every cell is overridden at `serverOptions.<name>`, where `<name>` is `baseUrl` for the whole template or the variable name for one substitution. Which environment a cell belongs to is selected by `serverEnvironment`, not written into the path — the options type only admits the keys legal under the environment named there. An override merges with the built-in defaults **per pair, key by key**.
 
 | Group | Environment | Base URL template | Template variables (default) |
 | --- | --- | --- | --- |
-| `default` | `production` | `https://marketplace.walmart.com/seller` | — |
-| `default` | `environment2` | `https://sandbox.marketplace.walmart.com/seller` | — |
-| `default` | `environment3` | `https://walmart-apis-mock-server.onrender.com/seller` | — |
-| `default1` | `production` | `https://marketplace.walmart.com/seller/v1` | — |
-| `default1` | `environment2` | `https://sandbox.marketplace.walmart.com/seller/v1` | — |
-| `default1` | `environment3` | `https://walmart-apis-mock-server.onrender.com/seller/v1` | — |
+| `default` | `production` | `https://marketplace.walmartapis.com` | — |
+| `default` | `environment2` | `https://sandbox.walmartapis.com` | — |
 
 A `baseUrl` override replaces the template verbatim; variable values are percent-encoded into it. Server variables are filled in once, as the client is built; only the path parameters are expanded per request. An environment value the SDK does not know throws `ConfigurationError`, and it is the **constructor** that throws it: every server group is resolved once, by `buildServers`, as the client is built, and an accessor afterwards only attaches the operation's sub-path. No operation method throws synchronously.
 
@@ -431,7 +396,7 @@ The facts that change what you type, and the floors that decide whether the pack
 | --- | --- |
 | One entry, two dialects | `import` resolves `dist/esm`, `require` resolves `dist/commonjs`, both through the single `.` export. In a TypeScript CommonJS file the typed spelling is `import sdk = require("apimatic-wm-v4-sdk")`; a plain `require` destructure works at run time but yields no types. `instanceof` is reliable **within** one dialect — if your app loads both, the two copies declare separate error classes |
 | Consumer compiler settings | Under `exactOptionalPropertyTypes`, **omit or spread** an absent optional rather than assigning `undefined` to it. Under `verbatimModuleSyntax`, names that carry no runtime value (the options types, every model type) must be imported with `import type` |
-| Required globals, and only these | Always: `fetch` (or a replacement passed as the `fetch` option), `AbortController`, `AbortSignal.any`, `Headers`, `Request`, `URL`, `setTimeout` and `clearTimeout`, `JSON`, `BigInt`, and `console`, which is read as the package loads. Auth adds more, each reached only once the credential needing it is configured. `TextEncoder` and `btoa` build every `Authorization: Basic` value, sent on every request that authenticates with basic and on every OAuth2 token request, whose client credentials travel as Basic by default. `crypto.subtle.digest` belongs to the authorization-code grant's PKCE alone. `crypto.randomUUID` or `crypto.getRandomValues` mints the `Idempotency-Key` a non-GET call carries — **read and never required**, since a runtime offering neither fills the bytes from `Math.random` mixed with the clock and a per-process counter, so the header is always sent. Three more are **read and never required** — `process`, `navigator` and `EdgeRuntime`, which name the host in `X-APIMatic-OS` and `X-APIMatic-Runtime`. A runtime offering none of them sends neither header and works unchanged. `process.env.WALMART_AP_IS_CLIENT_LOG` is read at most once, when the client is built and code sets neither a `logger` nor a valid `level`. Logging writes to `console` only as the default logger, and for the warning on a `WALMART_AP_IS_CLIENT_LOG` value that is not a level. |
+| Required globals, and only these | Always: `fetch` (or a replacement passed as the `fetch` option), `AbortController`, `AbortSignal.any`, `Headers`, `Request`, `URL`, `setTimeout` and `clearTimeout`, `JSON`, `BigInt`, and `console`, which is read as the package loads. Auth adds more, each reached only once the credential needing it is configured. `TextEncoder` and `btoa` build every `Authorization: Basic` value, sent on every request that authenticates with basic. `crypto.randomUUID` or `crypto.getRandomValues` mints the `Idempotency-Key` a non-GET call carries — **read and never required**, since a runtime offering neither fills the bytes from `Math.random` mixed with the clock and a per-process counter, so the header is always sent. Three more are **read and never required** — `process`, `navigator` and `EdgeRuntime`, which name the host in `X-APIMatic-OS` and `X-APIMatic-Runtime`. A runtime offering none of them sends neither header and works unchanged. `process.env.WALMART_AP_IS_CLIENT_LOG` is read at most once, when the client is built and code sets neither a `logger` nor a valid `level`. Logging writes to `console` only as the default logger, and for the warning on a `WALMART_AP_IS_CLIENT_LOG` value that is not a level. |
 | Values that cross the boundary | `Date` for `date-time`, `string` for `date`, `ArrayBuffer` for an undeclared error body, `Headers` on a result and on a thrown `ResponseError`. The engine also carries a `bigint` int64 path and a base64 `bytes()` codec, reached only where a model uses them |
 | Browser distribution | The package ships `dist/esm` and `dist/commonjs` and nothing else — **no bundle, no UMD file, no CDN artifact**. Use it through a bundler, which resolves `zod/v4-mini`, deduplicates it against your own copy and tree-shakes the rest |
 | Other runtimes | Deno, Bun, Cloudflare Workers and Vercel Edge are all likely to work — the SDK needs only the globals above and imports no Node built-in — but **none of them is tested for this package**, so nothing here claims support for them |
@@ -445,6 +410,4 @@ The browser floor is set by `AbortSignal.any`, which every call uses to combine 
 | Safari / iOS Safari | **17.4** |
 
 Below that table the module still loads, down to the emitted-output floor, but every call rejects with a `TypeError`.
-
-One auth floor is not a version at all. `crypto.subtle` is `undefined` on an **insecure origin** in every browser, so the authorization-code grant's default `S256` PKCE fails on a page served over plain `http` — a LAN IP included, since only `localhost` is treated as secure. HTTPS is the fix; `PkceMethod.Plain` avoids `crypto.subtle` entirely.
 

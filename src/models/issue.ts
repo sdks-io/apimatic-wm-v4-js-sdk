@@ -1,20 +1,22 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
-import { severitySchema, type Severity } from "./severity.js";
+import { issueTypeSchema, type IssueType } from "./issue-type.js";
 
+/**
+ * Issue affecting an item. Contains the issue type identifier only.
+ *
+ * The `issueType` serves as a lookup key into the issue metadata returned by the `GET
+ * /item-issues/issue-types` reference endpoint. All static metadata (name, description, category,
+ * fixability, help links) lives in that endpoint's response.
+ */
 export type Issue = {
-  /** Machine-readable issue code */
-  code: string;
-  /** Human-readable issue message (locale-aware) */
-  message: string;
-  severity: Severity;
-  /** Affected attribute names */
-  attributeNames?: string[];
+  /**
+   * Lookup key into the issue metadata returned by the `GET /item-issues/issue-types` endpoint.
+   * Maps to one of the supported issue type enum values.
+   */
+  issueType?: IssueType;
 };
 
 export const issueSchema: Schema<Issue> = s.object<Issue>({
-  code: s.string(),
-  message: s.string(),
-  severity: severitySchema,
-  attributeNames: s.optional(s.array(s.string())),
+  issueType: s.optional(s.lazy(() => issueTypeSchema)),
 });

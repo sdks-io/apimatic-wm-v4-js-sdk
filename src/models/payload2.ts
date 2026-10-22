@@ -1,13 +1,17 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
-import { orderSchema, type Order } from "./order.js";
 
 export type Payload2 = {
-  nextToken?: string;
-  orders?: Order[];
+  /** total count for unpublished Item */
+  unpublishedCount?: string;
+  /** total value for unpublished Item */
+  unpublishedValue?: string;
+  /** the reason why item is unpublished */
+  unpublishedReasonCode?: string;
 };
 
 export const payload2Schema: Schema<Payload2> = s.object<Payload2>({
-  nextToken: s.optional(s.string()),
-  orders: s.optional(s.array(s.lazy(() => orderSchema))),
+  unpublishedCount: s.optional(s.string()),
+  unpublishedValue: s.optional(s.string()),
+  unpublishedReasonCode: s.optional(s.string()),
 });

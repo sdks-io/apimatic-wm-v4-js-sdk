@@ -1,9 +1,15 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/**
+ * | Attribute | Description | Data Type |
+ * | --- | ----------- | ------- |
+ * | ENROLL | To enroll items into the program | string |
+ * | DISENROLL | To opt out items from the program | string |
+ */
 export const Status1 = {
-  Accepted: "ACCEPTED",
-  Invalid: "INVALID",
+  Enroll: "ENROLL",
+  Disenroll: "DISENROLL",
 } as const;
 export type Status1 = (typeof Status1)[keyof typeof Status1] | (string & {});
 

@@ -1,11 +1,9 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
-/** Patch operation type (JSON Patch) */
 export const Op = {
-  Add: "add",
-  Replace: "replace",
-  Delete: "delete",
+  Equals: "equals",
+  Between: "between",
 } as const;
 export type Op = (typeof Op)[keyof typeof Op] | (string & {});
 

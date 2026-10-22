@@ -1,11 +1,10 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
-/** Duration category of the investigation. */
+/** Name of the AddOn type. */
 export const Name = {
-  ResearchingQuantityInShortTerm: "researchingQuantityInShortTerm",
-  ResearchingQuantityInMidTerm: "researchingQuantityInMidTerm",
-  ResearchingQuantityInLongTerm: "researchingQuantityInLongTerm",
+  Signature: "SIGNATURE",
+  Insurance: "INSURANCE",
 } as const;
 export type Name = (typeof Name)[keyof typeof Name] | (string & {});
 

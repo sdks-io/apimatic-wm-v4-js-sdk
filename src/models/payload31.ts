@@ -1,23 +1,17 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
-import { eventSchema, type Event } from "./event.js";
-import { proofOfDeliverySchema, type ProofOfDelivery } from "./proof-of-delivery.js";
-import { trackingSummarySchema, type TrackingSummary } from "./tracking-summary.js";
+import { recommendedItem2Schema, type RecommendedItem2 } from "./recommended-item2.js";
+import { totalInsight2Schema, type TotalInsight2 } from "./total-insight2.js";
 
 export type Payload31 = {
-  trackingId?: string;
-  alternateLegTrackingId?: string;
-  eventHistory?: Event[];
-  promisedDeliveryDate?: Date;
-  summary?: TrackingSummary;
-  proofOfDelivery?: ProofOfDelivery;
+  recommendedItems?: RecommendedItem2[];
+  totalInsights?: TotalInsight2[];
+  /** Total number of WFS Unpublished insights available to you. */
+  totalRecords?: number;
 };
 
 export const payload31Schema: Schema<Payload31> = s.object<Payload31>({
-  trackingId: s.optional(s.string()),
-  alternateLegTrackingId: s.optional(s.string()),
-  eventHistory: s.optional(s.array(s.lazy(() => eventSchema))),
-  promisedDeliveryDate: s.optional(s.dateTime()),
-  summary: s.optional(s.lazy(() => trackingSummarySchema)),
-  proofOfDelivery: s.optional(s.lazy(() => proofOfDeliverySchema)),
+  recommendedItems: s.optional(s.array(s.lazy(() => recommendedItem2Schema))),
+  totalInsights: s.optional(s.array(s.lazy(() => totalInsight2Schema))),
+  totalRecords: s.optional(s.float64()),
 });

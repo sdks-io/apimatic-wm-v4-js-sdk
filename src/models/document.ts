@@ -1,16 +1,17 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
-import { compressionAlgorithmSchema, type CompressionAlgorithm } from "./compression-algorithm.js";
+import { documentType2Schema, type DocumentType2 } from "./document-type2.js";
 
 export type Document = {
-  documentId: string;
-  /** Pre-signed URL to download query result data — do not log */
-  url: string;
-  compressionAlgorithm?: CompressionAlgorithm;
+  id?: string;
+  fileName?: string;
+  fileType?: string;
+  documentType?: DocumentType2;
 };
 
 export const documentSchema: Schema<Document> = s.object<Document>({
-  documentId: s.string(),
-  url: s.string(),
-  compressionAlgorithm: s.optional(s.lazy(() => compressionAlgorithmSchema)),
+  id: s.optional(s.string()),
+  fileName: s.optional(s.string()),
+  fileType: s.optional(s.string()),
+  documentType: s.optional(s.lazy(() => documentType2Schema)),
 });

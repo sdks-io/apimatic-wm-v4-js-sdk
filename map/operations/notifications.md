@@ -2,180 +2,179 @@
 
 # Notifications — operations
 
-Accessor: `client.notifications` · Source: `src/resources/notifications.ts` · 9 operations · Request and error types: namespace `Notifications`
+Accessor: `client.notifications` · Source: `src/resources/notifications.ts` · 6 operations · Request types: namespace `Notifications`
 
 **Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `apimatic-wm-v4-sdk`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
-### createDestination
-
-- **Server**: `default1` — not the `default` group; see Servers & auth in sdk-map.md
-- **Signature**: `createDestination(request: Notifications.CreateDestinationRequest, options?: RequestOptions): ApiPromise<Channel, Notifications.CreateDestinationError>`
-- **Wire**: `POST /notifications/v4/destinations`
-- **Auth**: `walletAuth`
-- **Request body**: `application/json` — the `body` field, a bare top-level JSON map with no fixed keys
-- **SDK-sent**: `header Idempotency-Key` (minted per call)
-- **Returns**: `Channel`
-- **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Notifications.CreateDestinationError` — **typed arms**, narrowed on `err.payload.kind`
-- **Error arms**: `"error400"` [400] no body · `"error403"` [403] no body · `"error404"` [404] no body · `"error429"` [429] no body · `"error500"` [500] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
-
-**Fields** — `Notifications.CreateDestinationRequest` (1):
-
-| Field | Channel | Type | Req |
-| --- | --- | --- | --- |
-| `body` | `body` | `Record<string, unknown>` | yes |
-
-| Type | Schema value | Source |
-| --- | --- | --- |
-| `Channel` | `channelSchema` | `src/models/channel.ts` |
-
 ### createSubscription
 
-- **Server**: `default1` — not the `default` group; see Servers & auth in sdk-map.md
-- **Signature**: `createSubscription(request: Notifications.CreateSubscriptionRequest, options?: RequestOptions): ApiPromise<Record<string, unknown>, Notifications.CreateSubscriptionError>`
-- **Wire**: `POST /notifications/v4/subscriptions/{notificationType}`
-- **Auth**: `walletAuth`
-- **Request body**: `application/json` — the `body` field, a bare top-level JSON map with no fixed keys
+- **Signature**: `createSubscription(request: Notifications.CreateSubscriptionRequestParams, options?: RequestOptions): ApiPromise<V3WebhooksSubscriptionsResponse1, ApiError>`
+- **Wire**: `POST /v3/webhooks/subscriptions`
+- **Auth**: `accessToken`
+- **Request body**: `application/json` — the `body` field
 - **SDK-sent**: `header Idempotency-Key` (minted per call)
-- **Returns**: `Record<string, unknown>` — a bare `application/json` map; the success type *is* the map
-- **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Notifications.CreateSubscriptionError` — **typed arms**, narrowed on `err.payload.kind`
-- **Error arms**: `"error400"` [400] no body · `"error403"` [403] no body · `"error404"` [404] no body · `"error429"` [429] no body · `"error500"` [500] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
+- **Returns**: `V3WebhooksSubscriptionsResponse1`
+- **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.CreateSubscriptionRequest` (2):
+**Fields** — `Notifications.CreateSubscriptionRequestParams` (7):
 
-| Field | Channel | Type | Req |
-| --- | --- | --- | --- |
-| `notificationType` | `path` | `string` | yes |
-| `body` | `body` | `Record<string, unknown>` | yes |
-
-### deleteDestination
-
-- **Server**: `default1` — not the `default` group; see Servers & auth in sdk-map.md
-- **Signature**: `deleteDestination(request: Notifications.DeleteDestinationRequest, options?: RequestOptions): ApiPromise<Channel, Notifications.DeleteDestinationError>`
-- **Wire**: `DELETE /notifications/v4/destinations/{destinationId}`
-- **Auth**: `walletAuth`
-- **Request body**: none — no `Content-Type` header is sent
-- **SDK-sent**: `header Idempotency-Key` (minted per call)
-- **Returns**: `Channel`
-- **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Notifications.DeleteDestinationError` — **typed arms**, narrowed on `err.payload.kind`
-- **Error arms**: `"error400"` [400] no body · `"error403"` [403] no body · `"error404"` [404] no body · `"error429"` [429] no body · `"error500"` [500] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
-
-**Fields** — `Notifications.DeleteDestinationRequest` (1):
-
-| Field | Channel | Type | Req |
-| --- | --- | --- | --- |
-| `destinationId` | `path` | `string` | yes |
+| Field | Channel | Wire | Type | Req |
+| --- | --- | --- | --- | --- |
+| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
+| `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
+| `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
+| `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
+| `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
+| `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
+| `body` | `body` | — | `V3WebhooksSubscriptionsRequest` | yes |
 
 | Type | Schema value | Source |
 | --- | --- | --- |
-| `Channel` | `channelSchema` | `src/models/channel.ts` |
+| `WmMarket2` | `wmMarket2Schema` | `src/models/wm-market2.ts` |
+| `WmGlobalVersion` | `wmGlobalVersionSchema` | `src/models/wm-global-version.ts` |
+| `V3WebhooksSubscriptionsRequest` | `v3WebhooksSubscriptionsRequestSchema` | `src/models/v3-webhooks-subscriptions-request.ts` |
+| `V3WebhooksSubscriptionsResponse1` | `v3WebhooksSubscriptionsResponse1Schema` | `src/models/v3-webhooks-subscriptions-response1.ts` |
 
-### deleteSubscriptionById
+### deleteSubscription
 
-- **Server**: `default1` — not the `default` group; see Servers & auth in sdk-map.md
-- **Signature**: `deleteSubscriptionById(request: Notifications.DeleteSubscriptionByIdRequest, options?: RequestOptions): ApiPromise<Record<string, unknown>, Notifications.DeleteSubscriptionByIdError>`
-- **Wire**: `DELETE /notifications/v4/subscriptions/{notificationType}/{subscriptionId}`
-- **Auth**: `walletAuth`
+- **Signature**: `deleteSubscription(request: Notifications.DeleteSubscriptionRequest, options?: RequestOptions): ApiPromise<V3WebhooksSubscriptionsResponse2, ApiError>`
+- **Wire**: `DELETE /v3/webhooks/subscriptions/{subscriptionId}`
+- **Auth**: `accessToken`
 - **Request body**: none — no `Content-Type` header is sent
 - **SDK-sent**: `header Idempotency-Key` (minted per call)
-- **Returns**: `Record<string, unknown>` — a bare `application/json` map; the success type *is* the map
-- **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Notifications.DeleteSubscriptionByIdError` — **typed arms**, narrowed on `err.payload.kind`
-- **Error arms**: `"error400"` [400] no body · `"error403"` [403] no body · `"error404"` [404] no body · `"error429"` [429] no body · `"error500"` [500] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
+- **Returns**: `V3WebhooksSubscriptionsResponse2`
+- **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.DeleteSubscriptionByIdRequest` (2):
+**Fields** — `Notifications.DeleteSubscriptionRequest` (7):
 
-| Field | Channel | Type | Req |
-| --- | --- | --- | --- |
-| `subscriptionId` | `path` | `string` | yes |
-| `notificationType` | `path` | `string` | yes |
-
-### getDestination
-
-- **Server**: `default1` — not the `default` group; see Servers & auth in sdk-map.md
-- **Signature**: `getDestination(request: Notifications.GetDestinationRequest, options?: RequestOptions): ApiPromise<Channel, Notifications.GetDestinationError>`
-- **Wire**: `GET /notifications/v4/destinations/{destinationId}`
-- **Auth**: `walletAuth`
-- **Request body**: none — no `Content-Type` header is sent
-- **Returns**: `Channel`
-- **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Notifications.GetDestinationError` — **typed arms**, narrowed on `err.payload.kind`
-- **Error arms**: `"error400"` [400] no body · `"error403"` [403] no body · `"error404"` [404] no body · `"error429"` [429] no body · `"error500"` [500] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
-
-**Fields** — `Notifications.GetDestinationRequest` (1):
-
-| Field | Channel | Type | Req |
-| --- | --- | --- | --- |
-| `destinationId` | `path` | `string` | yes |
+| Field | Channel | Wire | Type | Req |
+| --- | --- | --- | --- | --- |
+| `subscriptionId` | `path` | — | `string` | yes |
+| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
+| `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
+| `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
+| `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
+| `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
+| `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
 
 | Type | Schema value | Source |
 | --- | --- | --- |
-| `Channel` | `channelSchema` | `src/models/channel.ts` |
+| `WmMarket2` | `wmMarket2Schema` | `src/models/wm-market2.ts` |
+| `WmGlobalVersion` | `wmGlobalVersionSchema` | `src/models/wm-global-version.ts` |
+| `V3WebhooksSubscriptionsResponse2` | `v3WebhooksSubscriptionsResponse2Schema` | `src/models/v3-webhooks-subscriptions-response2.ts` |
 
-### getDestinations
+### getAllSubscriptions
 
-- **Server**: `default1` — not the `default` group; see Servers & auth in sdk-map.md
-- **Signature**: `getDestinations(options?: RequestOptions): ApiPromise<ChannelList, Notifications.GetDestinationsError>`
-- **Wire**: `GET /notifications/v4/destinations`
-- **Auth**: `walletAuth`
+- **Signature**: `getAllSubscriptions(request: Notifications.GetAllSubscriptionsRequest, options?: RequestOptions): ApiPromise<V3WebhooksSubscriptionsResponse, ApiError>`
+- **Wire**: `GET /v3/webhooks/subscriptions`
+- **Auth**: `accessToken`
 - **Request body**: none — no `Content-Type` header is sent
-- **Returns**: `ChannelList`
-- **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Notifications.GetDestinationsError` — **typed arms**, narrowed on `err.payload.kind`
-- **Error arms**: `"error400"` [400] no body · `"error403"` [403] no body · `"error404"` [404] no body · `"error429"` [429] no body · `"error500"` [500] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
+- **Returns**: `V3WebhooksSubscriptionsResponse`
+- **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
+
+**Fields** — `Notifications.GetAllSubscriptionsRequest` (10):
+
+| Field | Channel | Wire | Type | Req |
+| --- | --- | --- | --- | --- |
+| `subscriptionId` | `query` | — | `string` | no |
+| `eventType` | `query` | — | `string` | no |
+| `resourceName` | `query` | — | `string` | no |
+| `status` | `query` | — | `string` | no |
+| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
+| `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
+| `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
+| `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
+| `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
+| `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
 
 | Type | Schema value | Source |
 | --- | --- | --- |
-| `ChannelList` | `channelListSchema` | `src/models/channel-list.ts` |
+| `WmMarket2` | `wmMarket2Schema` | `src/models/wm-market2.ts` |
+| `WmGlobalVersion` | `wmGlobalVersionSchema` | `src/models/wm-global-version.ts` |
+| `V3WebhooksSubscriptionsResponse` | `v3WebhooksSubscriptionsResponseSchema` | `src/models/v3-webhooks-subscriptions-response.ts` |
 
-### getSubscription
+### getEventTypes
 
-- **Server**: `default1` — not the `default` group; see Servers & auth in sdk-map.md
-- **Signature**: `getSubscription(request: Notifications.GetSubscriptionRequest, options?: RequestOptions): ApiPromise<Record<string, unknown>, Notifications.GetSubscriptionError>`
-- **Wire**: `GET /notifications/v4/subscriptions/{notificationType}`
-- **Auth**: `walletAuth`
+- **Signature**: `getEventTypes(request: Notifications.GetEventTypesRequest, options?: RequestOptions): ApiPromise<V3WebhooksEventTypesResponse, ApiError>`
+- **Wire**: `GET /v3/webhooks/eventTypes`
+- **Auth**: `accessToken`
 - **Request body**: none — no `Content-Type` header is sent
-- **Returns**: `Record<string, unknown>` — a bare `application/json` map; the success type *is* the map
-- **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Notifications.GetSubscriptionError` — **typed arms**, narrowed on `err.payload.kind`
-- **Error arms**: `"error400"` [400] no body · `"error403"` [403] no body · `"error404"` [404] no body · `"error429"` [429] no body · `"error500"` [500] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
+- **Returns**: `V3WebhooksEventTypesResponse`
+- **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.GetSubscriptionRequest` (2):
+**Fields** — `Notifications.GetEventTypesRequest` (6):
 
-| Field | Channel | Type | Req |
-| --- | --- | --- | --- |
-| `notificationType` | `path` | `string` | yes |
-| `payloadVersion` | `query` | `string` | no |
+| Field | Channel | Wire | Type | Req |
+| --- | --- | --- | --- | --- |
+| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
+| `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
+| `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
+| `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
+| `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
+| `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
 
-### getSubscriptionById
+| Type | Schema value | Source |
+| --- | --- | --- |
+| `WmMarket2` | `wmMarket2Schema` | `src/models/wm-market2.ts` |
+| `WmGlobalVersion` | `wmGlobalVersionSchema` | `src/models/wm-global-version.ts` |
+| `V3WebhooksEventTypesResponse` | `v3WebhooksEventTypesResponseSchema` | `src/models/v3-webhooks-event-types-response.ts` |
 
-- **Server**: `default1` — not the `default` group; see Servers & auth in sdk-map.md
-- **Signature**: `getSubscriptionById(request: Notifications.GetSubscriptionByIdRequest, options?: RequestOptions): ApiPromise<Record<string, unknown>, Notifications.GetSubscriptionByIdError>`
-- **Wire**: `GET /notifications/v4/subscriptions/{notificationType}/{subscriptionId}`
-- **Auth**: `walletAuth`
-- **Request body**: none — no `Content-Type` header is sent
-- **Returns**: `Record<string, unknown>` — a bare `application/json` map; the success type *is* the map
-- **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Notifications.GetSubscriptionByIdError` — **typed arms**, narrowed on `err.payload.kind`
-- **Error arms**: `"error400"` [400] no body · `"error403"` [403] no body · `"error404"` [404] no body · `"error429"` [429] no body · `"error500"` [500] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
+### testNotification
 
-**Fields** — `Notifications.GetSubscriptionByIdRequest` (2):
-
-| Field | Channel | Type | Req |
-| --- | --- | --- | --- |
-| `subscriptionId` | `path` | `string` | yes |
-| `notificationType` | `path` | `string` | yes |
-
-### sendTestNotification
-
-- **Server**: `default1` — not the `default` group; see Servers & auth in sdk-map.md
-- **Signature**: `sendTestNotification(request: Notifications.SendTestNotificationRequest, options?: RequestOptions): ApiPromise<Record<string, unknown>, Notifications.SendTestNotificationError>`
-- **Wire**: `POST /notifications/v4/subscriptions/{notificationType}/testNotification`
-- **Auth**: `walletAuth`
-- **Request body**: `application/json` — the `body` field, a bare top-level JSON map with no fixed keys
+- **Signature**: `testNotification(request: Notifications.TestNotificationRequestParams, options?: RequestOptions): ApiPromise<RejectRecommendationsResponsePayload, ApiError>`
+- **Wire**: `POST /v3/webhooks/test`
+- **Auth**: `accessToken`
+- **Request body**: `application/json` — the `body` field
 - **SDK-sent**: `header Idempotency-Key` (minted per call)
-- **Returns**: `Record<string, unknown>` — a bare `application/json` map; the success type *is* the map
-- **Error**: `WalmartApIsError` with `kind: "api"`, an instance of `Notifications.SendTestNotificationError` — **typed arms**, narrowed on `err.payload.kind`
-- **Error arms**: `"error400"` [400] no body · `"error403"` [403] no body · `"error404"` [404] no body · `"error429"` [429] no body · `"error500"` [500] no body · `"undeclared"` [any other] `rawBody: ArrayBuffer`
+- **Returns**: `RejectRecommendationsResponsePayload`
+- **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Notifications.SendTestNotificationRequest` (2):
+**Fields** — `Notifications.TestNotificationRequestParams` (7):
 
-| Field | Channel | Type | Req |
-| --- | --- | --- | --- |
-| `notificationType` | `path` | `string` | yes |
-| `body` | `body` | `Record<string, unknown>` | yes |
+| Field | Channel | Wire | Type | Req |
+| --- | --- | --- | --- | --- |
+| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
+| `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
+| `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
+| `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
+| `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
+| `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
+| `body` | `body` | — | `V3WebhooksTestRequest` | yes |
+
+| Type | Schema value | Source |
+| --- | --- | --- |
+| `WmMarket2` | `wmMarket2Schema` | `src/models/wm-market2.ts` |
+| `WmGlobalVersion` | `wmGlobalVersionSchema` | `src/models/wm-global-version.ts` |
+| `V3WebhooksTestRequest` | `v3WebhooksTestRequestSchema` | `src/models/v3-webhooks-test-request.ts` |
+| `RejectRecommendationsResponsePayload` | `rejectRecommendationsResponsePayloadSchema` | `src/models/reject-recommendations-response-payload.ts` |
+
+### updateSubscription
+
+- **Signature**: `updateSubscription(request: Notifications.UpdateSubscriptionRequestParams, options?: RequestOptions): ApiPromise<V3WebhooksSubscriptionsResponse3, ApiError>`
+- **Wire**: `PATCH /v3/webhooks/subscriptions/{subscriptionId}`
+- **Auth**: `accessToken`
+- **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
+- **Returns**: `V3WebhooksSubscriptionsResponse3`
+- **Error**: `WalmartApIsError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
+
+**Fields** — `Notifications.UpdateSubscriptionRequestParams` (8):
+
+| Field | Channel | Wire | Type | Req |
+| --- | --- | --- | --- | --- |
+| `subscriptionId` | `path` | — | `string` | yes |
+| `wmSecAccessToken` | `header` | `WM_SEC.ACCESS_TOKEN` | `string` | yes |
+| `wmQosCorrelationId` | `header` | `WM_QOS.CORRELATION_ID` | `string` | yes |
+| `wmSvcName` | `header` | `WM_SVC.NAME` | `string` | yes |
+| `wmMarket` | `header` | `WM_MARKET` | `WmMarket2` | yes |
+| `wmGlobalVersion` | `header` | `WM_GLOBAL_VERSION` | `WmGlobalVersion` | yes |
+| `wmConsumerChannelType` | `header` | `WM_CONSUMER.CHANNEL.TYPE` | `string` | no |
+| `body` | `body` | — | `V3WebhooksSubscriptionsRequest1` | yes |
+
+| Type | Schema value | Source |
+| --- | --- | --- |
+| `WmMarket2` | `wmMarket2Schema` | `src/models/wm-market2.ts` |
+| `WmGlobalVersion` | `wmGlobalVersionSchema` | `src/models/wm-global-version.ts` |
+| `V3WebhooksSubscriptionsRequest1` | `v3WebhooksSubscriptionsRequest1Schema` | `src/models/v3-webhooks-subscriptions-request1.ts` |
+| `V3WebhooksSubscriptionsResponse3` | `v3WebhooksSubscriptionsResponse3Schema` | `src/models/v3-webhooks-subscriptions-response3.ts` |
 

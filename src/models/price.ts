@@ -1,26 +1,11 @@
 import * as s from "../core/validation/index.js";
-import type { Schema } from "../core/validation/schema.js";
-import { productSchema, type Product } from "./product.js";
+import type { EnumSchema } from "../core/validation/schema.js";
 
-/** Schema for price info in getPricing response. */
-export type Price = {
-  /** The status of the operation. */
-  status: string;
-  /** The seller stock keeping unit (SKU) of the item. */
-  sellerSku?: string;
-  /** The Walmart Item ID of the item. */
-  walmartItemId?: string;
-  /** An item. */
-  product?: Product;
-};
+export const Price = {
+  FullAccess: "full_access",
+  ViewOnly: "view_only",
+  NoAccess: "no_access",
+} as const;
+export type Price = (typeof Price)[keyof typeof Price] | (string & {});
 
-export const priceSchema: Schema<Price> = s.object<Price>({
-  status: s.string(),
-  sellerSku: s.optional(s.string()),
-  walmartItemId: s.optional(s.string()),
-  product: s.optional(s.lazy(() => productSchema)),
-  _keysMap: {
-    sellerSku: "SellerSKU",
-    product: "Product",
-  },
-});
+export const priceSchema: EnumSchema<Price> = s.enumOf<Price>(Price);

@@ -1,20 +1,35 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
-import { moneySchema, type Money } from "./money.js";
-import { weightSchema, type Weight } from "./weight.js";
+import { recommendationSchema, type Recommendation } from "./recommendation.js";
 
 export type Item3 = {
-  quantity: number;
-  description: string;
-  unitPrice?: Money;
-  unitWeight?: Weight;
-  sellerSku?: string;
+  itemId?: string;
+  productName?: string;
+  shortDescription?: string;
+  imageUrl?: string;
+  sku?: string;
+  walmartUrl?: string;
+  productType?: string;
+  status?: string;
+  recommendation?: Recommendation;
 };
 
 export const item3Schema: Schema<Item3> = s.object<Item3>({
-  quantity: s.int(),
-  description: s.string(),
-  unitPrice: s.optional(s.lazy(() => moneySchema)),
-  unitWeight: s.optional(s.lazy(() => weightSchema)),
-  sellerSku: s.optional(s.string()),
+  itemId: s.optional(s.string()),
+  productName: s.optional(s.string()),
+  shortDescription: s.optional(s.string()),
+  imageUrl: s.optional(s.string()),
+  sku: s.optional(s.string()),
+  walmartUrl: s.optional(s.string()),
+  productType: s.optional(s.string()),
+  status: s.optional(s.string()),
+  recommendation: s.optional(s.lazy(() => recommendationSchema)),
+  _keysMap: {
+    itemId: "item_id",
+    productName: "product_name",
+    shortDescription: "short_description",
+    imageUrl: "image_url",
+    walmartUrl: "walmart_url",
+    productType: "product_type",
+  },
 });

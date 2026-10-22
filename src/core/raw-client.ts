@@ -1,7 +1,7 @@
 import type { ApiRequest, HttpMethod, RequestOptions, RawClientOptions } from "./api-request.js";
-import { CoreError, ConnectionError, DecodeError, TimeoutError } from "./errors.js";
-import { decodeErrorPayload, type AnyApiError, type ResponseHandler } from "./api-error.js";
-import { decodeResponse } from "./response-decoder.js";
+import { CoreError, ConnectionError, TimeoutError } from "./errors.js";
+import type { ApiError } from "./api-error.js";
+import { ResponseReader, type ResponseHandler } from "./response-decoder.js";
 import { ApiPromise, type RequestOutcome } from "./api-promise.js";
 import { buildBody } from "./request-body.js";
 import { RetryPolicy } from "./retry.js";
@@ -14,22 +14,24 @@ export class RawClient {
   readonly #config: RawClientOptions;
   readonly #urlBuilder: UrlBuilder;
   readonly #headersBuilder: HeadersBuilder;
+  readonly #responseReader: ResponseReader;
 
   constructor(config: RawClientOptions) {
     this.#config = config;
     this.#urlBuilder = new UrlBuilder(config);
     this.#headersBuilder = new HeadersBuilder(config);
+    this.#responseReader = new ResponseReader(config);
   }
 
-  execute<T, E extends AnyApiError, Path extends string>(
-    apiRequest: ApiRequest<Path>,
+  execute<T, E extends ApiError>(
+    apiRequest: ApiRequest,
     responseHandler: ResponseHandler<T, E>,
     options?: RequestOptions,
   ): ApiPromise<T, E> {
     return new ApiPromise<T, E>(this.#dispatch<T, E>(apiRequest, responseHandler, options));
   }
 
-  async #dispatch<T, E extends AnyApiError>(
+  async #dispatch<T, E extends ApiError>(
     apiRequest: ApiRequest,
     responseHandler: ResponseHandler<T, E>,
     options: RequestOptions | undefined,
@@ -37,6 +39,8 @@ export class RawClient {
     const startedAt = Date.now();
     const callerSignal = options?.signal ?? neverAbortedSignal();
     const uploadController = new AbortController();
+    const streamRequestController = new AbortController();
+    const abortStreamRequest = (): void => streamRequestController.abort();
 
     const url = this.#urlBuilder.build(apiRequest);
     const { uri } = url;
@@ -74,7 +78,11 @@ export class RawClient {
 
         const isStreaming = body.streaming === true;
         const timeoutController = new AbortController();
-        const signal = AbortSignal.any([callerSignal, timeoutController.signal]);
+        const signal = AbortSignal.any([
+          callerSignal,
+          timeoutController.signal,
+          streamRequestController.signal,
+        ]);
         if (isStreaming) {
           timeoutController.signal.addEventListener(
             "abort",
@@ -117,47 +125,41 @@ export class RawClient {
           clearTimeout(timer);
         }
 
-        const release = (): void => {
+        const discard = (): void => {
           void Promise.resolve(response.body?.cancel()).catch(() => {});
         };
         try {
           logger.logResponse(response);
         } catch (err) {
-          release();
+          discard();
           throw err;
         }
         if (response.status === 401) apiRequest.auth.invalidate?.();
-        return { kind: "response", response, isStreaming, discard: release };
+        return { kind: "response", response, isStreaming, discard };
       },
     );
 
-    try {
-      if (isSuccess(response.status)) {
-        const data = await decodeResponse(responseHandler.success, response, apiRequest.method, uri);
-        return { ok: true, status: response.status, headers: response.headers, data };
-      }
-
-      const payload = await decodeErrorPayload(
+    if (isSuccess(response.status)) {
+      const data = await this.#responseReader.read(
+        responseHandler.success,
         response,
-        responseHandler.errorFactory.errors,
-        response.status,
         apiRequest.method,
         uri,
+        callerSignal,
+        abortStreamRequest,
       );
-      const error = new responseHandler.errorFactory({
-        status: response.status,
-        headers: response.headers,
-        method: apiRequest.method,
-        uri,
-        payload,
-      });
-
-      return { ok: false, status: response.status, headers: response.headers, error };
-    } catch (err) {
-      if (callerSignal.aborted && err instanceof DecodeError && err.cause === callerSignal.reason)
-        throw callerSignal.reason;
-      throw err;
+      return { ok: true, status: response.status, headers: response.headers, data };
     }
+
+    const error = await this.#responseReader.readError(
+      responseHandler.errorFactory,
+      response,
+      apiRequest.method,
+      uri,
+      callerSignal,
+      abortStreamRequest,
+    );
+    return { ok: false, status: response.status, headers: response.headers, error };
   }
 }
 

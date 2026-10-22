@@ -1,13 +1,24 @@
 import * as s from "../core/validation/index.js";
-import type { EnumSchema } from "../core/validation/schema.js";
+import type { Schema } from "../core/validation/schema.js";
 
-/** Machine-readable error code. */
-export const Error2 = {
-  InvalidRedirectUri: "invalid_redirect_uri",
-  InvalidClientMetadata: "invalid_client_metadata",
-  InvalidSoftwareStatement: "invalid_software_statement",
-  UnapprovedSoftwareStatement: "unapproved_software_statement",
-} as const;
-export type Error2 = (typeof Error2)[keyof typeof Error2] | (string & {});
+export type Error2 = {
+  code: string;
+  field?: string;
+  description: string;
+  info?: string;
+  severity: string;
+  category: string;
+  causes?: string[];
+  errorIdentifiers?: Record<string, unknown>;
+};
 
-export const error2Schema: EnumSchema<Error2> = s.enumOf<Error2>(Error2);
+export const error2Schema: Schema<Error2> = s.object<Error2>({
+  code: s.string(),
+  field: s.optional(s.string()),
+  description: s.string(),
+  info: s.optional(s.string()),
+  severity: s.string(),
+  category: s.string(),
+  causes: s.optional(s.array(s.string())),
+  errorIdentifiers: s.optional(s.record(s.string(), s.unknown())),
+});
